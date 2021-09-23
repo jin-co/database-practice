@@ -69,6 +69,28 @@ FROM vendors v1 JOIN vendors v2
        v1.vendor_contact_last_name = v2.vendor_contact_last_name  
 ORDER BY v1.vendor_contact_last_name;
 
+-- 6
+SELECT g.account_number, g.account_description
+FROM general_ledger_accounts g
+LEFT JOIN invoice_line_items i ON g.account_number = i.account_number
+WHERE i.invoice_id IS NULL;
+
+SELECT g.account_number, g.account_description
+FROM general_ledger_accounts g
+LEFT JOIN invoice_line_items i USING(account_number)
+WHERE i.invoice_id IS NULL;
+
+-- 7
+SELECT vendor_name, vendor_state
+FROM vendors
+WHERE vendor_state = 'CA'
+UNION
+SELECT vendor_name, 'Outside CA'
+FROM vendors
+WHERE vendor_state <> 'CA'
+ORDER BY vendor_name;
+
+
 SELECT * FROM invoices;
 SELECT * FROM vendors;
 SELECT * FROM general_ledger_accounts;
