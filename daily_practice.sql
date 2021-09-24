@@ -90,8 +90,21 @@ FROM vendors
 WHERE vendor_state <> 'CA'
 ORDER BY vendor_name;
 
-
 SELECT * FROM invoices;
 SELECT * FROM vendors;
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoice_line_items;
+
+CREATE TABLE z_invoices_copied AS
+SELECT * FROM invoices;
+
+CREATE TABLE z_invoices_copied2 AS
+SELECT * 
+FROM invoices
+WHERE invoice_total - payment_total = 0;
+
+drop TABLE z_invoices_copied2;
+
+SELECT * FROM z_invoices_copied2;
+SELECT * FROM z_invoices_copied;
+SELECT * FROM invoices;
