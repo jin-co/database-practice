@@ -108,3 +108,48 @@ drop TABLE z_invoices_copied2;
 SELECT * FROM z_invoices_copied2;
 SELECT * FROM z_invoices_copied;
 SELECT * FROM invoices;
+
+INSERT INTO invoices VALUES
+(116, 98, '2345', '2020-02-02', 9344, 0, 0, 1, '2020-08-31', NULL);
+
+USE ex;
+SELECT * FROM color_sample;
+
+INSERT INTO color_sample
+VALUES(DEFAULT, DEFAULT, 'Orange');
+
+INSERT INTO color_sample (color_name)
+VALUES('Orange');
+
+USE ap;
+INSERT INTO invoice_archive
+SELECT *
+FROM invoices
+WHERE invoice_total - payment_total - credit_total = 0;
+
+UPDATE invoices
+SET payment_total = 2000
+WHERE invoice_number = '97.522';
+
+UPDATE invoices
+SET terms_id = 1
+WHERE vendor_id = 
+	(SELECT vendor_id
+    FROM vendors
+    WHERE vendor_name = 'Pacific Bell');
+    
+UPDATE invoices
+SET terms_id = 1 
+WHERE vendor_id IN
+	(SELECT vendor_id
+    FROM vendors
+    WHERE vendor_state IN('CA', 'AZ', 'NV'));
+    
+DELETE FROM general_ledger_accounts
+WHERE account_number = 306;
+
+DELETE FROM invoice_line_items
+WHERE invoice_id IN
+	(SELECT invoice_id
+    FROM invoices
+    WHERE vendor_id = 115);
