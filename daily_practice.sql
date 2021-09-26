@@ -153,3 +153,56 @@ WHERE invoice_id IN
 	(SELECT invoice_id
     FROM invoices
     WHERE vendor_id = 115);
+
+use ap;
+SELECT * FROM terms;
+INSERT INTO terms VALUES(
+	6, 'Net due 120 days', 120); 
+ 
+UPDATE terms 
+SET 
+	terms_description = 'Net due 125 days',
+	terms_due_days = 125
+WHERE terms_id = 6;
+
+DELETE FROM terms
+WHERE terms_id = 6;
+
+SELECT * FROM invoices;
+INSERT INTO invoices values(
+	DEFAULT,
+    32,
+    'AX-014-027',
+    '2018-8-1',
+    434.58,
+    0,
+    0,
+    2,
+    '2018-8-31',
+    null);
+
+SELECT * FROM invoice_line_items;
+INSERT INTO invoice_line_items (
+	invoice_id,
+    invoice_sequence,
+    account_number,
+    line_item_amount,
+    line_item_description) 
+VALUES(
+	115,
+    1,
+    160,
+    180.23,
+    'Hard drive'),
+    (
+	115,
+    2,
+    527,
+    254.35,
+    'Exchange Server update');
+
+UPDATE invoices SET
+	credit_total = invoice_total * 0.1,
+    payment_total = invoice_total - credit_total
+WHERE invoice_id = 115;
+	
