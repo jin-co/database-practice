@@ -205,4 +205,25 @@ UPDATE invoices SET
 	credit_total = invoice_total * 0.1,
     payment_total = invoice_total - credit_total
 WHERE invoice_id = 115;
+
+UPDATE vendors SET
+	default_account_number = 403
+WHERE vendor_id = 44;
+
+SELECT * FROM vendors WHERE vendor_id = 7;
+SELECT * FROM invoices WHERE terms_id = 2;
+SELECT * FROM terms;
+
+UPDATE invoices SET
+	terms_id = 2
+WHERE vendor_id IN
+	(SELECT vendor_id
+    FROM vendors
+    WHERE default_terms_id = 7);
+
+DELETE FROM invoice_line_items
+WHERE invoice_id = 115;
+
+DELETE FROM invoices
+WHERE invoice_id = 115;
 	
