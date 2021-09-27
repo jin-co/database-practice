@@ -226,4 +226,41 @@ WHERE invoice_id = 115;
 
 DELETE FROM invoices
 WHERE invoice_id = 115;
-	
+
+SELECT 'After 2018-1-1', 
+	COUNT(*), 
+	ROUND(AVG(invoice_total), 2),
+    SUM(invoice_total),
+    MAX(invoice_total),
+    MIN(invoice_total)
+FROM invoices;
+
+SELECT MAX(vendor_name),
+	MIN(vendor_name),
+    COUNT(vendor_name),
+    COUNT(DISTINCT vendor_name)
+FROM vendors;
+
+SELECT vendor_id, ROUND(AVG(invoice_total), 2)
+FROM invoices;
+
+SELECT vendor_id, ROUND(AVG(invoice_total), 2)
+FROM invoices
+GROUP BY vendor_id;	
+
+SELECT vendor_id, ROUND(AVG(invoice_total), 2)
+FROM invoices
+GROUP BY vendor_id
+HAVING AVG(invoice_total) > 2000;
+
+SELECT vendor_state, vendor_city, COUNT(*),
+	ROUND(AVG(invoice_total), 2)
+FROM invoices i
+JOIN vendors v ON i.vendor_id = v.vendor_id
+GROUP BY vendor_state, vendor_city;
+
+SELECT vendor_id,
+	COUNT(*),
+    SUM(invoice_total)
+FROM invoices
+GROUP BY vendor_id WITH ROLLUP;
