@@ -272,5 +272,23 @@ FROM invoices
 GROUP BY invoice_date, payment_date WITH ROLLUP;
 
 SELECT IF(GROUPING(invoice_date) = 1, 'Grand totals', invoice_date),
-	IF(GROUPING(payment_date) = 1, 'Invoice date totals', payment_date)
-    FROM invoices;
+	IF(GROUPING(payment_date) = 1, 'Invoice date totals', payment_date),
+    SUM(invoice_total) AS invoice_total,
+SUM(invoice_total - credit_total - payment_total) AS balance_due
+FROM invoices
+GROUP BY invoice_date, payment_date WITH ROLLUP;
+
+SELECT vendor_id, invoice_date, invoice_total,
+	SUM(invoice_total) OVER() AS total_invoices,
+    SUM(invoice_total) OVER(PARTITION BY vendor_id 
+		ORDER BY invoice_total) AS vendor_total
+FROM invoices
+WHERE invoice_total > 5000;
+
+SELECT vendor_id, invoice_date, invoice_total,
+	SUM(invoice_total) OVER() AS total_invoices,
+    SUM(invoice_total) OVER(PARTITION BY vendor_id 
+		ORDER BY invoice_date ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) AS vendor_total
+FROM invoices
+WHERE invoice_date BETWEEN '2018-04-01' AND '2018-04-30';
+    
