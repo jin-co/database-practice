@@ -315,3 +315,25 @@ SELECT vendor_id, invoice_date, invoice_total,
 FROM invoices
 WHERE invoice_total > 5000
 WINDOW vendor_window AS (PARTITION BY vendor_id);
+
+-- exercise 6
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+
+-- 1
+SELECT vendor_id, SUM(invoice_total) AS invoice_total_sum
+FROM invoices
+GROUP BY vendor_id;
+
+-- 2
+SELECT vendor_name, SUM(payment_total) AS payment_total_sum
+FROM invoices
+JOIN vendors USING(vendor_id)
+GROUP BY vendor_name
+ORDER BY payment_total_sum DESC;
+
+SELECT vendor_name, SUM(payment_total) AS payment_total_sum
+FROM vendors v JOIN invoices i
+  ON v.vendor_id = i.vendor_id
+GROUP BY vendor_name
+ORDER BY payment_total_sum DESC
