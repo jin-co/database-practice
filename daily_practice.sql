@@ -336,4 +336,47 @@ SELECT vendor_name, SUM(payment_total) AS payment_total_sum
 FROM vendors v JOIN invoices i
   ON v.vendor_id = i.vendor_id
 GROUP BY vendor_name
-ORDER BY payment_total_sum DESC
+ORDER BY payment_total_sum DESC;
+
+-- 3
+SELECT vendor_name, COUNT(*), SUM(invoice_total) 
+FROM vendors v
+JOIN invoices i USING(vendor_id)
+GROUP BY vendor_id
+ORDER BY 2 DESC;
+
+SELECT vendor_name, COUNT(*) AS invoice_count,
+       SUM(invoice_total) AS invoice_total_sum
+FROM vendors v JOIN invoices i
+  ON v.vendor_id = i.vendor_id
+GROUP BY vendor_name
+ORDER BY invoice_count DESC;
+
+-- 4
+SELECT * FROM invoice_line_items;
+SELECT * FROM general_ledger_accounts;
+SELECT account_description,
+	COUNT(*) AS account_number_total,
+    SUM(line_item_amount) AS line_item_amount_sum
+FROM general_ledger_accounts
+JOIN invoice_line_items
+	USING(account_number)
+GROUP BY account_number
+HAVING account_number_total > 1;
+
+
+
+SELECT account_description, COUNT(*) AS line_item_count,
+       SUM(line_item_amount) AS line_item_amount_sum
+FROM general_ledger_accounts gl 
+  JOIN invoice_line_items li
+    ON gl.account_number = li.account_number
+GROUP BY account_description
+HAVING line_item_count > 1
+ORDER BY line_item_amount_sum DESC
+
+
+
+
+
+
