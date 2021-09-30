@@ -316,10 +316,7 @@ FROM invoices
 WHERE invoice_total > 5000
 WINDOW vendor_window AS (PARTITION BY vendor_id);
 
--- exercise 6
-SELECT * FROM vendors;
-SELECT * FROM invoices;
-
+-- exercise chapter 6
 -- 1
 SELECT vendor_id, SUM(invoice_total) AS invoice_total_sum
 FROM invoices
@@ -356,15 +353,14 @@ ORDER BY invoice_count DESC;
 SELECT * FROM invoice_line_items;
 SELECT * FROM general_ledger_accounts;
 SELECT account_description,
-	COUNT(*) AS account_number_total,
+	COUNT(*) AS account_number_count,
     SUM(line_item_amount) AS line_item_amount_sum
 FROM general_ledger_accounts
-JOIN invoice_line_items
+	JOIN invoice_line_items
 	USING(account_number)
-GROUP BY account_number
-HAVING account_number_total > 1;
-
-
+GROUP BY account_description
+HAVING account_number_count > 1
+ORDER BY line_item_amount_sum DESC;
 
 SELECT account_description, COUNT(*) AS line_item_count,
        SUM(line_item_amount) AS line_item_amount_sum
@@ -373,9 +369,81 @@ FROM general_ledger_accounts gl
     ON gl.account_number = li.account_number
 GROUP BY account_description
 HAVING line_item_count > 1
-ORDER BY line_item_amount_sum DESC
+ORDER BY line_item_amount_sum DESC;
 
+-- 5
+/* this one throws an erro, adding a 'invoice_date' to SELECT clause fixes the 
+error but only returns 3 results */
+-- SELECT account_description,
+-- 	COUNT(*) AS account_number_count,
+--     SUM(line_item_amount) AS line_item_amount_sum
+-- FROM invoice_line_items
+-- 	JOIN general_ledger_accounts
+-- 	USING(account_number)
+--     JOIN invoices i
+--     USING(invoice_id)
+-- GROUP BY account_description
+-- HAVING account_number_count > 1 AND i.invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+-- ORDER BY line_item_amount_sum DESC;
 
+SELECT account_description,
+	COUNT(*) AS account_number_count,
+    SUM(line_item_amount) AS line_item_amount_sum
+FROM invoice_line_items
+	JOIN general_ledger_accounts
+	USING(account_number)
+    JOIN invoices i
+    USING(invoice_id)
+WHERE i.invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+GROUP BY account_description
+HAVING account_number_count > 1
+ORDER BY line_item_amount_sum DESC;
+
+SELECT account_description, COUNT(*) AS line_item_count,
+       SUM(line_item_amount) AS line_item_amount_sum
+FROM general_ledger_accounts gl 
+  JOIN invoice_line_items li
+    ON gl.account_number = li.account_number
+  JOIN invoices i
+    ON li.invoice_id = i.invoice_id
+WHERE invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+GROUP BY account_description
+HAVING line_item_count > 1
+ORDER BY line_item_amount_sum DESC;
+
+-- 6
+SELECT account_number, 
+	SUM(account_number) AS account_number_sum
+FROM invoice_line_items
+GROUP BY account_number WITH ROLLUP;
+
+-- 7
+SELECT vendor_name,
+	COUNT(DISTINCT gla.account_number) AS account_number_count
+FROM vendors v
+	JOIN invoices i
+    USING(vendor_id)
+    JOIN general_ledger_accounts gla
+    ON gla.account_number = v.default_account_number
+GROUP BY vendor_name
+HAVING account_number_count > 1;
+
+SELECT vendor_name,
+       COUNT(DISTINCT li.account_number) AS number_of_gl_accounts
+FROM vendors v 
+  JOIN invoices i
+    ON v.vendor_id = i.vendor_id
+  JOIN invoice_line_items li
+    ON i.invoice_id = li.invoice_id
+GROUP BY vendor_name
+HAVING number_of_gl_accounts > 1
+ORDER BY vendor_name;
+
+SELECT * FROM invoice_line_items;
+SELECT * FROM general_ledger_accounts;
+SELECT * FROM invoices;
+SELECT * FROM vendors;
+SHOW TABLES;
 
 
 
