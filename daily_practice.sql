@@ -490,7 +490,18 @@ WHERE invoice_total - payment_total - credit_total > 0
 WINDOW vendor_window AS (PARTITION BY vendor_id ORDER BY invoice_total - payment_total - credit_total);
 
 -- 11
+SELECT MONTH(invoice_date) AS month,
+	SUM(invoice_total) OVER month_window AS invoice_total_sum,
+    ROUND(AVG(invoice_total) OVER month_window, 2)
+FROM invoices
+GROUP BY month
+WINDOW month_window AS(PARTITION BY invoice_date ORDER BY MONTH(invoice_date));
 
+SELECT MONTH(invoice_date) AS month, SUM(invoice_total) AS total_invoices,
+       ROUND(AVG(SUM(invoice_total)) OVER(ORDER BY MONTH(invoice_date)
+           RANGE BETWEEN 3 PRECEDING AND CURRENT ROW), 2) AS 4_month_avg
+FROM invoices
+GROUP BY MONTH(invoice_date);
 
 SELECT * FROM invoice_line_items;
 SELECT * FROM general_ledger_accounts;
