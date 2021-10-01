@@ -509,6 +509,27 @@ SELECT * FROM invoices;
 SELECT * FROM vendors;
 SHOW TABLES;
 
+SELECT category_name, 
+	   product_name, 
+	   list_price
+FROM categories
+	JOIN products USING(category_id)
+ORDER BY category_name ASC, product_name ASC;
+
+SELECT first_name, 
+	   last_name, 
+	   line1, 
+	   city, 
+	   state, 
+	   zip_code
+FROM customers
+	JOIN addresses USING(customer_id)
+WHERE email_address = 'allan.sherwood@yahoo.com';
+    
+-- for Test
+SELECT * FROM customers;
+SELECT * FROM addresses;
+-- for Test 
 
 
 
