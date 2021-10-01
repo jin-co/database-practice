@@ -491,8 +491,8 @@ WINDOW vendor_window AS (PARTITION BY vendor_id ORDER BY invoice_total - payment
 
 -- 11
 SELECT MONTH(invoice_date) AS month,
-	SUM(invoice_total) OVER month_window AS invoice_total_sum,
-    ROUND(AVG(invoice_total) OVER month_window, 2)
+	SUM(invoice_total),
+    ROUND(AVG(invoice_total) OVER( order by month(invoice_date) range between 3 preceding and current row), 2)
 FROM invoices
 GROUP BY month
 WINDOW month_window AS(PARTITION BY invoice_date ORDER BY MONTH(invoice_date));
