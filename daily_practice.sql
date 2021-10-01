@@ -549,7 +549,54 @@ FROM Customers c
     JOIN Products p ON oi.product_id = p.product_id
 ORDER BY last_name, order_date, product_name;
 
+SELECT p1.product_name, p1.list_price
+FROM products p1
+	JOIN products p2 
+		ON p1.product_id <> p2.product_id
+		AND p1.list_price = p2.list_price
+ORDER BY product_name;
 
+SELECT v1.vendor_id, 
+       v1.vendor_name,
+       CONCAT(v1.vendor_contact_first_name, ' ', v1.vendor_contact_last_name) AS contact_name
+FROM vendors v1 JOIN vendors v2
+    ON v1.vendor_id <> v2.vendor_id AND
+       v1.vendor_contact_last_name = v2.vendor_contact_last_name  
+ORDER BY v1.vendor_contact_last_name;
+
+SELECT category_name,
+	   product_id
+FROM categories
+	LEFT JOIN products USING(category_id)
+WHERE product_id IS NULL;
+
+SELECT gl.account_number, account_description, invoice_id
+FROM general_ledger_accounts gl LEFT JOIN invoice_line_items li
+  ON gl.account_number = li.account_number
+WHERE li.invoice_id IS NULL
+ORDER BY gl.account_number;
+
+SELECT 'SHIPPED' AS ship_status,
+	   order_id,
+       order_date
+FROM orders
+WHERE ship_date IS NOT NULL
+UNION
+SELECT 'NOT SHIPPED',
+	   order_id,
+       order_date
+FROM orders
+WHERE ship_date IS NULL;
+
+SELECT vendor_name, vendor_state
+  FROM vendors
+  WHERE vendor_state = 'CA'
+UNION
+  SELECT vendor_name, 'Outside CA'
+  FROM vendors
+  WHERE vendor_state <> 'CA'
+ORDER BY vendor_name;
+SELECT * FROM vendors;
 
 
 
