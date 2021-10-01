@@ -455,6 +455,43 @@ SELECT IF(GROUPING(terms_id) = 1, 'Grand Totals', terms_id) AS terms_id,
 FROM invoices
 GROUP BY terms_id, vendor_id WITH ROLLUP;
 
+-- 9
+SELECT vendor_id,
+	invoice_total - payment_total - credit_total AS balance_due,
+    SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+    SUM(invoice_total - payment_total - credit_total) OVER(PARTITION BY vendor_id
+		ORDER BY invoice_total - payment_total - credit_total) AS total_due
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0;
+
+SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
+	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+       SUM(invoice_total - payment_total - credit_total) OVER(PARTITION BY vendor_id
+           ORDER BY invoice_total - payment_total - credit_total) AS vendor_due
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0;
+
+-- 10
+SELECT vendor_id,
+	invoice_total - payment_total - credit_total AS balance_due,
+    SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+    SUM(invoice_total - payment_total - credit_total) OVER vendor_window AS total_due,
+	ROUND(AVG(invoice_total - payment_total - credit_total) OVER vendor_window, 2) AS due_average
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0
+WINDOW vendor_window AS(PARTITION BY vendor_id ORDER BY invoice_total - payment_total - credit_total);
+
+SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
+	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+       SUM(invoice_total - payment_total - credit_total) OVER vendor_window AS vendor_due,
+       ROUND(AVG(invoice_total - payment_total - credit_total) OVER vendor_window, 2) AS vendor_avg
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0
+WINDOW vendor_window AS (PARTITION BY vendor_id ORDER BY invoice_total - payment_total - credit_total);
+
+-- 11
+
+
 SELECT * FROM invoice_line_items;
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoices;
