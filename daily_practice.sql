@@ -598,5 +598,21 @@ UNION
 ORDER BY vendor_name;
 SELECT * FROM vendors;
 
+/* ============= SUBQUERY ============= */
+-- is a SELECT statement that's coded within another SQL statement
+-- for this to work it must be always enclosed in parentheses
+-- it is the same as SELECT statement but it cannot have ORDER BY clause
+-- can come in WHERE, HAVING, FROM, SELECT
 
+/*
+-- * subquery and join are interchangable 
+--   the difference is subquery cannot be included in a column in the result set
+-- * the only case that a subquery is not interchanable with 
+--   join is when it returns an aggregate value in a WHERE condition
+*/
 
+SELECT invoice_number, invoice_date, invoice_total
+FROM invoices
+WHERE invoice_total > 
+	(SELECT AVG(invoice_total)
+    FROM invoices);
