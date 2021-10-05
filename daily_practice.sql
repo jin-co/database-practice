@@ -653,3 +653,19 @@ WHERE invoice_total - payment_total - credit_total > 0
     FROM invoices
     WHERE invoice_total - payment_total - credit_total > 0)
 ORDER BY invoice_total DESC;
+
+SELECT vendor_name, invoice_number, invoice_total
+FROM invoices i 
+	JOIN vendors v USING(vendor_id)
+WHERE invoice_total > ALL
+	(SELECT invoice_total
+    FROM invoices
+    WHERE vendor_id = 34);
+    
+SELECT vendor_name, invoice_number, invoice_total
+FROM vendors 
+	JOIN invoices USING(vendor_id)
+WHERE invoice_total < ANY
+	(SELECT invoice_total
+    FROM invoices
+    WHERE vendor_id = 115);
