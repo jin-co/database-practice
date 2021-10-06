@@ -758,3 +758,44 @@ FROM
      GROUP BY vendor_state, vendor_name
 ) t
 GROUP BY vendor_state;
+
+WITH summary AS
+(
+    SELECT vendor_state, vendor_name, SUM(invoice_total) AS sum_of_invoices
+    FROM vendors v JOIN invoices i 
+        ON v.vendor_id = i.vendor_id
+    GROUP BY vendor_state, vendor_name
+),
+top_in_state AS
+(
+    SELECT vendor_state, MAX(sum_of_invoices) AS sum_of_invoices
+    FROM summary
+    GROUP BY vendor_state
+)
+SELECT summary.vendor_state, summary.vendor_name, top_in_state.sum_of_invoices
+FROM summary JOIN top_in_state
+    ON summary.vendor_state = top_in_state.vendor_state AND
+       summary.sum_of_invoices = top_in_state.sum_of_invoices
+ORDER BY summary.vendor_state;
+
+USE ex;
+WITH RECURSIVE employees_cte AS
+(
+        -- Anchor member
+        SELECT employee_id, 
+            CONCAT(first_name, ' ', last_name) AS employee_name, 
+            1 AS ranking
+        FROM employees
+        WHERE manager_id IS NULL
+    UNION ALL
+        -- Recursive member
+        SELECT employees.employee_id, 
+            CONCAT(first_name, ' ', last_name), 
+            ranking + 1
+        FROM employees
+            JOIN employees_cte
+            ON employees.manager_id = employees_cte.employee_id
+)
+SELECT *
+FROM employees_cte
+ORDER BY ranking, employee_id;
