@@ -799,3 +799,19 @@ WITH RECURSIVE employees_cte AS
 SELECT *
 FROM employees_cte
 ORDER BY ranking, employee_id;
+
+-- exercise chapter 7
+-- 1 
+SELECT vendor_name
+FROM vendors JOIN invoices
+	USING(vendor_id)
+ORDER BY vendor_name;
+
+SELECT DISTINCT vendor_name 
+FROM vendors
+WHERE vendor_id IN
+	(SELECT vendor_id FROM invoices)
+ORDER BY vendor_name;
+
+
+
