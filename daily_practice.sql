@@ -802,16 +802,25 @@ ORDER BY ranking, employee_id;
 
 -- exercise chapter 7
 -- 1 
-SELECT vendor_name
+SELECT DISTINCT vendor_name
 FROM vendors JOIN invoices
 	USING(vendor_id)
 ORDER BY vendor_name;
 
-SELECT DISTINCT vendor_name 
+SELECT vendor_name 
 FROM vendors
 WHERE vendor_id IN
 	(SELECT vendor_id FROM invoices)
 ORDER BY vendor_name;
+
+-- 2
+SELECT invoice_number, invoice_total 
+FROM invoices
+WHERE payment_total > 
+	(SELECT AVG(payment_total) FROM invoices
+    WHERE payment_total > 0)
+ORDER BY invoice_total DESC;
+
 
 
 
