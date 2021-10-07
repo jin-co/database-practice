@@ -821,6 +821,25 @@ WHERE payment_total >
     WHERE payment_total > 0)
 ORDER BY invoice_total DESC;
 
+-- 3
+SELECT account_number, account_description 
+FROM general_ledger_accounts
+WHERE account_number NOT IN
+	(SELECT account_number FROM invoice_line_items);
+
+SELECT account_number, account_description 
+FROM general_ledger_accounts g
+WHERE NOT EXISTS
+	(SELECT account_number 
+    FROM invoice_line_items
+    WHERE account_number = g.account_number);
+
+SELECT *
+FROM general_ledger_accounts g
+	LEFT JOIN invoice_line_items i
+    USING (account_number)
+WHERE i.invoice_id IS NULL;
+
 
 
 
