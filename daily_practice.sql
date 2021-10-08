@@ -840,6 +840,24 @@ FROM general_ledger_accounts g
     USING (account_number)
 WHERE i.invoice_id IS NULL;
 
+-- 4
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+SELECT * FROM invoice_line_items;
+
+SELECT vendor_name, invoice_id, invoice_sequence, line_item_amount FROM vendors
+	JOIN invoices USING(vendor_id)
+    JOIN invoice_line_items USING(invoice_id)
+WHERE invoice_sequence > 1
+ORDER BY vendor_name, invoice_id, invoice_sequence;
+
+
+SELECT invoice_sequence FROM invoice_line_items
+WHERE invoice_sequence > 1;
+
+
+
+
 
 
 
