@@ -874,6 +874,25 @@ SELECT CONCAT(vendor_state, vendor_city) as vendor_city_state
      FROM vendors
      GROUP BY vendor_city_state
      HAVING COUNT(*) > 1;
+     
+-- 7
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+
+SELECT vendor_id, vendor_name, MIN(invoice_date)
+FROM vendors v
+	JOIN invoices USING(vendor_id)
+GROUP BY vendor_id;
+
+SELECT vendor_name, invoice_number,
+       invoice_date, invoice_total
+FROM invoices i JOIN vendors v
+  ON i.vendor_id = v.vendor_id
+WHERE invoice_date =
+	(SELECT MIN(invoice_date)
+    FROM invoices
+    WHERE vendor_id = v.vendor_id);
+
 
 
 
