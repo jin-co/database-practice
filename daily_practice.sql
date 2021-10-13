@@ -923,7 +923,7 @@ FROM max_invoice;
 /* data type */
 -- int
 -- float(m, d) : m -> how long(in total) / d -> how long to the decimal point // appoximate -> rounds
--- decimal(m, d) : precise -> dosen't round
+-- decimal(m, d) : precise -> dosen't round // 'm': precision(maximum number of total digits -> 1 ~ 65) / 'd': scale(the number of digits to the right of the decimal -> 0 ~ 30 *but cannot be greater than precision)
 -- char(n) : fixed length, 'n' is the maximum number of charater between 0 ~ 255 // MySQL must reserve 4 byte for each character so 'n * 4'
 -- varchar(n) : Variable length, 'n' 'n' is the maximum number of charater between 0 ~ 255 // for English and Latin, needs 1 byte more so 'n' + 1
 -- enum('m', 'f') : for defined value
