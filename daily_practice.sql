@@ -1041,14 +1041,31 @@ c_phone: (Your fake phone)
 c_email: (Your fake email)
 */
 
-INSERT INTO consultants(
+INSERT INTO consultant(
 			c_id, c_last, c_first, c_mi,
             c_add, c_city, c_state, c_zip,
 			c_phone, c_email)
        VALUES(
 			106, "Baek", "Kwangjin", "K",
-            "1234 Broadway", "Hermagor", "AA", "12345"
+            "1234 Broadway", "Hermagor", "AA", "12345",
             "1234567890", "gogo@go.com");
+            
+-- 4
+SELECT * FROM client;
+/*
+new client. Add a new record as follows: 
+client_id: 17 
+client_name: City of Waterloo 
+contact_last: Jaworsky 
+contact_first: Dave 
+contact_phone: 519 886 1550 
+*/
+INSERT INTO client(
+			client_id, client_name, contact_last,
+            contact_first, contact_phone)
+       VALUES(
+			17, "City of Waterloo", "Jaworsky",
+            "Dave", "519 886 1550");
 
 
 
