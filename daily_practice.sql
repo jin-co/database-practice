@@ -956,10 +956,21 @@ UPDATE the product_name column to “Woodwinds”, (use the category_id column t
 SELECT updated record. Save this output 
 output1.txt.
 
-Write a DELETE statement that deletes the row you added to the Categories table in 
-exercise 1. This statement should use the category_id column to identify the row.
+DELETE the row you added (use the category_id column) 
 Save all sql statements above in one file, query1.sql.
 */
+
+SELECT * FROM categories;
+
+INSERT INTO categories(category_name) VALUES("Brass");
+
+UPDATE categories 
+SET category_name = "Woodwinds"
+WHERE category_id = 5;
+
+DELETE FROM categories
+WHERE category_id = 5;
+
 
 
 
