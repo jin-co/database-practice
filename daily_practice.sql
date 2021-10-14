@@ -1082,6 +1082,18 @@ INSERT INTO project(
        VALUES(
 			88, "ION Rapid Transit", 17,
             106, NULL);
+            
+-- 6 
+SELECT * FROM project;
+SELECT * FROM client;
+SELECT * FROM consultant;
+/*
+ Write an UPDATE statement that modifies the parent project of Project table. Assign 
+all projects without a parent project to the newly added project. The parent project of 
+'ION Rapid Transit' project must remain unassigned. 
+*/
+UPDATE project SET parent_p_id = 88
+WHERE parent_p_id IS NULL AND p_id <> 88;
 
 
 
