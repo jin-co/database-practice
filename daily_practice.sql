@@ -1067,7 +1067,21 @@ INSERT INTO client(
 			17, "City of Waterloo", "Jaworsky",
             "Dave", "519 886 1550");
 
-
+-- 5
+SELECT * FROM project;
+SELECT * FROM client;
+SELECT * FROM consultant;
+/*
+a new project for the client Dave Jaworsky(id: 17) 
+Add a new project named 'ION Rapid Transit' with a project ID of 
+88. The parent project of 'ION Rapid Transit' project is unassigned.
+*/
+INSERT INTO project(
+			p_id, project_name, client_id,
+            mgr_id, parent_p_id)
+       VALUES(
+			88, "ION Rapid Transit", 17,
+            106, NULL);
 
 
 
