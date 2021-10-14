@@ -972,6 +972,30 @@ DELETE FROM categories
 WHERE category_id = 5;
 
 -- 2
+/*
+INSERT to the Products table:
+product_id: The next automatically generated ID 
+category_id: 4
+product_code: dgx_640
+product_name: Yamaha DGX 640 88-Key Digital Piano
+description: Long description to come.
+list_price: 799.99
+discount_percent: 0
+date_added: Today’s date/time.
+Use a column list for this statement.
+
+UPDATE discount_percent column from 0% to 35%.
+
+SELECT statement that displays your updated record. Save this output 
+
+DELETE the row that you added to the Categories 
+When you execute this statement, it will produce an error since 
+the category has related rows in the Products table. To fix that, precede the DELETE 
+statement with another DELETE statement that deletes all products in this category. 
+(Remember that to code two or more statements in a script, you must end each 
+statement with a semicolon.)
+Save all sql statements above in one file, query2.sql
+*/
 SELECT * FROM products;
 SELECT * FROM order_items;
 SELECT * FROM categories;
@@ -998,30 +1022,34 @@ INSERT INTO products(
 UPDATE products SET discount_percent = 35 WHERE product_name = "Yamaha DGX 640 88-Key Digital Piano";
 
 DELETE FROM products WHERE product_id = 13;
+
+-- 3
+USE swexpert;
+SHOW TABLES;
+SELECT * FROM consultant;
 /*
-INSERT to the Products table:
-product_id: The next automatically generated ID 
-category_id: 4
-product_code: dgx_640
-product_name: Yamaha DGX 640 88-Key Digital Piano
-description: Long description to come.
-list_price: 799.99
-discount_percent: 0
-date_added: Today’s date/time.
-Use a column list for this statement.
-
-UPDATE discount_percent column from 0% to 35%.
-
-SELECT statement that displays your updated record. Save this output 
-
-DELETE the row that you added to the Categories 
-When you execute this statement, it will produce an error since 
-the category has related rows in the Products table. To fix that, precede the DELETE 
-statement with another DELETE statement that deletes all products in this category. 
-(Remember that to code two or more statements in a script, you must end each 
-statement with a semicolon.)
-Save all sql statements above in one file, query2.sql
+ Add a new record as follows:
+c_id: 106 
+c_last: (Your last name) 
+c_first: (Your first name) 
+c_mi: (Your middle initial) 
+c_add: (Your fake address) 
+c_city: (Your fake city) 
+c_state: (Your fake province code) 
+c_zip: (Your fake postal code) 
+c_phone: (Your fake phone) 
+c_email: (Your fake email)
 */
+
+INSERT INTO consultants(
+			c_id, c_last, c_first, c_mi,
+            c_add, c_city, c_state, c_zip,
+			c_phone, c_email)
+       VALUES(
+			106, "Baek", "Kwangjin", "K",
+            "1234 Broadway", "Hermagor", "AA", "12345"
+            "1234567890", "gogo@go.com");
+
 
 
 
