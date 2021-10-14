@@ -944,6 +944,25 @@ FROM max_invoice;
 -- there is a concept of return type(value, list) so use it accordingly
 
 
+-- assignment 3
+-- 1
+/*
+Write an INSERT statement that adds this row to the Categories table:
+category_name: Brass
+Code the INSERT statement so MySQL automatically generates the category_id 
+column.
+Write an UPDATE statement that modifies the row you just added to the Categories 
+table. This statement should change the product_name column to “Woodwinds”, and 
+it should use the category_id column to identify the row.
+Write a SELECT statement that displays your updated record. Save this output as 
+output1.txt.
+Write a DELETE statement that deletes the row you added to the Categories table in 
+exercise 1. This statement should use the category_id column to identify the row.
+Save all sql statements above in one file, query1.sql.
+*/
+
+
+
 
 
 
