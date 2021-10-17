@@ -944,8 +944,6 @@ FROM max_invoice;
 -- there is a concept of return type(value, list) so use it accordingly
 
 
-
-
 -- mid
 USE ap;
 
@@ -960,6 +958,9 @@ UPDATE terms SET terms_due_days = 120 WHERE terms_id = 7;
 DELETE FROM terms WHERE terms_id = 6;
 
 ALTER TABLE terms AUTO_INCREMENT = 1;
+
+USE my_guitar_shop;
+
 
 
 
