@@ -970,8 +970,15 @@ SELECT "SHIPPED" AS ship_status, order_id, order_date
 FROM orders WHERE ship_date IS NOT NULL
 ORDER BY order_date;
 
+USE swexpert;
 
+SHOW TABLES;
 
+SELECT CONCAT(c_first,' ', c_last) AS name, c_city FROM consultant
+ORDER BY 1 DESC;
+
+SELECT * FROM consultant;
+SHOW TABLES;
 
 
 
