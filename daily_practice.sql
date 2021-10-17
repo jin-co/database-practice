@@ -944,156 +944,22 @@ FROM max_invoice;
 -- there is a concept of return type(value, list) so use it accordingly
 
 
--- assignment 3
--- 1
-USE my_guitar_shop;
-/*
-INSERT that adds this row to the Categories table:
-category_name: Brass (automatically generates the category_id)
 
-UPDATE the product_name column to “Woodwinds”, (use the category_id column to identify the row)
 
-SELECT updated record. Save this output 
-output1.txt.
+-- mid
+USE ap;
 
-DELETE the row you added (use the category_id column) 
-Save all sql statements above in one file, query1.sql.
-*/
-
-SELECT * FROM categories;
-
-INSERT INTO categories(category_name) VALUES("Brass");
-
-UPDATE categories 
-SET category_name = "Woodwinds"
-WHERE category_id = 5;
-
-DELETE FROM categories
-WHERE category_id = 5;
-
--- 2
-/*
-INSERT to the Products table:
-product_id: The next automatically generated ID 
-category_id: 4
-product_code: dgx_640
-product_name: Yamaha DGX 640 88-Key Digital Piano
-description: Long description to come.
-list_price: 799.99
-discount_percent: 0
-date_added: Today’s date/time.
-Use a column list for this statement.
-
-UPDATE discount_percent column from 0% to 35%.
-
-SELECT statement that displays your updated record. Save this output 
-
-DELETE the row that you added to the Categories 
-When you execute this statement, it will produce an error since 
-the category has related rows in the Products table. To fix that, precede the DELETE 
-statement with another DELETE statement that deletes all products in this category. 
-(Remember that to code two or more statements in a script, you must end each 
-statement with a semicolon.)
-Save all sql statements above in one file, query2.sql
-*/
-SELECT * FROM products;
-SELECT * FROM order_items;
-SELECT * FROM categories;
-
-INSERT INTO products(
-	   product_id,
-	   category_id,
-       product_code,
-       product_name,
-       description,
-       list_price,
-       discount_percent,
-       date_added)
-       VALUES(
-       DEFAULT,
-       4,
-       "dgx_640",
-       "Yamaha DGX 640 88-Key Digital Piano",
-       "Long description to come.",
-       799.99,
-       0,
-       sysdate());
-
-UPDATE products SET discount_percent = 35 WHERE product_name = "Yamaha DGX 640 88-Key Digital Piano";
-
-DELETE FROM products WHERE product_id = 13;
-
--- 3
-USE swexpert;
 SHOW TABLES;
-SELECT * FROM consultant;
-/*
- Add a new record as follows:
-c_id: 106 
-c_last: (Your last name) 
-c_first: (Your first name) 
-c_mi: (Your middle initial) 
-c_add: (Your fake address) 
-c_city: (Your fake city) 
-c_state: (Your fake province code) 
-c_zip: (Your fake postal code) 
-c_phone: (Your fake phone) 
-c_email: (Your fake email)
-*/
 
-INSERT INTO consultant(
-			c_id, c_last, c_first, c_mi,
-            c_add, c_city, c_state, c_zip,
-			c_phone, c_email)
-       VALUES(
-			106, "Baek", "Kwangjin", "K",
-            "1234 Broadway", "Hermagor", "AA", "12345",
-            "1234567890", "gogo@go.com");
-            
--- 4
-SELECT * FROM client;
-/*
-new client. Add a new record as follows: 
-client_id: 17 
-client_name: City of Waterloo 
-contact_last: Jaworsky 
-contact_first: Dave 
-contact_phone: 519 886 1550 
-*/
-INSERT INTO client(
-			client_id, client_name, contact_last,
-            contact_first, contact_phone)
-       VALUES(
-			17, "City of Waterloo", "Jaworsky",
-            "Dave", "519 886 1550");
+SELECT * FROM terms;
 
--- 5
-SELECT * FROM project;
-SELECT * FROM client;
-SELECT * FROM consultant;
-/*
-a new project for the client Dave Jaworsky(id: 17) 
-Add a new project named 'ION Rapid Transit' with a project ID of 
-88. The parent project of 'ION Rapid Transit' project is unassigned.
-*/
-INSERT INTO project(
-			p_id, project_name, client_id,
-            mgr_id, parent_p_id)
-       VALUES(
-			88, "ION Rapid Transit", 17,
-            106, NULL);
-            
--- 6 
-SELECT * FROM project;
-SELECT * FROM client;
-SELECT * FROM consultant;
-/*
- Write an UPDATE statement that modifies the parent project of Project table. Assign 
-all projects without a parent project to the newly added project. The parent project of 
-'ION Rapid Transit' project must remain unassigned. 
-*/
-UPDATE project SET parent_p_id = 88
-WHERE parent_p_id IS NULL AND p_id <> 88;
+INSERT INTO terms VALUES(DEFAULT, "Special terms", 60);
+
+UPDATE terms SET terms_due_days = 120 WHERE terms_id = 7;
+
+DELETE FROM terms WHERE terms_id = 6;
+
+ALTER TABLE terms AUTO_INCREMENT = 1;
 
 
 
