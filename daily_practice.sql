@@ -974,12 +974,16 @@ USE swexpert;
 
 SHOW TABLES;
 
-SELECT CONCAT(c_first,' ', c_last) AS name, c_city FROM consultant
+SELECT DISTINCT CONCAT(c_first,' ', c_last) AS name, c_city FROM consultant
 ORDER BY 1 DESC;
 
 SELECT * FROM consultant;
 SHOW TABLES;
 
+SELECT * FROM project;
+
+SELECT p_id, project_name FROM project
+WHERE parent_p_id IS NOT NULL;
 
 
 
