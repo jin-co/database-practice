@@ -960,6 +960,16 @@ DELETE FROM terms WHERE terms_id = 6;
 ALTER TABLE terms AUTO_INCREMENT = 1;
 
 USE my_guitar_shop;
+SELECT * FROM orders WHERE ship_date IS NULL;
+SELECT * FROM orders WHERE ship_date IS NOT NULL;
+
+SELECT "NOT SHIPPED" AS ship_status, order_id, order_date 
+FROM orders WHERE ship_date IS NULL
+UNION
+SELECT "SHIPPED" AS ship_status, order_id, order_date 
+FROM orders WHERE ship_date IS NOT NULL
+ORDER BY order_date;
+
 
 
 
