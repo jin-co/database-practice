@@ -990,8 +990,11 @@ SELECT product_code, product_name, list_price, discount_percent
 FROM products
 ORDER BY list_price DESC;
 
-SELECT CONCAT(first_name, ', ', last_name) AS full_name 
-FROM customers;
+SELECT CONCAT(first_name, ', ', last_name) AS full_name,
+	   substr(last_name, 1, 1)
+FROM customers 
+WHERE substr(last_name, 1, 1) BETWEEN 'm' AND 'z'
+ORDER BY last_name;
 
 
 
