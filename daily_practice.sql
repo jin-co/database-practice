@@ -985,6 +985,14 @@ SELECT * FROM project;
 SELECT p_id, project_name FROM project
 WHERE parent_p_id IS NOT NULL;
 
+SHOW TABLES;
+SELECT product_code, product_name, list_price, discount_percent 
+FROM products
+ORDER BY list_price DESC;
+
+SELECT CONCAT(first_name, ', ', last_name) AS full_name 
+FROM customers;
+
 
 
 
