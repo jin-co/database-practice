@@ -1034,6 +1034,9 @@ SELECT order_id,
        ship_date
 FROM orders
 WHERE ship_date IS NULL;
+
+SELECT NOW() AS today_unformatted,
+	   DATE_FORMAT(NOW(), '%d-%b-%Y') AS today_formatted;
        
 
 
