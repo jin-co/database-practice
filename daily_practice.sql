@@ -1001,8 +1001,23 @@ My SQL
 implicit comversion
 string  in a numeric expression 
 -> if the string starts with a letter of character: 0
--> if 
+-> if the string starts with a number: returns that number until encountered with no numeric values
 */
+
+SELECT * FROM products;
+SELECT product_name, list_price, date_added FROM products
+WHERE list_price > 500 AND list_price < 2000
+ORDER BY date_added DESC;
+
+SELECT product_name,
+	   list_price,
+       discount_percent,
+       ROUND(list_price * (discount_percent / 100), 2) AS discount_amount,
+       ROUND((list_price - (list_price * (discount_percent / 100))), 2) AS discount_price
+FROM products
+ORDER BY discount_price DESC
+LIMIT 5;
+       
 
 
 
