@@ -1028,6 +1028,12 @@ SELECT item_id,
 FROM order_items
 WHERE (item_price - discount_amount) * quantity > 500
 ORDER BY item_total DESC;
+
+SELECT order_id,
+	   order_date,
+       ship_date
+FROM orders
+WHERE ship_date IS NULL;
        
 
 
