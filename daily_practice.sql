@@ -1050,6 +1050,14 @@ JOIN invoices USING(vendor_id)
 GROUP BY vendor_name
 ORDER BY 2 DESC;
 
+SELECT vendor_name, 
+	   COUNT(*) AS invoice_count,
+       SUM(invoice_total)
+FROM vendors
+JOIN invoices USING(vendor_id)
+GROUP BY vendor_name
+ORDER BY 2 DESC;
+
 
 
 
