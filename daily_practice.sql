@@ -1110,6 +1110,32 @@ JOIN invoice_line_items USING(account_number)
 GROUP BY account_number WITH ROLLUP;
 
 
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+SELECT * FROM general_ledger_accounts;
+SELECT * FROM invoice_line_items;
+
+SELECT vendor_name,
+	   COUNT(DISTINCT account_number) AS account
+FROM vendors
+JOIN invoices USING(vendor_id)
+JOIN invoice_line_items USING(invoice_id)
+JOIN general_ledger_accounts USING(account_number)
+GROUP BY vendor_id
+HAVING ;
+
+SELECT vendor_name,
+       COUNT(DISTINCT li.account_number) AS number_of_gl_accounts
+FROM vendors v 
+  JOIN invoices i
+    ON v.vendor_id = i.vendor_id
+  JOIN invoice_line_items li
+    ON i.invoice_id = li.invoice_id
+GROUP BY vendor_name
+HAVING number_of_gl_accounts > 1
+ORDER BY vendor_name
+
+
 
 
 
