@@ -1076,6 +1076,39 @@ GROUP BY account_description
 HAVING line_item_count > 1
 ORDER BY line_item_amount_sum DESC;
 
+SELECT account_description,
+	   COUNT(*) AS count,
+       SUM(line_item_amount) AS sum
+FROM general_ledger_accounts
+JOIN invoice_line_items USING(account_number)
+JOIN invoices USING(invoice_id)
+WHERE invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+GROUP BY account_description
+HAVING COUNT(*) > 1
+ORDER BY 3 DESC;
+
+SELECT account_description, COUNT(*) AS line_item_count,
+       SUM(line_item_amount) AS line_item_amount_sum
+FROM general_ledger_accounts gl 
+  JOIN invoice_line_items li
+    ON gl.account_number = li.account_number
+  JOIN invoices i
+    ON li.invoice_id = i.invoice_id
+WHERE invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+GROUP BY account_description
+HAVING line_item_count > 1
+ORDER BY line_item_amount_sum DESC;
+
+SELECT * FROM invoices;
+SELECT * FROM general_ledger_accounts;
+SELECT * FROM invoice_line_items;
+
+SELECT account_number,  
+	   SUM(line_item_amount)
+FROM general_ledger_accounts
+JOIN invoice_line_items USING(account_number)
+GROUP BY account_number WITH ROLLUP;
+
 
 
 
