@@ -1157,13 +1157,29 @@ WHERE invoice_total - payment_total - credit_total > 0;
 SELECT vendor_id,
 	   invoice_total - payment_total -credit_total AS balance_due,
        SUM(invoice_total - payment_total -credit_total) OVER() AS total,
-       SUM(invoice_total - payment_total -credit_total) OVER(PARTITION BY vendor_id) AS each_row,
+       SUM(invoice_total - payment_total -credit_total) OVER vendor_window AS each_row,
        AVG(invoice_total - payment_total -credit_total) OVER vendor_window AS balance_avg
 FROM invoices
 WHERE invoice_total - payment_total -credit_total > 0
-WINDOW vendor_window AS (PARTITION BY balance_avg);
+WINDOW vendor_window AS (PARTITION BY vendor_id);
 
+SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
+	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+       SUM(invoice_total - payment_total - credit_total) OVER vendor_window AS vendor_due,
+       ROUND(AVG(invoice_total - payment_total - credit_total) OVER vendor_window, 2) AS vendor_avg
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0
+WINDOW vendor_window AS (PARTITION BY vendor_id ORDER BY invoice_total - payment_total - credit_total);
 
+SELECT MONTH(invoice_date),
+	   SUM(invoice_total), 
+       AVG(SUM(invoice_total)) OVER(ORDER BY MONTH(invoice_date)
+			RANGE BETWEEN 3 PRECEDING AND CURRENT ROW) AS 4_month_avg
+FROM invoices
+GROUP BY MONTH(invoice_date);
 
-
-
+SELECT MONTH(invoice_date) AS month, SUM(invoice_total) AS total_invoices,
+       ROUND(AVG(SUM(invoice_total)) OVER(ORDER BY MONTH(invoice_date)
+           RANGE BETWEEN 3 PRECEDING AND CURRENT ROW), 2) AS 4_month_avg
+FROM invoices
+GROUP BY MONTH(invoice_date)
