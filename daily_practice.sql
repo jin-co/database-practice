@@ -1045,6 +1045,11 @@ SELECT * FROM invoices;
 SELECT vendor_id, SUM(invoice_total) FROM invoices
 GROUP BY vendor_id;
 
+SELECT vendor_name, SUM(payment_total) FROM vendors
+JOIN invoices USING(vendor_id)
+GROUP BY vendor_name
+ORDER BY 2 DESC;
+
 
 
 
