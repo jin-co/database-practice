@@ -1140,12 +1140,30 @@ SELECT IF(GROUPING(terms_id) = 1, 'Grand Totals', terms_id) AS terms_id,
 FROM invoices
 GROUP BY terms_id, vendor_id WITH ROLLUP;
 
+SELECT vendor_id,
+	   invoice_total - payment_total -credit_total AS balance_due,
+       SUM(invoice_total - payment_total -credit_total) OVER() AS total,
+       SUM(invoice_total - payment_total -credit_total) OVER(PARTITION BY vendor_id) AS each_row
+FROM invoices
+WHERE invoice_total - payment_total -credit_total > 0;
+
 SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
 	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
        SUM(invoice_total - payment_total - credit_total) OVER(PARTITION BY vendor_id
            ORDER BY invoice_total - payment_total - credit_total) AS vendor_due
 FROM invoices
 WHERE invoice_total - payment_total - credit_total > 0;
+
+SELECT vendor_id,
+	   invoice_total - payment_total -credit_total AS balance_due,
+       SUM(invoice_total - payment_total -credit_total) OVER() AS total,
+       SUM(invoice_total - payment_total -credit_total) OVER(PARTITION BY vendor_id) AS each_row,
+       AVG(invoice_total - payment_total -credit_total) OVER vendor_window AS balance_avg
+FROM invoices
+WHERE invoice_total - payment_total -credit_total > 0
+WINDOW vendor_window AS (PARTITION BY balance_avg);
+
+
 
 
 
