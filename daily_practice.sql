@@ -1116,15 +1116,6 @@ SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoice_line_items;
 
 SELECT vendor_name,
-	   COUNT(DISTINCT account_number) AS account
-FROM vendors
-JOIN invoices USING(vendor_id)
-JOIN invoice_line_items USING(invoice_id)
-JOIN general_ledger_accounts USING(account_number)
-GROUP BY vendor_id
-HAVING ;
-
-SELECT vendor_name,
        COUNT(DISTINCT li.account_number) AS number_of_gl_accounts
 FROM vendors v 
   JOIN invoices i
@@ -1133,9 +1124,28 @@ FROM vendors v
     ON i.invoice_id = li.invoice_id
 GROUP BY vendor_name
 HAVING number_of_gl_accounts > 1
-ORDER BY vendor_name
+ORDER BY vendor_name;
 
+SELECT terms_id, 
+	   vendor_id,
+       MAX(payment_date) AS max_payment_date,
+	   SUM(invoice_total - payment_total - credit_total)
+FROM invoices
+GROUP BY terms_id, vendor_id WITH ROLLUP;
 
+SELECT IF(GROUPING(terms_id) = 1, 'Grand Totals', terms_id) AS terms_id,
+       IF(GROUPING(vendor_id) = 1, 'Terms ID Totals', vendor_id) AS vendor_id,
+       MAX(payment_date) AS max_payment_date,
+       SUM(invoice_total - credit_total - payment_total) AS balance_due
+FROM invoices
+GROUP BY terms_id, vendor_id WITH ROLLUP;
+
+SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
+	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+       SUM(invoice_total - payment_total - credit_total) OVER(PARTITION BY vendor_id
+           ORDER BY invoice_total - payment_total - credit_total) AS vendor_due
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0;
 
 
 
