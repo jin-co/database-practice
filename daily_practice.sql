@@ -1038,6 +1038,12 @@ WHERE ship_date IS NULL;
 SELECT NOW() AS today_unformatted,
 	   DATE_FORMAT(NOW(), '%d-%b-%Y') AS today_formatted;
        
+USE ap;
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+
+SELECT vendor_id, SUM(invoice_total) FROM invoices
+GROUP BY vendor_id;
 
 
 
