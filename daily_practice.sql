@@ -1182,4 +1182,21 @@ SELECT MONTH(invoice_date) AS month, SUM(invoice_total) AS total_invoices,
        ROUND(AVG(SUM(invoice_total)) OVER(ORDER BY MONTH(invoice_date)
            RANGE BETWEEN 3 PRECEDING AND CURRENT ROW), 2) AS 4_month_avg
 FROM invoices
-GROUP BY MONTH(invoice_date)
+GROUP BY MONTH(invoice_date);
+
+SELECT invoice_number, invoice_date, invoice_total
+FROM invoices
+WHERE invoice_total > (SELECT AVG(invoice_total)
+FROM invoices);
+
+SELECT i1.invoice_number, i1.invoice_date, i1.invoice_total
+FROM invoices i1
+	JOIN invoices i2 USING(invoice_id) 
+    WHERE i1.invoice_total > AVG(i2.invoice_total);
+    
+SELECT * FROM invoices;
+
+
+
+
+
