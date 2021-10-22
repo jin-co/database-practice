@@ -1217,4 +1217,21 @@ WHERE invoice_total - payment_total - credit_total > 0
         WHERE invoice_total - payment_total - credit_total > 0
 	);
 
+-- get invoice larget than the largest invoice for vendor 34
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+SELECT vendor_name, invoice_number, invoice_total
+FROM vendors JOIN invoices USING(vendor_id)
+WHERE invoice_total > 
+	(SELECT MAX(invoice_total) FROM invoices
+	 WHERE vendor_id = 34);
+     
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+SELECT vendor_name, invoice_number, invoice_total
+FROM vendors JOIN invoices USING(vendor_id)
+WHERE invoice_total > ALL
+	(SELECT invoice_total FROM invoices
+	 WHERE vendor_id = 34);
+
 
