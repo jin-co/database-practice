@@ -1242,4 +1242,13 @@ WHERE invoice_total > ALL
 	(SELECT invoice_total FROM invoices
 	 WHERE vendor_id = 34);
 
+SELECT * FROM vendors;
+SELECT * FROM invoices;
+SELECT vendor_name, invoice_number, invoice_total
+FROM vendors JOIN invoices USING(vendor_id)
+WHERE invoice_total < ANY(SELECT invoice_total FROM invoices WHERE vendor_id = 115);
+
+SELECT vendor_name, invoice_number, invoice_total
+FROM vendors JOIN invoices USING(vendor_id)
+WHERE invoice_total < ANY(SELECT invoice_total FROM invoices WHERE vendor_id = 115);
 
