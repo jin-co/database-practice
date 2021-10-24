@@ -1250,5 +1250,12 @@ WHERE invoice_total < ANY(SELECT invoice_total FROM invoices WHERE vendor_id = 1
 
 SELECT vendor_name, invoice_number, invoice_total
 FROM vendors JOIN invoices USING(vendor_id)
-WHERE invoice_total < ANY(SELECT invoice_total FROM invoices WHERE vendor_id = 115);
+WHERE invoice_total < (SELECT MAX(invoice_total) FROM invoices WHERE vendor_id = 115);
 
+SELECT vendor_id, invoice_number, invoice_total
+FROM invoices i 
+WHERE invoice_total >
+	(SELECT AVG(invoice_total)
+     FROM invoices
+     WHERE vendor_id = i.vendor_id)
+ORDER BY vendor_id, invoice_total;
