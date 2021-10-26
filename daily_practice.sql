@@ -1282,3 +1282,16 @@ GROUP BY vendor_name;
 SELECT vendor_name,
 	(SELECT MAX(invoice_date) FROM invoices WHERE vendor_id = vendors.vendor_id)
 FROM vendors;
+
+SELECT vendor_name, vendor_state, MAX(sum_of_invoices) FROM 
+(
+	SELECT vendor_state, vendor_name,
+    SUM(invoice_total) AS sum_of_invoices
+    FROM vendors v JOIN invoices i
+    ON v.vendor_id = i.vendor_id
+    GROUP BY vendor_state, vendor_name) t
+    GROUP BY vendor_state;
+
+SELECT vendor_state, vendor_name, SUM(invoice_total) FROM vendors
+JOIN invoices USING(vendor_id)
+GROUP BY vendor_name, vendor_state;
