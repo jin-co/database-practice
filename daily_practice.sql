@@ -1300,3 +1300,35 @@ SELECT vendor_name, vendor_state, MAX(sum_of_invoices) FROM
 SELECT vendor_state, vendor_name, SUM(invoice_total) FROM vendors
 JOIN invoices USING(vendor_id)
 GROUP BY vendor_name, vendor_state;
+
+SELECT vendor_state, MAX(sum_of_invoices) AS max_sum_of_invoices
+FROM
+(
+	SELECT vendor_state, vendor_name,
+		SUM(invoice_total) AS sum_of_invoices
+	FROM vendors v JOIN invoices i USING(vendor_id)
+    GROUP BY vendor_state, vendor_name
+) t
+GROUP BY vendor_state;
+
+SELECT t1.vendor_state, vendor_name, t1.sum_of_invoices
+FROM 
+(
+	SELECT vendor_state, vendor_name,
+    SUM(invoice_total) AS sum_of_invoices
+    FROM vendors v JOIN invoices i USING(vendor_id)
+    GROUP BY vendor_state, vendor_name) t1
+    JOIN
+    (
+		SELECT vendor_state, MAX(sum_of_invoices) AS sum_of_invoices
+        FROM
+        (
+			SELECT vendor_state, vendor_name,
+            SUM(invoice_total) AS sum_of_invoices
+            FROM vendors v JOIN invoices i USING(vendor_id)
+            GROUP BY vendor_state, vendor_name
+		) t2
+        GROUP BY vendor_state
+	) t3
+    ON t1.vendor_state = t3.vendor_state AND
+	   t1.sum_of_invoices = t3.sum_of_invoices;
