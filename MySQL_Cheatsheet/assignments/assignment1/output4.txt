@@ -1,0 +1,6 @@
+product_name,list_price,discount_percent,discount_amount,discount_price
+"Gibson SG",2517.00,52.00,1308.84,1208.16
+"Gibson Les Paul",1199.00,30.00,359.70,839.30
+"Tama 5-Piece Drum Set with Cymbals",799.99,15.00,120.00,679.99
+"Fender Precision",799.99,30.00,240.00,559.99
+"Ludwig 5-piece Drum Set with Cymbals",699.99,30.00,210.00,489.99

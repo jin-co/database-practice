@@ -1,0 +1,6 @@
+category_id	category_name
+2	Basses
+3	Drums
+1	Guitars
+4	Keyboards
+5	Woodwinds

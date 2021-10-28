@@ -1,0 +1,3 @@
+product_name	list_price
+Fender Precision	799.99
+Tama 5-Piece Drum Set with Cymbals	799.99

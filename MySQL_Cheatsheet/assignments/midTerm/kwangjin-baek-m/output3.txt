@@ -1,0 +1,4 @@
+color_id	color_number	color_name
+2	0	Yellow
+3	0	Orange
+6	783	Green
