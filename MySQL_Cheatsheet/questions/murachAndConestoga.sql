@@ -608,5 +608,20 @@ FROM vendors JOIN invoices
 USING(vendor_id)
 ORDER BY vendor_id;
 
+SELECT vendor_name FROM vendors
+WHERE vendor_id IN (
+SELECT DISTINCT vendor_id FROM invoices)
+ORDER BY vendor_id;
+
+-- ch 7-2
+
+SELECT * FROM vendors;
 SELECT * FROM invoices;
+
+SELECT invoice_number, invoice_total
+FROM invoices
+WHERE payment_total > (
+	SELECT AVG(payment_total) 
+	FROM invoices
+	WHERE payment_total > 0);
 
