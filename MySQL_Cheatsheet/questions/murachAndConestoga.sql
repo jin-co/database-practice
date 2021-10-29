@@ -603,5 +603,10 @@ SELECT * FROM color_sample;
 SHOW TABLES;
 
 -- ch 7-1
+SELECT DISTINCT vendor_name
+FROM vendors JOIN invoices
+USING(vendor_id)
+ORDER BY vendor_id;
 
+SELECT * FROM invoices;
 
