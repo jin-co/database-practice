@@ -614,14 +614,29 @@ SELECT DISTINCT vendor_id FROM invoices)
 ORDER BY vendor_id;
 
 -- ch 7-2
-
-SELECT * FROM vendors;
-SELECT * FROM invoices;
-
 SELECT invoice_number, invoice_total
 FROM invoices
 WHERE payment_total > (
 	SELECT AVG(payment_total) 
 	FROM invoices
-	WHERE payment_total > 0);
+	WHERE payment_total > 0)
+ORDER BY invoice_total DESC;
+
+-- ch 7-3
+SELECT account_number, account_description 
+FROM general_ledger_accounts
+WHERE account_number NOT IN (
+	SELECT account_number FROM invoice_line_items);
+
+SELECT account_number, account_description 
+FROM general_ledger_accounts g
+WHERE NOT EXISTS (
+	SELECT * FROM invoice_line_items
+    WHERE account_number = g.account_number);
+
+
+SELECT * FROM invoice_line_items;
+
+SELECT * FROM general_ledger_accounts;
+SELECT * FROM invoices;
 
