@@ -626,14 +626,21 @@ ORDER BY invoice_total DESC;
 SELECT account_number, account_description 
 FROM general_ledger_accounts
 WHERE account_number NOT IN (
-	SELECT account_number FROM invoice_line_items);
+	SELECT account_number FROM invoice_line_items)
+ORDER BY account_number;
 
 SELECT account_number, account_description 
 FROM general_ledger_accounts g
 WHERE NOT EXISTS (
 	SELECT * FROM invoice_line_items
-    WHERE account_number = g.account_number);
+    WHERE account_number = g.account_number)
+ORDER BY account_number;
 
+SELECT *, account_number, account_description
+FROM general_ledger_accounts
+	left JOIN invoice_line_items USING(account_number)
+WHERE invoice_id IS NULL
+ORDER BY account_number;
 
 SELECT * FROM invoice_line_items;
 
