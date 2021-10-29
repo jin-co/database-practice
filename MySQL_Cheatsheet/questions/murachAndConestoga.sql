@@ -636,7 +636,7 @@ WHERE NOT EXISTS (
     WHERE account_number = g.account_number)
 ORDER BY account_number;
 
-SELECT *, account_number, account_description
+SELECT account_number, account_description
 FROM general_ledger_accounts
 	left JOIN invoice_line_items USING(account_number)
 WHERE invoice_id IS NULL
