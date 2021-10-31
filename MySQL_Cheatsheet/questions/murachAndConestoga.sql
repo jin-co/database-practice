@@ -645,17 +645,18 @@ ORDER BY account_number;
 -- ch 7-4
 SELECT vendor_name, invoice_id, invoice_sequence, line_item_amount
 FROM vendors
-JOIN invoices
-USING(vendor_id)
-JOIN invoice_line_items
-USING(invoice_id)
+	JOIN invoices
+		USING(vendor_id)
+	JOIN invoice_line_items
+		USING(invoice_id)
 WHERE invoice_id IN (
-SELECT invoice_id
-FROM invoice_line_items
-WHERE invoice_sequence > 1
-)
+			SELECT invoice_id
+			FROM invoice_line_items
+			WHERE invoice_sequence > 1
+			)
 ORDER BY vendor_name, invoice_id, invoice_sequence;
 
+-- ch 7-5 
 SELECT * FROM vendors;
 
 SELECT * FROM general_ledger_accounts;
