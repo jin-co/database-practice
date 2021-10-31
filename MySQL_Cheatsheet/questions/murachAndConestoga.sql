@@ -657,8 +657,18 @@ WHERE invoice_id IN (
 ORDER BY vendor_name, invoice_id, invoice_sequence;
 
 -- ch 7-5 
-SELECT * FROM vendors;
+SELECT SUM(max_of_invoices) 
+FROM (SELECT MAX(invoice_total) AS max_of_invoices
+	FROM invoices 
+	WHERE payment_date IS NULL 
+	GROUP BY vendor_id) t;
 
+SELECT SUM(invoice_max) AS sum_of_maximums
+FROM (SELECT vendor_id, MAX(invoice_total) AS invoice_max
+      FROM invoices
+      WHERE invoice_total - credit_total - payment_total > 0
+      GROUP BY vendor_id) t;
+      
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoices;
 
