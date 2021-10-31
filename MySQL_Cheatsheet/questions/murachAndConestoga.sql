@@ -642,6 +642,8 @@ FROM general_ledger_accounts
 WHERE invoice_id IS NULL
 ORDER BY account_number;
 
+-- ch 7-4
+SELECT * FROM vendors;
 SELECT * FROM invoice_line_items;
 
 SELECT * FROM general_ledger_accounts;
