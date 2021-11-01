@@ -668,6 +668,21 @@ FROM (SELECT vendor_id, MAX(invoice_total) AS invoice_max
       FROM invoices
       WHERE invoice_total - credit_total - payment_total > 0
       GROUP BY vendor_id) t;
+
+-- ch 7-6
+SELECT * FROM vendors;
+SELECT CONCAT(vendor_state, vendor_city) as vendor_city_state
+     FROM vendors
+     ;
+
+SELECT vendor_name, vendor_city, vendor_state
+FROM vendors
+WHERE CONCAT(vendor_state, vendor_city) NOT IN 
+    (SELECT CONCAT(vendor_state, vendor_city) as vendor_city_state
+     FROM vendors
+     GROUP BY vendor_city_state
+     HAVING COUNT(*) > 1)
+ORDER BY vendor_state, vendor_city;
       
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoices;
