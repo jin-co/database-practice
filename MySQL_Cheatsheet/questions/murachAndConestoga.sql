@@ -670,11 +670,6 @@ FROM (SELECT vendor_id, MAX(invoice_total) AS invoice_max
       GROUP BY vendor_id) t;
 
 -- ch 7-6
-SELECT * FROM vendors;
-SELECT CONCAT(vendor_state, vendor_city) as vendor_city_state
-     FROM vendors
-     ;
-
 SELECT vendor_name, vendor_city, vendor_state
 FROM vendors
 WHERE CONCAT(vendor_state, vendor_city) NOT IN 
