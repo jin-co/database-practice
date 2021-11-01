@@ -678,7 +678,36 @@ WHERE CONCAT(vendor_state, vendor_city) NOT IN
      GROUP BY vendor_city_state
      HAVING COUNT(*) > 1)
 ORDER BY vendor_state, vendor_city;
-      
+
+-- ch 7-7
+-- correlated -> inner query uses data from outter query and runs multiple times
+SELECT screening_id, customer_id,
+(SELECT COUNT(seat_id)
+FROM reserved_seats WHERE booking_id = b.id)
+FROM bookings b;
+
+SELECT invoice_number, 
+	   invoice_date, 
+       invoice_total,
+       (SELECT vendor_name
+		FROM vendors WHERE vendor_id = i.vendor_id) AS vendor_name
+FROM invoices i GROUP BY vendor_name ORDER BY vendor_name;
+
+SELECT vendor_name, invoice_number, invoice_date, invoice_total
+FROM vendors
+	JOIN invoices USING(vendor_id) GROUP BY vendor_name ORDER BY vendor_name;
+
+SELECT vendor_name, invoice_number,
+       invoice_date, invoice_total
+FROM invoices i JOIN vendors v
+  ON i.vendor_id = v.vendor_id
+WHERE invoice_date =
+  (SELECT MIN(invoice_date)
+   FROM invoices 
+   WHERE vendor_id = i.vendor_id)
+ORDER BY vendor_name;
+
+SELECT * FROM vendors;          
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoices;
 
