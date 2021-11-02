@@ -709,6 +709,32 @@ ORDER BY vendor_name;
 
 -- ch 7-8
 -- correlated -> inner query uses data from outter query and runs multiple times
+SELECT vendor_name, invoice_number,
+       invoice_date, invoice_total
+FROM invoices i
+    JOIN
+    (
+      SELECT vendor_id, MIN(invoice_date) AS oldest_invoice_date
+      FROM invoices
+      GROUP BY vendor_id
+    ) oi
+    ON i.vendor_id = oi.vendor_id AND
+       i.invoice_date = oi.oldest_invoice_date
+    JOIN vendors v
+    ON i.vendor_id = v.vendor_id
+ORDER BY vendor_name;
+
+-- ch 7-9
+-- correlated -> inner query uses data from outter query and runs multiple times
+WITH max_invoice AS
+(
+	SELECT vendor_id, MAX(invoice_total) AS invoice_max
+    FROM invoices
+    WHERE invoice_total - credit_total - payment_total > 0
+    GROUP BY vendor_id
+)
+SELECT SUM(invoice_max) AS sum_of_maximums
+FROM max_invoice;
 
 SELECT * FROM vendors;          
 SELECT * FROM general_ledger_accounts;
