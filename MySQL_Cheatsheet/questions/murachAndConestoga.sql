@@ -680,7 +680,6 @@ WHERE CONCAT(vendor_state, vendor_city) NOT IN
 ORDER BY vendor_state, vendor_city;
 
 -- ch 7-7
--- correlated -> inner query uses data from outter query and runs multiple times
 SELECT screening_id, customer_id,
 (SELECT COUNT(seat_id)
 FROM reserved_seats WHERE booking_id = b.id)
@@ -708,7 +707,6 @@ WHERE invoice_date =
 ORDER BY vendor_name;
 
 -- ch 7-8
--- correlated -> inner query uses data from outter query and runs multiple times
 SELECT vendor_name, invoice_number,
        invoice_date, invoice_total
 FROM invoices i
@@ -725,7 +723,6 @@ FROM invoices i
 ORDER BY vendor_name;
 
 -- ch 7-9
--- correlated -> inner query uses data from outter query and runs multiple times
 WITH max_invoice AS
 (
 	SELECT vendor_id, MAX(invoice_total) AS invoice_max

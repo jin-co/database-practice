@@ -23,8 +23,22 @@
 
 /* data conversion 
 My SQL
-implicit conversion
+** implicit conversion
 string  in a numeric expression 
 -> if the string starts with a letter of character: 0
 -> if the string starts with a number: returns that number until encountered with no numeric values
+
+** explicit conversion
+-> syntaxes:
+--> CAST(exp AS type): ANSI-standard
+--> CONVERT(exp, type)
+--> cast types
+--- CHAR[(N)]: N-> maximum
+--- DATE
+--- DATETIME
+--- TIME
+--- SIGNED[INT]
+--- UNSIGNED[INT]
+--- DECIMAL[(M[,D])]: M-> precision / D -> scale
+
 */
