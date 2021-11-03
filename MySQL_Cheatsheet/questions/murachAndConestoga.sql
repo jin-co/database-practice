@@ -784,13 +784,16 @@ What is the total amount ordered for each product? Return these columns:
 (Hint: total amount: (the item price - the discount amount) * the quantity
 Use WITH ROLLUP to include the grand total
 */
-SELECT *,
-	   product_name,
-       (item_price - discount_amount) * quantity AS total_amount
+SELECT product_name,
+       SUM((item_price - discount_amount) * quantity) AS total_amount
 FROM order_items
 	JOIN products USING(product_id)
 GROUP BY product_id
 WITH ROLLUP;
+
+SELECT account_number, SUM(line_item_amount) AS line_item_sum
+FROM invoice_line_items
+GROUP BY account_number WITH ROLLUP;
 
 SELECT * FROM order_items;
 SELECT * FROM products;
