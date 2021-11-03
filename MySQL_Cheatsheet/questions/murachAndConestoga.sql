@@ -733,6 +733,19 @@ WITH max_invoice AS
 SELECT SUM(invoice_max) AS sum_of_maximums
 FROM max_invoice;
 
+-- ch 8-1
+SELECT invoice_total,
+	   FORMAT(invoice_total, 1),
+       CONVERT(invoice_total, SIGNED),
+       CAST(invoice_total AS SIGNED)
+FROM invoices;
+
+-- ch 8-2
+SELECT invoice_date,
+	   CAST(invoice_date AS DATETIME),
+	   CAST(invoice_date AS CHAR(7))       
+FROM invoices;
+
 SELECT * FROM vendors;          
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoices;

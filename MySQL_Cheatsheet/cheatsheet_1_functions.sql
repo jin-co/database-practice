@@ -57,6 +57,11 @@ SELECT CONCAT(vendor_name, CHAR(13, 10), vendor_address1, CHAR(13, 10),
 FROM vendors
 WHERE vendor_id = 1;
 
+SELECT invoice_date,
+	   CAST(invoice_date AS DATETIME),
+	   CAST(invoice_date AS CHAR(7))       
+FROM invoices;
+
 -- DATE_FORMAT(date, '%m/%d/%y')
 SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
        DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
