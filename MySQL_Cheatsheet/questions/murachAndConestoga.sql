@@ -753,22 +753,32 @@ SELECT * FROM invoices;
 -- A_4
 /*
 1. SELECT that returns these columns: 
-The count of the number of orders in the Orders table 
-The sum of the tax_amount columns in the Orders table
+• The count of the number of orders in the Orders table 
+• The sum of the tax_amount columns in the Orders table
 */
 SELECT COUNT(*) AS orders_count,
 	   SUM(tax_amount) AS tax_amount_sum
 FROM orders;
 
 /*
-1. SELECT that returns these columns: 
-The count of the number of orders in the Orders table 
-The sum of the tax_amount columns in the Orders table
+2. SELECT that returns one row for each category that has products 
+with these columns: 
+• The category_name column from the Categories table 
+• The count of the products in the Products table 
+• The list price of the most expensive product in the Products table 
+Sort the category with the most products appears first. 
 */
+SELECT category_name,
+	   COUNT(*) AS products_count,
+       MAX(list_price) AS most_expensive_product
+FROM categories
+	JOIN products USING(category_id)
+GROUP BY category_name
+ORDER BY products_count DESC;
 
-SELECT * FROM orders;
-
-
+   
+SELECT * FROM categories;
+SELECT * FROM products;
 
 USE my_guitar_shop;
 SHOW TABLES;
