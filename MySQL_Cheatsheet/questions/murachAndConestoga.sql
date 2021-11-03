@@ -797,13 +797,15 @@ Return one row for each category that has never been assigned to
 any product in the Products table. To do that, use a subquery and include the NOT 
 EXISTS operator as part of your solution. 
 */
-SELECT *,
-	   category_name
+SELECT category_name
 FROM categories c
 WHERE NOT EXISTS(
 	SELECT * FROM products
     WHERE category_id = c.category_id);
 
+/*
+5
+*/
 
 SELECT * FROM categories;
 SELECT * FROM products;
