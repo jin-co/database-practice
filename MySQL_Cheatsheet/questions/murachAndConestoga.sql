@@ -791,12 +791,22 @@ FROM order_items
 GROUP BY product_id
 WITH ROLLUP;
 
-SELECT account_number, SUM(line_item_amount) AS line_item_sum
-FROM invoice_line_items
-GROUP BY account_number WITH ROLLUP;
+/*
+4. SELECT that returns the category_name column from the Categories table. 
+Return one row for each category that has never been assigned to 
+any product in the Products table. To do that, use a subquery and include the NOT 
+EXISTS operator as part of your solution. 
+*/
+SELECT *,
+	   category_name
+FROM categories c
+WHERE NOT EXISTS(
+	SELECT * FROM products
+    WHERE category_id = c.category_id);
 
-SELECT * FROM order_items;
+
+SELECT * FROM categories;
 SELECT * FROM products;
-
+SELECT *, (item_price - discount_amount) * quantity AS total_amount FROM order_items;
 USE my_guitar_shop;
 SHOW TABLES;
