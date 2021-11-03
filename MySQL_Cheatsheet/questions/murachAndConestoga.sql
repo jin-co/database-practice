@@ -750,3 +750,25 @@ SELECT * FROM vendors;
 SELECT * FROM general_ledger_accounts;
 SELECT * FROM invoices;
 
+-- A_4
+/*
+1. SELECT that returns these columns: 
+The count of the number of orders in the Orders table 
+The sum of the tax_amount columns in the Orders table
+*/
+SELECT COUNT(*) AS orders_count,
+	   SUM(tax_amount) AS tax_amount_sum
+FROM orders;
+
+/*
+1. SELECT that returns these columns: 
+The count of the number of orders in the Orders table 
+The sum of the tax_amount columns in the Orders table
+*/
+
+SELECT * FROM orders;
+
+
+
+USE my_guitar_shop;
+SHOW TABLES;
