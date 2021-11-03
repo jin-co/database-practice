@@ -45,6 +45,18 @@ SELECT vendor_contact_first_name, vendor_contact_last_name,
               LEFT(vendor_contact_last_name, 1)) AS initials
 FROM vendors;
 
+-- FORMAT(number, decimal:optional) -> converts number to a character string(000,000,...)
+SELECT FORMAT(121231441.43232, 2) AS format;
+
+-- CHAR(val 1, val 2, ..) -> to binary string
+-- - CHAR(9) -> tab
+-- - CHAR(10) -> line feed
+-- - CHAR(13) -> carriage return
+SELECT CONCAT(vendor_name, CHAR(13, 10), vendor_address1, CHAR(13, 10),
+	   vendor_city, ', ', vendor_state, ' ', vendor_zip_code) AS char_
+FROM vendors
+WHERE vendor_id = 1;
+
 -- DATE_FORMAT(date, '%m/%d/%y')
 SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
        DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
