@@ -776,8 +776,23 @@ FROM categories
 GROUP BY category_name
 ORDER BY products_count DESC;
 
-   
-SELECT * FROM categories;
+/*
+3. SELECT that answers this question: 
+What is the total amount ordered for each product? Return these columns: 
+• The product name from the Products table 
+• The total amount for each product in the Order_Items 
+(Hint: total amount: (the item price - the discount amount) * the quantity
+Use WITH ROLLUP to include the grand total
+*/
+SELECT *,
+	   product_name,
+       (item_price - discount_amount) * quantity AS total_amount
+FROM order_items
+	JOIN products USING(product_id)
+GROUP BY product_id
+WITH ROLLUP;
+
+SELECT * FROM order_items;
 SELECT * FROM products;
 
 USE my_guitar_shop;
