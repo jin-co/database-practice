@@ -825,7 +825,7 @@ WHERE skill_id = 1;
 project with consultant Mark Myers. Include Mark Myers in the result set. Use a 
 subquery. use the consultant's full name in your query
 */
-SELECT c_last, c_first,
+SELECT DISTINCT c_first, c_last,
 	   CONCAT(c_first, ' ', IFNULL(c_mi, ''), ' ', c_last) AS full_name
 FROM consultant
 	JOIN project_consultant USING(c_id)
