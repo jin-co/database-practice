@@ -804,7 +804,7 @@ WHERE NOT EXISTS(
     WHERE category_id = c.category_id);
 
 /*
-5. Display the average evaluation score for consultant ID (EVALUATEE_ID) 105. 
+5. Display average evaluation score for consultant ID (EVALUATEE_ID) 105. 
 Round the retrieved value to one decimal place.
 */
 USE swexpert;
@@ -813,6 +813,14 @@ SELECT ROUND(AVG(score), 1) AS score_avg
 FROM evaluation
 WHERE evaluatee_id = 105;
 
+/*
+6. Count the number of consultants who are certified in skill ID 1. 
+*/
+SELECT COUNT(*) AS skill_id_1_count
+FROM consultant_skill
+WHERE skill_id = 1;
+
+SELECT * FROM consultant_skill;
 SELECT * FROM consultant;
 SELECT * FROM evaluation;
 SHOW TABLES;
