@@ -7,7 +7,7 @@ SELECT "Ed" AS first_name, "Williams" AS last_name,
 -- CONCAT
 SELECT CONCAT(first_name, last_name) AS full_name FROM customers;
 
-SELECT CONCAT(first_name," ", last_name) AS full_name FROM customers;
+SELECT CONCAT(first_name, " ", last_name) AS full_name FROM customers;
 
 SELECT vendor_name,
        CONCAT(vendor_city, ', ', vendor_state, ' ', vendor_zip_code) 
@@ -21,6 +21,15 @@ FROM vendors;
 
 SELECT "Ed" AS first_name, "Williams" AS last_name,
     CONCAT(LEFT("Ed", 1), LEFT("Williams", 1)) AS initials;
+
+-- - IFNULL: to deal with NULL values
+SELECT c_last, c_first,
+	   CONCAT(c_first, ' ', IFNULL(c_mi, ''), ' ', c_last) AS full_name
+FROM consultant
+	JOIN project_consultant USING(c_id)
+	JOIN project USING(p_id)
+WHERE p_id IN (SELECT p_id FROM project_consultant
+WHERE c_id = 100);
 
 -- substring(string, start, length)
 SELECT SUBSTRING(name, 1, 3) FROM films;

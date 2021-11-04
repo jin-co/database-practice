@@ -820,9 +820,27 @@ SELECT COUNT(*) AS skill_id_1_count
 FROM consultant_skill
 WHERE skill_id = 1;
 
-SELECT * FROM consultant_skill;
+/*
+7. List the first and last name of every consultant who has ever worked on a 
+project with consultant Mark Myers. Include Mark Myers in the result set. Use a 
+subquery. use the consultant's full name in your query
+*/
+SELECT c_last, c_first,
+	   CONCAT(c_first, ' ', IFNULL(c_mi, ''), ' ', c_last) AS full_name
+FROM consultant
+	JOIN project_consultant USING(c_id)
+	JOIN project USING(p_id)
+WHERE p_id IN (SELECT p_id FROM project_consultant
+WHERE c_id = 100);
+
+SELECT * FROM project_consultant
+WHERE c_id = 100;
+
+
 SELECT * FROM consultant;
-SELECT * FROM evaluation;
+SELECT * FROM project_consultant;
+SELECT * FROM project;
+
 SHOW TABLES;
 SELECT *, (item_price - discount_amount) * quantity AS total_amount FROM order_items;
 USE my_guitar_shop;
