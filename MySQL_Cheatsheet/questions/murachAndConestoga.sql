@@ -804,11 +804,18 @@ WHERE NOT EXISTS(
     WHERE category_id = c.category_id);
 
 /*
-5
+5. Display the average evaluation score for consultant ID (EVALUATEE_ID) 105. 
+Round the retrieved value to one decimal place.
 */
+USE swexpert;
 
-SELECT * FROM categories;
-SELECT * FROM products;
+SELECT ROUND(AVG(score), 1) AS score_avg
+FROM evaluation
+WHERE evaluatee_id = 105;
+
+SELECT * FROM consultant;
+SELECT * FROM evaluation;
+SHOW TABLES;
 SELECT *, (item_price - discount_amount) * quantity AS total_amount FROM order_items;
 USE my_guitar_shop;
 SHOW TABLES;
