@@ -833,13 +833,27 @@ FROM consultant
 WHERE p_id IN (SELECT p_id FROM project_consultant
 WHERE c_id = 100);
 
+/*
+8. Use the UNION operator to generate a result set consisting of two 
+columns: project ID and name. The result must include all the projects with 
+completed evaluations AND projects managed by consultant with last name that 
+starts with 'Z'. Use a subquery. Remove any duplicate results
+*/
 SELECT * FROM project_consultant
-WHERE c_id = 100;
+WHERE c_id = (
+		SELECT c_id FROM consultant
+		WHERE c_last LIKE 'Z%') 
+    AND 
+	  p_id IN (
+		SELECT p_id FROM evaluation);
 
+SELECT c_id FROM consultant
+WHERE c_last LIKE 'Z%';
 
 SELECT * FROM consultant;
 SELECT * FROM project_consultant;
 SELECT * FROM project;
+SELECT * FROM evaluation;
 
 SHOW TABLES;
 SELECT *, (item_price - discount_amount) * quantity AS total_amount FROM order_items;

@@ -57,7 +57,7 @@ SELECT * FROM customers
 WHERE last_name LIKE '%o%'; 
 
 SELECT * FROM products
-WHERE price LIKE '3%';  -- note : when used with a number I need to put in in a single quote
+WHERE price LIKE '3%';  -- note : when used with a number I need to put them in a single quote
 -- -** _ -> any single character
 SELECT * FROM customers
 WHERE first_name LIKE '_o_';  -- _ : only one
