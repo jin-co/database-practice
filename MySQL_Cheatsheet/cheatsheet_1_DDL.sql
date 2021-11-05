@@ -119,6 +119,7 @@ CREATE TABLE pets (
 
 DESCRIBE addresses;
 
+/*============= ALTER =============*/
 ALTER TABLE addresses
 ADD PRIMARY KEY (id);
 
@@ -185,7 +186,7 @@ ADD balance_due DECIMAL(9,2);
 ALTER TABLE invoices
 DROP COLUMN balance_due;
 
-/* Copying */
+/*============= Copying =============*/
 -- this only copies columns and data(not contraints, PK, FK, indexes)
 -- I can use SELECT with everything I would with normal SELECT statement
 -- -* full copy

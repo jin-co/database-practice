@@ -194,6 +194,7 @@ USE cinema_booking;
 UPDATE products 
 SET coffee_origin = 'Sri Lanka' 
 WHERE id = 7;
+
 --  by default, in where clause, only pk can be put when updating. to change this use the code below
 SET SQL_SAFE_UPDATES = 0;
 -- or to turn it off

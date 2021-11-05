@@ -839,17 +839,37 @@ columns: project ID and name. The result must include all the projects with
 completed evaluations AND projects managed by consultant with last name that 
 starts with 'Z'. Use a subquery. Remove any duplicate results
 */
-SELECT * FROM project_consultant
-WHERE c_id = (
-		SELECT c_id FROM consultant
-		WHERE c_last LIKE 'Z%') 
-    AND 
-	  p_id IN (
-		SELECT p_id FROM evaluation);
+	SELECT p_id, project_name 
+	FROM project
+	WHERE p_id IN (
+		SELECT p_id FROM project_consultant
+		WHERE c_id = (
+			SELECT c_id FROM consultant
+			WHERE c_last LIKE 'Z%'))
+UNION
+	SELECT p_id, project_name FROM project
+	WHERE p_id IN (SELECT p_id FROM evaluation);            
 
-SELECT c_id FROM consultant
-WHERE c_last LIKE 'Z%';
+/*
+9. ALTER TABLE statement that adds a new 'total_days' column to 
+the project_consultant table. 
+a. This new column should have a default value of 0 (zero). 
+b. Update the new column with the difference of ROLL OFF and ROLL ON dates
+c. Display all the contents of project_consultant table. Save output as output9.txt
+d. Drop the 'total_days' column. 
+*/
+ALTER TABLE project_consultant
+ADD COLUMN total_days INT DEFAULT(0);
 
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE project_consultant SET total_days = roll_off_date - roll_on_date;
+
+ALTER TABLE project_consultant
+DROP COLUMN total_days;
+
+--
+DESCRIBE project_consultant;
 SELECT * FROM consultant;
 SELECT * FROM project_consultant;
 SELECT * FROM project;
