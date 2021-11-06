@@ -1,0 +1,4 @@
+category_name	products_count	most_expensive_product
+Guitars	6	2517.00
+Basses	2	799.99
+Drums	2	799.99
