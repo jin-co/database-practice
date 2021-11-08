@@ -38,14 +38,17 @@ WHERE c_id = 100);
 -- > CONCAT with specified separator, if the delimeter is null the result is null(not the value)
 -- >
 
-/* -- substring(string, start, length) --  */
+/* -- SUBSTRING(string, start, length) --  */
 SELECT SUBSTRING(name, 1, 3) FROM films;
 
-/* -- upper / lower --  */
+/* -- SUBSTRING_INDEX(string, index) --  */
+
+/* -- UPPER / LOWER --  */
 SELECT UPPER(name) FROM rooms;
 SELECT LOWER(name) FROM rooms;
 
 /* -- LEFT(string, number_of_characters) --  */ 
+-- > returns specified number of characters from the beginning of the string
 USE ap;
 SELECT vendor_contact_first_name, vendor_contact_last_name,
        CONCAT(LEFT(vendor_contact_first_name, 1), 
@@ -53,8 +56,28 @@ SELECT vendor_contact_first_name, vendor_contact_last_name,
 FROM vendors;
 
 /* -- RIGHT(string, number_of_characters) --  */
+-- > returns specified number of characters from the end of the string
 
--- FORMAT(number, decimal:optional) -> converts number to a character string(000,000,...)
+/* -- REPLACE(search, find, replace) --  */
+
+/* -- INSERT(string, search, length, insert) --  */
+
+/* -- REVERSE(string) --  */
+-- > returns characters in reverse order
+
+/* -- LPAD(string, length, pad) --  */
+-- > left pad
+
+/* -- RPAD(string, length, pad) --  */
+-- > right pad
+
+/* -- SPACE(count) --  */
+-- > returns space character repeated count number of times
+
+/* -- REPEAT(string, count) --  */
+-- > repeated count number of times
+
+/* -- FORMAT(number, decimal:optional) -> converts number to a character string(000,000,...) --  */
 SELECT FORMAT(121231441.43232, 2) AS format;
 
 -- CHAR(val 1, val 2, ..) -> to binary string
