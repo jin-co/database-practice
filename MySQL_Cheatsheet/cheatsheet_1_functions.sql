@@ -72,10 +72,10 @@ FROM vendors;
 -- > right pad
 
 /* -- SPACE(count) --  */
--- > returns space character repeated count number of times
+-- > returns space character repeated count times
 
 /* -- REPEAT(string, count) --  */
--- > repeated count number of times
+-- > repeated count times
 
 /* -- FORMAT(number, decimal:optional) -> converts number to a character string(000,000,...) --  */
 SELECT FORMAT(121231441.43232, 2) AS format;
