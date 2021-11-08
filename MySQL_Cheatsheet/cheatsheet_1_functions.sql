@@ -4,7 +4,10 @@ SELECT 1000 * (1 + .1);
 SELECT "Ed" AS first_name, "Williams" AS last_name,
 	CONCAT(LEFT("Ed", 1), LEFT("Williams", 1));
 
--- CONCAT
+/*================ string ================*/
+
+/* -- CONCAT --  */
+-- > if one value is null the result is null
 SELECT CONCAT(first_name, last_name) AS full_name FROM customers;
 
 SELECT CONCAT(first_name, " ", last_name) AS full_name FROM customers;
@@ -31,28 +34,25 @@ FROM consultant
 WHERE p_id IN (SELECT p_id FROM project_consultant
 WHERE c_id = 100);
 
--- substring(string, start, length)
+/* -- CONCAT_WS --  */
+-- > CONCAT with specified separator, if the delimeter is null the result is null(not the value)
+-- >
+
+/* -- substring(string, start, length) --  */
 SELECT SUBSTRING(name, 1, 3) FROM films;
 
--- upper / lower
+/* -- upper / lower --  */
 SELECT UPPER(name) FROM rooms;
 SELECT LOWER(name) FROM rooms;
 
--- date
-SELECT DATE(start_time) FROM screenings;
-
--- month
-SELECT MONTH(start_time) FROM screenings;
-
--- year
-SELECT YEAR(start_time) FROM screenings;
-
--- LEFT(string, number_of_characters)
+/* -- LEFT(string, number_of_characters) --  */ 
 USE ap;
 SELECT vendor_contact_first_name, vendor_contact_last_name,
        CONCAT(LEFT(vendor_contact_first_name, 1), 
               LEFT(vendor_contact_last_name, 1)) AS initials
 FROM vendors;
+
+/* -- RIGHT(string, number_of_characters) --  */
 
 -- FORMAT(number, decimal:optional) -> converts number to a character string(000,000,...)
 SELECT FORMAT(121231441.43232, 2) AS format;
@@ -71,7 +71,17 @@ SELECT invoice_date,
 	   CAST(invoice_date AS CHAR(7))       
 FROM invoices;
 
--- DATE_FORMAT(date, '%m/%d/%y')
+/*================ DATE ================*/
+/* -- DATE -- */
+SELECT DATE(start_time) FROM screenings;
+
+/* -- MONTH -- */
+SELECT MONTH(start_time) FROM screenings;
+
+/* -- YEAR -- */
+SELECT YEAR(start_time) FROM screenings;
+
+/* -- DATE_FORMAT(date, '%m/%d/%y') -- */
 SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
        DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
 
