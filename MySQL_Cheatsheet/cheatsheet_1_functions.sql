@@ -41,7 +41,10 @@ SELECT CONCAT_WS(', ', 'last', 'first');
 /* -- SUBSTRING(string, start, length) --  */
 SELECT SUBSTRING(name, 1, 3) FROM films;
 
+SELECT SUBSTRING('(333) 333-1212', 7, 8);
+
 /* -- SUBSTRING_INDEX(string, index) --  */
+SELECT SUBSTRING_INDEX('http://www.murach.com', '.', -2);
 
 /* -- UPPER / LOWER --  */
 SELECT UPPER(name) FROM rooms;
@@ -66,18 +69,46 @@ SELECT vendor_contact_first_name, vendor_contact_last_name,
 FROM vendors;
 
 SELECT RIGHT('mysql', 3);
+
+SELECT RIGHT('(222) 000-1212', 13);
+
 /* -- REPLACE(search, find, replace) --  */
+SELECT REPLACE(RIGHT('(222) 000-1212', 13),') ', '-');
 
 /* -- INSERT(string, search, length, insert) --  */
+SELECT INSERT('mysql', 1, 0, "jin's ");
+SELECT INSERT('mysql', 1, 0, 'jin''s ');
+
+/* -- LOCATE(value, target) --  */
+-- > returns index(1 based) of first match
+SELECT LOCATE('sql', ' mysql');
+
+SELECT LOCATE('-', ' my my---sql');
 
 /* -- REVERSE(string) --  */
 -- > returns characters in reverse order
+SELECT REVERSE(' my my---sql');
 
 /* -- LPAD(string, length, pad) --  */
 -- > left pad
+SELECT LPAD('mysql', 13, '*');
+SELECT LPAD('mysql', 3, '*');  -- pad leng it shorter than the word -> truncated
 
 /* -- RPAD(string, length, pad) --  */
 -- > right pad
+SELECT RPAD('mysql', 13, '*');
+
+/* -- RTRIM(string) --  */
+-- > trim right
+SELECT RTRIM('    mysql    ');
+
+/* -- LTRIM(string) --  */
+-- > trim left
+SELECT LTRIM('    mysql    ');
+
+/* -- TRIM(string) --  */
+-- > trim both ends
+SELECT TRIM('    mysql    ');
 
 /* -- SPACE(count) --  */
 -- > returns space character repeated count times
