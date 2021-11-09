@@ -36,7 +36,7 @@ WHERE c_id = 100);
 
 /* -- CONCAT_WS --  */
 -- > CONCAT with specified separator, if the delimeter is null the result is null(not the value)
--- >
+SELECT CONCAT_WS(', ', 'last', 'first');
 
 /* -- SUBSTRING(string, start, length) --  */
 SELECT SUBSTRING(name, 1, 3) FROM films;
@@ -55,9 +55,17 @@ SELECT vendor_contact_first_name, vendor_contact_last_name,
               LEFT(vendor_contact_last_name, 1)) AS initials
 FROM vendors;
 
+SELECT LEFT('mysql', 3);
+
 /* -- RIGHT(string, number_of_characters) --  */
 -- > returns specified number of characters from the end of the string
+USE ap;
+SELECT vendor_contact_first_name, vendor_contact_last_name,
+       CONCAT(RIGHT(vendor_contact_first_name, 1), 
+              RIGHT(vendor_contact_last_name, 1)) AS initials
+FROM vendors;
 
+SELECT RIGHT('mysql', 3);
 /* -- REPLACE(search, find, replace) --  */
 
 /* -- INSERT(string, search, length, insert) --  */
