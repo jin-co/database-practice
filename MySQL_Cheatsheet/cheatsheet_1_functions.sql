@@ -46,6 +46,18 @@ SELECT SUBSTRING('(333) 333-1212', 7, 8);
 /* -- SUBSTRING_INDEX(string, index) --  */
 SELECT SUBSTRING_INDEX('http://www.murach.com', '.', -2);
 
+-- parsing
+USE ex;
+SELECT emp_name,
+	   SUBSTRING_INDEX(emp_name, ' ', 1) AS first_name,
+	   SUBSTRING_INDEX(emp_name, ' ', -1) AS last_name
+FROM string_sample;
+
+SELECT emp_name,
+	   SUBSTRING(emp_name, 1, LOCATE(' ', emp_name) - 1) AS first_name,
+	   SUBSTRING(emp_name, LOCATE(' ', emp_name) + 1) AS last_name
+FROM string_sample;   
+
 /* -- UPPER / LOWER --  */
 SELECT UPPER(name) FROM rooms;
 SELECT LOWER(name) FROM rooms;
@@ -84,6 +96,12 @@ SELECT INSERT('mysql', 1, 0, 'jin''s ');
 SELECT LOCATE('sql', ' mysql');
 
 SELECT LOCATE('-', ' my my---sql');
+
+-- to find a character
+SELECT emp_name,
+	   LOCATE(' ', emp_name) AS first_name,
+	   LOCATE(' ', emp_name, LOCATE(' ', emp_name) + 1) AS second_space
+FROM string_sample;
 
 /* -- REVERSE(string) --  */
 -- > returns characters in reverse order
@@ -153,9 +171,12 @@ SELECT invoice_date,
 FROM invoices
 ORDER BY invoice_date;
 
--- ROUND(number, decimal)
+/*================ NUMERIC ================*/
+/* -- ROUND(number, [length]) --  */
+-- > rounds up
 SELECT 12345.6789 AS value,
-       ROUND(12345.67) AS nearest_dollar,
+       ROUND(12345.67) AS nearest_dollar,       
+       ROUND(12345.67, -1) AS left_side_rounded,
        ROUND(12345.67, 1) AS nearest_dime;
        
 SELECT invoice_date, invoice_total,
@@ -164,7 +185,26 @@ SELECT invoice_date, invoice_total,
 FROM invoices
 ORDER BY invoice_date;
 
--- SUM
+/* -- TRUNCATE(number, [length]) --  */
+-- > cuts out
+
+
+/* -- CEILING(number) --  */
+/* -- FLOOR(number) --  */
+/* -- ABS(number) --  */
+-- > absolute value
+
+/* -- SIGN(number) --  */
+-- > -1: negative / 1: positive / 0: zero
+
+/* -- SQRT(number) --  */
+-- > square root
+
+/* -- POWER(number, power) --  */
+/* -- RAND([integer]) --  */
+-- > random
+
+/* -- SUM --  */
 SELECT COUNT(*) AS number_of_invoices,
     SUM(invoice_total - payment_total - credit_total) AS total_due
 FROM invoices
