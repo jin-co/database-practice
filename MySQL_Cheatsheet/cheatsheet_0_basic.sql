@@ -50,3 +50,20 @@ SELECT invoice_id, invoice_date, invoice_total,
 	   CONVERT(invoice_date, CHAR(10)) AS char_date,
        CONVERT(invoice_total, SIGNED) AS integer_total
 FROM invoices;
+
+/*================ cast sorting ================*/
+/*
+-- when a column that is defined with VCHAR type that has numbers as its values is sorted, 
+the numbers are considered as char -> so the result is not in numeric order
+*/
+USE ex;
+SELECT * FROM string_sample ORDER BY emp_id;
+
+-- Sorted with explicit cast
+SELECT * FROM string_sample ORDER BY CAST(emp_id AS SIGNED);
+
+-- Sorted with implicit cast
+SELECT * FROM string_sample ORDER BY emp_id + 0;
+
+-- Sorted with padding
+SELECT LPAD(emp_id, 2, '0') AS emp_id, emp_name FROM string_sample ORDER BY emp_id;
