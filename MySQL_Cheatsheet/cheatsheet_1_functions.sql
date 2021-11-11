@@ -151,26 +151,6 @@ SELECT invoice_date,
 	   CAST(invoice_date AS CHAR(7))       
 FROM invoices;
 
-/*================ DATE ================*/
-/* -- DATE -- */
-SELECT DATE(start_time) FROM screenings;
-
-/* -- MONTH -- */
-SELECT MONTH(start_time) FROM screenings;
-
-/* -- YEAR -- */
-SELECT YEAR(start_time) FROM screenings;
-
-/* -- DATE_FORMAT(date, '%m/%d/%y') -- */
-SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
-       DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
-
-SELECT invoice_date,
-       DATE_FORMAT(invoice_date, '%m/%d/%y') AS 'MM/DD/YY',
-       DATE_FORMAT(invoice_date, '%e-%b-%Y') AS 'DD-Mon-YYYY'
-FROM invoices
-ORDER BY invoice_date;
-
 /*================ NUMERIC ================*/
 /* -- ROUND(number, [length]) --  */
 -- > rounds up
@@ -222,6 +202,8 @@ SELECT 9 AS value,
        
 /* -- RAND([integer]) --  */
 -- > random
+SELECT RAND() AS without_seed,
+	   RAND(10) AS with_seed; -- same number every time
 
 /* -- SUM --  */
 SELECT COUNT(*) AS number_of_invoices,
@@ -229,4 +211,46 @@ SELECT COUNT(*) AS number_of_invoices,
 FROM invoices
 WHERE vendor_id = 34;
 
+-- floating point(e.g. DOUBLE, FLOAT) example
+USE ex;
+SELECT * FROM float_sample;
 
+SELECT * FROM float_sample
+WHERE float_value = 1;  -- only returns the exact same match
+
+SELECT * FROM float_sample
+WHERE float_value BETWEEN 0.9 AND 1.1;  -- getting approximate values
+
+SELECT * FROM float_sample
+WHERE ROUND(float_value, 2) = 1;  -- getting approximate values
+
+/*================ DATE ================*/
+/* -- NOW -- */
+-- returns the current local date and time based on the system's clock
+
+/* -- SYSDATE -- */
+-- returns the current local date and time based on the system's clock
+
+/* -- CURRENT_TIMESTAMP -- */
+-- returns the current local date and time based on the system's clock
+
+/* -- CURDATE -- */
+
+/* -- DATE -- */
+SELECT DATE(start_time) FROM screenings;
+
+/* -- MONTH -- */
+SELECT MONTH(start_time) FROM screenings;
+
+/* -- YEAR -- */
+SELECT YEAR(start_time) FROM screenings;
+
+/* -- DATE_FORMAT(date, '%m/%d/%y') -- */
+SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
+       DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
+
+SELECT invoice_date,
+       DATE_FORMAT(invoice_date, '%m/%d/%y') AS 'MM/DD/YY',
+       DATE_FORMAT(invoice_date, '%e-%b-%Y') AS 'DD-Mon-YYYY'
+FROM invoices
+ORDER BY invoice_date;
