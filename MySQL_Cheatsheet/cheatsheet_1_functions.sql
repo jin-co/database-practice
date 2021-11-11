@@ -185,22 +185,41 @@ SELECT invoice_date, invoice_total,
 FROM invoices
 ORDER BY invoice_date;
 
-/* -- TRUNCATE(number, [length]) --  */
+/* -- TRUNCATE(number, length) --  */
 -- > cuts out
-
+SELECT 12345.6789 AS value,
+       TRUNCATE(12345.67, 0) AS nearest_dollar,              
+       TRUNCATE(12345.67, 1) AS nearest_dime;
 
 /* -- CEILING(number) --  */
+SELECT 12345.6789 AS value,       
+       CEILING(12345.67) AS nearest_dime;
+
 /* -- FLOOR(number) --  */
+SELECT 12345.6789 AS value,       
+       FLOOR(12345.67) AS nearest_dime;
+       
 /* -- ABS(number) --  */
 -- > absolute value
-
+SELECT 12345.6789 AS value,       
+       ABS(-12345.67) AS nearest_dime;
+       
 /* -- SIGN(number) --  */
 -- > -1: negative / 1: positive / 0: zero
+SELECT 12345.6789 AS value,
+       SIGN(12345.67) AS positive,       
+       SIGN(-12345.67) AS negative,
+       SIGN(0) AS zero;
 
 /* -- SQRT(number) --  */
 -- > square root
+SELECT 125.43 AS value,		       
+       SQRT(125.43) AS square_root;
 
 /* -- POWER(number, power) --  */
+SELECT 9 AS value,		       
+       POWER(9, 2) AS square_root;
+       
 /* -- RAND([integer]) --  */
 -- > random
 
