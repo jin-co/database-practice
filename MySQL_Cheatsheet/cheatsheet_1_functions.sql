@@ -227,14 +227,39 @@ WHERE ROUND(float_value, 2) = 1;  -- getting approximate values
 /*================ DATE ================*/
 /* -- NOW -- */
 -- returns the current local date and time based on the system's clock
+SELECT NOW();
 
 /* -- SYSDATE -- */
 -- returns the current local date and time based on the system's clock
+SELECT SYSDATE();
 
 /* -- CURRENT_TIMESTAMP -- */
 -- returns the current local date and time based on the system's clock
+SELECT CURRENT_TIMESTAMP();
 
 /* -- CURDATE -- */
+-- returns the current local date
+SELECT CURDATE();
+
+/* -- CURRENT_DATE -- */
+-- returns the current local date
+SELECT CURRENT_DATE();
+
+/* -- CURTIME -- */
+-- returns the current local time
+SELECT CURTIME();
+
+/* -- CURRENT_TIME -- */
+-- returns the current local time
+SELECT CURRENT_TIME();
+
+/* -- UTC_DATE -- */
+-- returns the current date in GMT(Greenwich Mean Time)
+SELECT UTC_DATE();
+
+/* -- UTC_TIME -- */
+-- returns the current time in GMT(Greenwich Mean Time)
+SELECT UTC_TIME();
 
 /* -- DATE -- */
 SELECT DATE(start_time) FROM screenings;
