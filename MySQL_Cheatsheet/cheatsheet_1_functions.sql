@@ -237,6 +237,8 @@ SELECT SYSDATE();
 -- returns the current local date and time based on the system's clock
 SELECT CURRENT_TIMESTAMP();
 
+SELECT CURRENT_TIMESTAMP;
+
 /* -- CURDATE -- */
 -- returns the current local date
 SELECT CURDATE();
@@ -244,6 +246,8 @@ SELECT CURDATE();
 /* -- CURRENT_DATE -- */
 -- returns the current local date
 SELECT CURRENT_DATE();
+
+SELECT CURRENT_DATE;
 
 /* -- CURTIME -- */
 -- returns the current local time
@@ -253,22 +257,70 @@ SELECT CURTIME();
 -- returns the current local time
 SELECT CURRENT_TIME();
 
+SELECT CURRENT_TIME;
+
 /* -- UTC_DATE -- */
 -- returns the current date in GMT(Greenwich Mean Time)
 SELECT UTC_DATE();
+
+SELECT UTC_DATE;
 
 /* -- UTC_TIME -- */
 -- returns the current time in GMT(Greenwich Mean Time)
 SELECT UTC_TIME();
 
+SELECT UTC_TIME;
+
+/*----------------- DATE / TIME PARSING -----------------*/
 /* -- DATE -- */
-SELECT DATE(start_time) FROM screenings;
+USE ap;
+SELECT DATE(invoice_date) FROM invoices;
 
 /* -- MONTH -- */
-SELECT MONTH(start_time) FROM screenings;
+SELECT MONTH(invoice_date) FROM invoices;
+
+/* -- DAYOFMONTH -- */
+SELECT DAYOFMONTH(invoice_date) FROM invoices;
 
 /* -- YEAR -- */
-SELECT YEAR(start_time) FROM screenings;
+SELECT YEAR(invoice_date) FROM invoices;
+
+/* -- HOUR -- */
+SELECT HOUR(SYSDATE());
+
+/* -- MINUTE -- */
+SELECT MINUTE(SYSDATE());
+
+/* -- SECOND -- */
+SELECT SECOND(SYSDATE());
+
+/* -- DAYOFWEEK -- */
+-- returns day of week as an integer(sun: 1, ...)
+SELECT DAYOFWEEK(SYSDATE());
+
+/* -- QUARTER -- */
+-- returns the quarter of the year as an integer
+SELECT QUARTER(SYSDATE());
+
+/* -- DAYOFYEAR -- */
+SELECT DAYOFYEAR(SYSDATE());
+
+/* -- WEEK(date,[1: week starts on Mon / 0: week starts on Sun]) -- */
+-- returns the week of the year as an integer
+SELECT WEEK(SYSDATE()) AS without_second_parameter,
+	   WEEK(SYSDATE(), 0) AS week_start_Sun,
+       WEEK(SYSDATE(), 1) AS week_start_Mon
+FROM invoices;
+
+/* -- LAST_DAY -- */
+SELECT LAST_DAY(SYSDATE()),
+	   LAST_DAY('2020-12-03');
+
+/* -- DAYNAME -- */
+SELECT DAYNAME(SYSDATE());
+
+/* -- MONTHNAME -- */
+SELECT MONTHNAME(SYSDATE());
 
 /* -- DATE_FORMAT(date, '%m/%d/%y') -- */
 SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
