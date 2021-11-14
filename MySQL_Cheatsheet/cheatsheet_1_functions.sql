@@ -322,7 +322,7 @@ SELECT DAYNAME(SYSDATE());
 /* -- MONTHNAME -- */
 SELECT MONTHNAME(SYSDATE());
 
-/* -- DATE_FORMAT(date, '%m/%d/%y') -- */
+/* -- DATE_FORMAT(date, format) -- */
 SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
        DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
 
@@ -331,6 +331,31 @@ SELECT invoice_date,
        DATE_FORMAT(invoice_date, '%e-%b-%Y') AS 'DD-Mon-YYYY'
 FROM invoices
 ORDER BY invoice_date;
+
+/* -- TIME_FORMAT(time, format) -- */
+SELECT TIME_FORMAT(TIME(SYSDATE()), '%m');
+
+-- data / tiem format string
+-- - %m -> month numeric(01, 02, ...)
+-- - %c -> month numeric(1, 2, ...)
+-- - %M -> month name(January, ...)
+-- - %b -> abbreviated month name(Jan, ...)
+-- - %d -> day numeric(01, 02, ...)
+-- - %e -> day numeric(1, 2, ...)
+-- - %D -> day with suffix(1st, 2nd, ...)
+-- - %y -> year numeric two digit
+-- - %Y -> year numeric four digit
+-- - %W -> week name(Sunday, ...)
+-- - %a -> abbreviated week name(Sun, ...)
+-- - %H -> hour(01, ..., 23)
+-- - %k -> hour(1, ..., 23)
+-- - %h -> hour(01, ..., 12)
+-- - %l -> hour(1, ..., 12)
+-- - %i -> minute(01, ..., 59)
+-- - %r -> time 12-hour(hh:mm:ss AM or PM)
+-- - %T -> time 24-hour(hh:mm:ss)
+-- - %S -> second(01, ..., 59)
+-- - %p -> AM or PM
 
 /* -- EXTRACT(unit FROM date) -- */
 -- parsing
