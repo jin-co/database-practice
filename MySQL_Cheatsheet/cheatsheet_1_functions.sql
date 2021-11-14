@@ -322,19 +322,7 @@ SELECT DAYNAME(SYSDATE());
 /* -- MONTHNAME -- */
 SELECT MONTHNAME(SYSDATE());
 
-/* -- DATE_FORMAT(date, format) -- */
-SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
-       DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
-
-SELECT invoice_date,
-       DATE_FORMAT(invoice_date, '%m/%d/%y') AS 'MM/DD/YY',
-       DATE_FORMAT(invoice_date, '%e-%b-%Y') AS 'DD-Mon-YYYY'
-FROM invoices
-ORDER BY invoice_date;
-
-/* -- TIME_FORMAT(time, format) -- */
-SELECT TIME_FORMAT(TIME(SYSDATE()), '%m');
-
+/* -- DATE_FORMAT / TIME_FORMAT -- */
 -- data / tiem format string
 -- - %m -> month numeric(01, 02, ...)
 -- - %c -> month numeric(1, 2, ...)
@@ -356,6 +344,28 @@ SELECT TIME_FORMAT(TIME(SYSDATE()), '%m');
 -- - %T -> time 24-hour(hh:mm:ss)
 -- - %S -> second(01, ..., 59)
 -- - %p -> AM or PM
+
+-- DATE_FORMAT(date, format)
+SELECT DATE_FORMAT(CURRENT_DATE, '%m/%d/%y') AS 'MM/DD/YY',
+       DATE_FORMAT(CURRENT_DATE, '%e-%b-%Y') AS 'DD-Mon-YYYY';
+
+SELECT invoice_date,
+       DATE_FORMAT(invoice_date, '%m/%d/%y') AS 'MM/DD/YY',
+       DATE_FORMAT(invoice_date, '%e-%b-%Y') AS 'DD-Mon-YYYY'
+FROM invoices
+ORDER BY invoice_date;
+
+SELECT DATE_FORMAT('2020-12-11', '%m/%d/%y');
+SELECT DATE_FORMAT('2020-12-11', '%m/%d/%y');
+SELECT DATE_FORMAT('2020-12-11', '%W/%M/%D, %Y');
+SELECT DATE_FORMAT('2020-12-11', '%e-%b-%y');
+SELECT DATE_FORMAT('2020-12-11', '%r');
+SELECT DATE_FORMAT('2020-12-11 16:23', '%r');
+SELECT TIME_FORMAT('16:23', '%r');
+SELECT TIME_FORMAT('16:23', '%l:%i %p');
+
+-- TIME_FORMAT(time, format) --
+SELECT TIME_FORMAT(TIME(SYSDATE()), '%m');
 
 /* -- EXTRACT(unit FROM date) -- */
 -- parsing
