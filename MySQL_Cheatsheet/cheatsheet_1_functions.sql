@@ -383,4 +383,28 @@ SELECT EXTRACT(HOUR_SECOND FROM SYSDATE());  -- hours, minutes, and seconds
 SELECT EXTRACT(DAY_MINUTE FROM SYSDATE());  -- day, hours, and minutes
 SELECT EXTRACT(DAY_SECOND FROM SYSDATE());  -- day, hours, minutes, and seconds
 
+/* -- DATE_ADD(date, INTERVAL expression unit) -- */
+SELECT DATE_ADD('2020-12-31', INTERVAL 1 DAY);
+SELECT DATE_ADD('2020-12-31', INTERVAL 1 MONTH);
+SELECT DATE_ADD('2020-12-31 23:59:59', INTERVAL 1 SECOND);
+SELECT DATE_ADD('2020-12-31', INTERVAL -1 DAY);
+SELECT DATE_ADD('2020-12-31', INTERVAL 1 YEAR);
+SELECT DATE_ADD('2020-2-29', INTERVAL 1 YEAR); 
+SELECT DATE_ADD('2019-2-29', INTERVAL 1 YEAR);
 
+
+/* -- DATE_SUB(date, INTERVAL expression unit) -- */
+SELECT DATE_SUB('2020-12-31', INTERVAL 1 DAY);
+
+/* -- DATEDIFF(date1, date2) -- */
+SELECT DATEDIFF('2020-12-31', '2021-12-31');
+
+/* -- TO_DAYS(date) -- */
+-- - since year 0(not reliable for dates before 1582
+SELECT TO_DAYS('2021-12-31');
+SELECT TO_DAYS('2021-12-30') - TO_DAYS('2021-12-31');
+
+/* -- TIME_TO_SEC(time) -- */
+-- - seconds elapsed since midnight
+SELECT TIME_TO_SEC('12:31');
+SELECT TIME_TO_SEC('12:31') - TIME_TO_SEC('12:30');
