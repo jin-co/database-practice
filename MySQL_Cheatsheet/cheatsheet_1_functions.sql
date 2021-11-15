@@ -387,7 +387,7 @@ SELECT EXTRACT(DAY_SECOND FROM SYSDATE());  -- day, hours, minutes, and seconds
 SELECT DATE_ADD('2020-12-31', INTERVAL 1 DAY);
 SELECT DATE_ADD('2020-12-31', INTERVAL 1 MONTH);
 SELECT DATE_ADD('2020-12-31 23:59:59', INTERVAL 1 SECOND);
-SELECT DATE_ADD('2020-12-31', INTERVAL -1 DAY);
+SELECT DATE_ADD('2020-12-31', INTERVAL -1 DAY);  -- negative in ADD: sub
 SELECT DATE_ADD('2020-12-31', INTERVAL 1 YEAR);
 SELECT DATE_ADD('2020-2-29', INTERVAL 1 YEAR); 
 SELECT DATE_ADD('2019-2-29', INTERVAL 1 YEAR);
@@ -395,6 +395,7 @@ SELECT DATE_ADD('2019-2-29', INTERVAL 1 YEAR);
 
 /* -- DATE_SUB(date, INTERVAL expression unit) -- */
 SELECT DATE_SUB('2020-12-31', INTERVAL 1 DAY);
+SELECT DATE_SUB('2020-12-31', INTERVAL -1 DAY);  -- negative in SUB: add
 
 /* -- DATEDIFF(date1, date2) -- */
 SELECT DATEDIFF('2020-12-31', '2021-12-31');
@@ -408,3 +409,19 @@ SELECT TO_DAYS('2021-12-30') - TO_DAYS('2021-12-31');
 -- - seconds elapsed since midnight
 SELECT TIME_TO_SEC('12:31');
 SELECT TIME_TO_SEC('12:31') - TIME_TO_SEC('12:30');
+
+/* -- date / time searching technic -- */
+USE ex;
+SELECT * FROM date_sample;
+
+-- ignoring time values
+SELECT * FROM date_sample
+WHERE start_date >= '2018-02-28' AND start_date < '2018-03-01';
+
+SELECT * FROM date_sample
+WHERE MONTH(start_date) = 2 AND
+	  DAYOFMONTH(start_date) = 28 AND
+      YEAR(start_date) = 2018;
+      
+SELECT * FROM date_sample
+WHERE DATE_FORMAT(start_date, '%m-%d-%Y') = '02-28-2018';
