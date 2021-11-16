@@ -461,3 +461,13 @@ SELECT invoice_number, invoice_total, invoice_date, invoice_due_date,
 	END AS invoice_status
 FROM invoices
 WHERE invoice_total - payment_total - credit_total > 0;
+
+/*================ IF ================*/
+SELECT vendor_name,
+	IF(vendor_city = 'Fresno', 'y', 'n') AS is_city_fresno
+FROM vendors;
+
+/*================ IFNULL ================*/
+SELECT payment_date,
+	IFNULL(payment_date, 'no pay') AS new_date
+FROM invoices;
