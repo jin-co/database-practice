@@ -425,3 +425,39 @@ WHERE MONTH(start_date) = 2 AND
       
 SELECT * FROM date_sample
 WHERE DATE_FORMAT(start_date, '%m-%d-%Y') = '02-28-2018';
+
+SELECT * FROM date_sample
+WHERE DATE_FORMAT(start_date, '%T') = '10:00:00';
+
+SELECT * FROM date_sample
+WHERE EXTRACT(HOUR_SECOND FROM start_date) = 100000;
+
+SELECT * FROM date_sample WHERE HOUR(start_date) = 9;
+
+SELECT * FROM date_sample
+WHERE EXTRACT(HOUR_MINUTE FROM start_date) BETWEEN 900 AND 1200;
+
+/*================ CASE ================*/
+USE ap;
+-- simple case: tests the expression in the CASE against the expression in the WHEN
+SELECT invoice_number, terms_id,
+	CASE terms_id
+		WHEN 1 THEN 'due 10 days'
+		WHEN 2 THEN 'due 20 days'
+		WHEN 3 THEN 'due 30 days'
+		WHEN 4 THEN 'due 40 days'
+		WHEN 5 THEN 'due 50 days'
+	END AS terms    
+FROM invoices;
+
+-- searched case: tests the expression in each WHEN
+SELECT invoice_number, invoice_total, invoice_date, invoice_due_date,
+	CASE
+		WHEN DATEDIFF(NOW(), invoice_due_date) > 30
+			THEN 'over 30 days past due'
+		WHEN DATEDIFF(NOW(), invoice_due_date) > 0
+			THEN '1 to 30 days past due'
+		ELSE 'current'
+	END AS invoice_status
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0;
