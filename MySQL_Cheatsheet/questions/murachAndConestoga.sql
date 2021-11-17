@@ -882,7 +882,7 @@ SHOW TABLES;
 
 -- A_5
 /*
-1. Write a SELECT statement that returns these columns from the Products 
+1-1. Write a SELECT statement that returns these columns from the Products 
 • list_price -> FORMAT with 2 digits to the right of the decimal point 
 • discount_percent -> CAST column as an integer 
 • discount_amount -> calculated using the list_price and discount_percent -> ROUND the result so it has 2 decimal digits 
@@ -897,7 +897,7 @@ SELECT FORMAT(list_price, 2) AS list_price,
 FROM products;
 
 /*
-2. SELECT these columns from the Orders 
+1-2. SELECT these columns from the Orders 
 • order_date
 • order_date -> DATE_FORMAT four-digit year 
 • order_date -> DATE_FORMAT: Mon-DD-YYYY. 
@@ -912,7 +912,7 @@ SELECT order_date,
 FROM orders;
 
 /*
-1. Display the average evaluation score for consultant 'Janet Park'.
+2-1. Display the average evaluation score for consultant 'Janet Park'.
 use 'Janet Park' name in your solution (Use the CONCAT_WS). 
 Round the retrieved value to two decimal places.
 */
@@ -924,6 +924,24 @@ SELECT CONCAT_WS(' ', c_first, c_last) AS full_name,
 FROM consultant c
 WHERE CONCAT_WS(' ', c_first, c_last) = 'Janet Park';
 
+/*
+2-2. SELECT these columns from the Project Consultant 
+• project id: Pad spaces to align the output values with the column heading 
+• consultant id: Pad spaces to align the output values with the column heading 
+• months: Number of months between ROLL_OFF date and ROLL_ON date. 
+Use 30.4 days in a month to convert number of days to number of months. 
+Truncate the total months. 		
+Align to the right (Hint: use LPAD 
+function).
+*/
+USE swexpert;
+
+SELECT LPAD(p_id, LENGTH('project_id') + 3, ' ') AS project_id,
+       LPAD(c_id, LENGTH('consultant_id') + 3, ' ') AS consultant_id,       
+       LPAD(TRUNCATE(DATEDIFF(roll_off_date, roll_on_date) / 30.4, 0), LENGTH('months'), '*') AS months
+FROM project_consultant;
+
 SHOW TABLES;
-SELECT * FROM evaluation;
+SELECT * FROM evaluat
+ion;
 SELECT * FROM consultant;

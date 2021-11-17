@@ -38,6 +38,9 @@ WHERE c_id = 100);
 -- > CONCAT with specified separator, if the delimeter is null the result is null(not the value)
 SELECT CONCAT_WS(', ', 'last', 'first');
 
+/* -- LENGTH(string) --  */
+SELECT LENGTH('project_id');
+
 /* -- SUBSTRING(string, start, length) --  */
 SELECT SUBSTRING(name, 1, 3) FROM films;
 
