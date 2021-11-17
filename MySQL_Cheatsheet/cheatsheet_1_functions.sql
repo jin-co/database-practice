@@ -557,6 +557,15 @@ SELECT terms_description,
 FROM terms;
 
 /*================ analytic ================*/
+-- non-aggregate window(spialized window)
+/* -- FIRST_VALUE -- */
+/* -- LAST_VALUE -- */
+/* -- nth VALUE -- */
+/* -- LEAD -- */
+/* -- LAG -- */
+/* -- PERCENT_RANK -- */
+/* -- CUME_DIST -- */
+
 SELECT sales_year, CONCAT(rep_first_name, ' ', rep_last_name) AS rep_name, sales_total,
     FIRST_VALUE(CONCAT(rep_first_name, ' ', rep_last_name))
         OVER (PARTITION BY sales_year ORDER BY sales_total DESC)
