@@ -480,6 +480,7 @@ SELECT payment_date,
 FROM invoices;
 
 /*================ REGULAR EXPRESSION ================*/
+-- case insensitive by default
 /*
 ^ : begining
 $ : end
@@ -489,23 +490,35 @@ $ : end
 | : or
 * : zero of more
 (charlist)* : zero or more occurrences of the sequence of characters in parentheses
-
-
 */
-
-
 /* -- REGEXP_LIKE(expr, pattern) -- */
-
+SELECT REGEXP_LIKE('abc123', '123');
+SELECT REGEXP_LIKE('abc123', '^123');
 
 /* -- REGEXP_INSTR(expr, pattern, [start]) -- */
 -- returns the index of the first character of the substring that matches pattern
 -- returns 0 in not found
+SELECT REGEXP_INSTR('abc123', '123');
+
+SELECT DISTINCT vendor_city, REGEXP_INSTR(vendor_city, ' ') AS space_index
+FROM vendors
+WHERE REGEXP_INSTR(vendor_city, ' ') > 0;
 
 /* -- REGEXP_SUBSTR(expr, pattern, [start]) -- */
 -- returns the first substring that matches pattern
 -- returns NULL in not found
+SELECT REGEXP_SUBSTR('abc123', '[A-Z][1-9]*$');
+
+SELECT vendor_city, REGEXP_SUBSTR(vendor_city, '^SAN|LOS') AS city_match
+FROM vendors
+WHERE REGEXP_SUBSTR(vendor_city, '^SAN|LOS') IS NOT NULL;
 
 /* -- REGEXP_REPLACE(expr, pattern, replace, [start]) -- */
 -- replace everything that matches the pattern
+SELECT REGEXP_REPLACE('abc123', '1|2','3');
 
+SELECT vendor_name, vendor_address1,
+	   REGEXP_REPLACE(vendor_address1, 'STREET', 'St') AS new_address1
+FROM vendors
+WHERE REGEXP_LIKE(vendor_address1, 'STREET');
 
