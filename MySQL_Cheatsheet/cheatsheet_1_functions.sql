@@ -492,6 +492,7 @@ $ : end
 (charlist)* : zero or more occurrences of the sequence of characters in parentheses
 */
 /* -- REGEXP_LIKE(expr, pattern) -- */
+-- returns 0 in not found
 SELECT REGEXP_LIKE('abc123', '123');
 SELECT REGEXP_LIKE('abc123', '^123');
 
@@ -521,4 +522,26 @@ SELECT vendor_name, vendor_address1,
 	   REGEXP_REPLACE(vendor_address1, 'STREET', 'St') AS new_address1
 FROM vendors
 WHERE REGEXP_LIKE(vendor_address1, 'STREET');
+
+/*================ ranking ================*/
+-- non-aggregate window(spialized window)
+
+/* -- ROW_NUMBER() OVER(...) -- */
+-- returns the number of the current row within its partition, starting at 1
+SELECT ROW_NUMBER() OVER(ORDER BY vendor_name) AS 'row_number', vendor_name
+FROM vendors;
+
+SELECT ROW_NUMBER() 
+	OVER(PARTITION BY vendor_state ORDER BY vendor_name) AS 'row_number', vendor_name
+FROM vendors;
+
+/* -- RANK() OVER(...)-- */
+SELECT RANK() OVER(ORDER BY invoice_total) AS 'rank', invoice_total
+FROM invoices;
+
+/* -- DENSE_RANK() OVER(...)-- */
+SELECT DENSE_RANK() OVER(ORDER BY invoice_total) AS 'dense rank', invoice_total
+FROM invoices;
+
+/* -- NTILE() OVER(...)-- */
 
