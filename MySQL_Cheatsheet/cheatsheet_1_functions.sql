@@ -468,6 +468,14 @@ SELECT vendor_name,
 FROM vendors;
 
 /*================ IFNULL ================*/
+-- if null, use value provided instead of showing null
 SELECT payment_date,
 	IFNULL(payment_date, 'no pay') AS new_date
 FROM invoices;
+
+/*================ COALESCE ================*/
+SELECT payment_date,
+	   COALESCE(payment_date, 'no pay') AS new_date
+FROM invoices;
+
+
