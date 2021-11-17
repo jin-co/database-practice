@@ -480,9 +480,32 @@ SELECT payment_date,
 FROM invoices;
 
 /*================ REGULAR EXPRESSION ================*/
-/* -- REGEXP_LIKE -- */
-/* -- REGEXP_INSTR -- */
-/* -- REGEXP_SUBSTR -- */
-/* -- REGEXP_REPLACE -- */
+/*
+^ : begining
+$ : end
+. : single character
+[] : any single character listed in the bracket
+[char1 - char2] :any single character within the given range
+| : or
+* : zero of more
+(charlist)* : zero or more occurrences of the sequence of characters in parentheses
+
+
+*/
+
+
+/* -- REGEXP_LIKE(expr, pattern) -- */
+
+
+/* -- REGEXP_INSTR(expr, pattern, [start]) -- */
+-- returns the index of the first character of the substring that matches pattern
+-- returns 0 in not found
+
+/* -- REGEXP_SUBSTR(expr, pattern, [start]) -- */
+-- returns the first substring that matches pattern
+-- returns NULL in not found
+
+/* -- REGEXP_REPLACE(expr, pattern, replace, [start]) -- */
+-- replace everything that matches the pattern
 
 
