@@ -883,7 +883,6 @@ SHOW TABLES;
 -- A_5
 /*
 1. Write a SELECT statement that returns these columns from the Products 
-table [5 marks]: 
 • list_price -> FORMAT with 2 digits to the right of the decimal point 
 • discount_percent -> CAST column as an integer 
 • discount_amount -> calculated using the list_price and discount_percent -> ROUND the result so it has 2 decimal digits 
@@ -897,4 +896,26 @@ SELECT FORMAT(list_price, 2) AS list_price,
        DATE_FORMAT(date_added, '%m-%d') AS month_day_added  
 FROM products;
 
-SELECT * FROM products;
+/*
+2. SELECT these columns from the Orders 
+• order_date
+• order_date -> DATE_FORMAT four-digit year 
+• order_date -> DATE_FORMAT: Mon-DD-YYYY. 
+• order_date -> DATE_FORMAT: only the hours, minutes and seconds on a 12-hour clock with an am/pm indicator. 
+• order_date -> DATE_FORMAT: MM/DD/YY HH:M
+*/
+SELECT order_date,
+	   DATE_FORMAT(order_date, '%Y') AS four_digit_year,
+       DATE_FORMAT(order_date, '%b-%d-%Y') AS 'Mon-DD-YYYY',
+       DATE_FORMAT(order_date, '%r') AS 'h:m:s am/pm',
+       DATE_FORMAT(order_date, '%m/%d/%y %H:%i') AS 'mm/dd/yy hh:mi'
+FROM orders;
+
+SELECT order_date,
+	   order_date AS four_digit_year,
+       order_date AS mon_dd_yyyy,
+       order_date AS 'h:m:s am/pm',
+       order_date AS 'mm/dd/yy hh:mi'
+FROM orders;
+
+SELECT * FROM orders;
