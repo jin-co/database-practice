@@ -911,11 +911,19 @@ SELECT order_date,
        DATE_FORMAT(order_date, '%m/%d/%y %H:%i') AS 'mm/dd/yy hh:mi'
 FROM orders;
 
-SELECT order_date,
-	   order_date AS four_digit_year,
-       order_date AS mon_dd_yyyy,
-       order_date AS 'h:m:s am/pm',
-       order_date AS 'mm/dd/yy hh:mi'
-FROM orders;
+/*
+1. Display the average evaluation score for consultant 'Janet Park'.
+use 'Janet Park' name in your solution (Use the CONCAT_WS). 
+Round the retrieved value to two decimal places.
+*/
+USE swexpert;
 
-SELECT * FROM orders;
+SELECT CONCAT_WS(' ', c_first, c_last) AS full_name,
+       (SELECT ROUND(AVG(score), 2) FROM evaluation
+        WHERE evaluatee_id = c.c_id) AS e_score_avg
+FROM consultant c
+WHERE CONCAT_WS(' ', c_first, c_last) = 'Janet Park';
+
+SHOW TABLES;
+SELECT * FROM evaluation;
+SELECT * FROM consultant;
