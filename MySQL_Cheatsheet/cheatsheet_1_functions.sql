@@ -536,12 +536,53 @@ SELECT ROW_NUMBER()
 FROM vendors;
 
 /* -- RANK() OVER(...)-- */
+-- if there is a tie, gives the same rank
+-- * then to start the next rank, adds 1 to the total number
 SELECT RANK() OVER(ORDER BY invoice_total) AS 'rank', invoice_total
 FROM invoices;
 
 /* -- DENSE_RANK() OVER(...)-- */
+-- if there is a tie, gives the same rank
+-- * then to start the next rank, adds 1 to the rank
 SELECT DENSE_RANK() OVER(ORDER BY invoice_total) AS 'dense rank', invoice_total
 FROM invoices;
 
 /* -- NTILE() OVER(...)-- */
+-- divides the row evenly and returns the group number for each row
+-- if it is not evenly dividable, the last group have less row
+SELECT terms_description,
+	NTILE(2) OVER(ORDER BY terms_id) AS tile2,
+	NTILE(3) OVER(ORDER BY terms_id) AS tile3,
+	NTILE(4) OVER(ORDER BY terms_id) AS tile4
+FROM terms;
+
+/*================ analytic ================*/
+SELECT sales_year, CONCAT(rep_first_name, ' ', rep_last_name) AS rep_name, sales_total,
+    FIRST_VALUE(CONCAT(rep_first_name, ' ', rep_last_name))
+        OVER (PARTITION BY sales_year ORDER BY sales_total DESC)
+        AS highest_sales,
+	NTH_VALUE(CONCAT(rep_first_name, ' ', rep_last_name), 2)
+        OVER (PARTITION BY sales_year ORDER BY sales_total DESC
+        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+        AS second_highest_sales,
+	LAST_VALUE(CONCAT(rep_first_name, ' ', rep_last_name))
+        OVER (PARTITION BY sales_year ORDER BY sales_total DESC
+        RANGE BETWEEN UNBOUNDED PRECEDING AND UNBOUNDED FOLLOWING)
+        AS lowest_sales
+FROM sales_totals JOIN sales_reps ON sales_totals.rep_id = sales_reps.rep_id;
+
+SELECT rep_id, sales_year, sales_total AS current_sales,
+    LAG(sales_total, 1, 0) OVER (PARTITION BY rep_id ORDER BY sales_year)
+        AS last_sales,
+    Sales_total - LAG(sales_total, 1, 0)
+        OVER (PARTITION BY rep_id ORDER BY sales_year) AS 'change'
+FROM sales_totals;
+
+SELECT sales_year, rep_id, sales_total,
+    PERCENT_RANK() OVER (PARTITION BY sales_year ORDER BY sales_total)
+        AS pct_rank,
+    CUME_DIST() OVER (PARTITION BY sales_year ORDER BY sales_total)
+        AS 'cume_dist'
+FROM sales_totals;
+
 
