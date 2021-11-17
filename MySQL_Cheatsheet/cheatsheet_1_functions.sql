@@ -474,8 +474,15 @@ SELECT payment_date,
 FROM invoices;
 
 /*================ COALESCE ================*/
+-- similar to IFNULL
 SELECT payment_date,
 	   COALESCE(payment_date, 'no pay') AS new_date
 FROM invoices;
+
+/*================ REGULAR EXPRESSION ================*/
+/* -- REGEXP_LIKE -- */
+/* -- REGEXP_INSTR -- */
+/* -- REGEXP_SUBSTR -- */
+/* -- REGEXP_REPLACE -- */
 
 
