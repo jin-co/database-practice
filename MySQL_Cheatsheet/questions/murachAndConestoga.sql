@@ -879,3 +879,22 @@ SHOW TABLES;
 SELECT *, (item_price - discount_amount) * quantity AS total_amount FROM order_items;
 USE my_guitar_shop;
 SHOW TABLES;
+
+-- A_5
+/*
+1. Write a SELECT statement that returns these columns from the Products 
+table [5 marks]: 
+• list_price -> FORMAT with 2 digits to the right of the decimal point 
+• discount_percent -> CAST column as an integer 
+• discount_amount -> calculated using the list_price and discount_percent -> ROUND the result so it has 2 decimal digits 
+• month_day_added -> uses the DATE_FORMAT (as part of your solution) to return the date_added column in 
+this format: MM-DD.
+*/
+USE my_guitar_shop;
+SELECT FORMAT(list_price, 2) AS list_price,
+	   CAST(discount_percent AS SIGNED) AS discount_percent,
+       ROUND((list_price * (1 - (discount_percent / 100))), 2) AS discount_amount,
+       DATE_FORMAT(date_added, '%m-%d') AS month_day_added  
+FROM products;
+
+SELECT * FROM products;
