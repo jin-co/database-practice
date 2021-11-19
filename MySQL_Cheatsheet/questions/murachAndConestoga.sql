@@ -981,7 +981,7 @@ SELECT vendor_name,
 	   vendor_phone,
 	   COALESCE(RIGHT(vendor_phone, 4), 'nv'),
 	   COALESCE(RIGHT(vendor_phone, 4), 'nv')
-       
+       -- >
 FROM vendors;
 
 SELECT vendor_name,
