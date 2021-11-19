@@ -948,9 +948,28 @@ ion;
 SELECT * FROM consultant;
 
 -- c9-1
-SELECT ROUND(invoice_total, 1),
+SELECT invoice_total,
+	   ROUND(invoice_total, 1),
 	   ROUND(invoice_total),
        TRUNCATE(invoice_total, 0)
-FROM invoices;       
+FROM invoices;    
 
+SELECT invoice_total, ROUND(invoice_total, 1) AS one_digit, 
+    ROUND(invoice_total, 0) AS zero_digits_round,
+    TRUNCATE(invoice_total, 0) AS zero_digits_truncate
+FROM invoices;
+
+-- c9-2
+USE ex;
+SELECT start_date,
+       DATE_FORMAT(start_date, '%b/%d/%y'),
+       DATE_FORMAT(start_date, '%c/%e/%y'),
+       DATE_FORMAT(start_date, '%h:%i %p')
+       
+FROM date_sample;
+
+-- c9-3
+-- c9-4
+-- c9-5
+-- c9-6
 SELECT * FROM invoices;
