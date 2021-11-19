@@ -946,3 +946,11 @@ SHOW TABLES;
 SELECT * FROM evaluat
 ion;
 SELECT * FROM consultant;
+
+-- c9-1
+SELECT ROUND(invoice_total, 1),
+	   ROUND(invoice_total),
+       TRUNCATE(invoice_total, 0)
+FROM invoices;       
+
+SELECT * FROM invoices;
