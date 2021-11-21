@@ -53,6 +53,7 @@ SELECT SUBSTRING_INDEX('http://www.murach.com', '.', -2);
 USE ex;
 SELECT emp_name,
 	   SUBSTRING_INDEX(emp_name, ' ', 1) AS first_name,
+	   SUBSTRING_INDEX(emp_name, ' ', 2) AS first_name,
 	   SUBSTRING_INDEX(emp_name, ' ', -1) AS last_name
 FROM string_sample;
 
@@ -89,6 +90,7 @@ SELECT RIGHT('(222) 000-1212', 13);
 
 /* -- REPLACE(search, find, replace) --  */
 SELECT REPLACE(RIGHT('(222) 000-1212', 13),') ', '-');
+SELECT REPLACE(REPLACE('(222) 000-1212', ' ', '.'),'-', '.') AS multiple_replace;
 
 /* -- INSERT(string, search, length, insert) --  */
 SELECT INSERT('mysql', 1, 0, "jin's ");

@@ -980,8 +980,8 @@ SELECT vendor_name,
 	   UPPER(vendor_name),
 	   vendor_phone,
 	   COALESCE(RIGHT(vendor_phone, 4), 'nv'),
-	   COALESCE(RIGHT(vendor_phone, 4), 'nv')
-       -- >
+	   COALESCE(RIGHT(vendor_phone, 4), 'nv'),       
+       RIGHT(REPLACE(REPLACE(vendor_phone, ') ', '.'), '-', '.'), 12)
 FROM vendors;
 
 SELECT vendor_name,
