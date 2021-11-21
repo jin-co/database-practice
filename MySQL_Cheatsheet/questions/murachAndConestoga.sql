@@ -982,7 +982,7 @@ SELECT vendor_name,
 	   COALESCE(RIGHT(vendor_phone, 4), 'nv'),
 	   COALESCE(RIGHT(vendor_phone, 4), 'nv'),       
        RIGHT(REPLACE(REPLACE(vendor_phone, ') ', '.'), '-', '.'), 12),
-       SUBSTRING(vendor_name, LOCATE(' ', vendor_name))
+       SUBSTRING_INDEX(SUBSTRING(vendor_name, LOCATE(' ', vendor_name)), ' ', 2)
 FROM vendors;
 
 SELECT vendor_name,
