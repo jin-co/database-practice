@@ -1021,6 +1021,15 @@ SELECT invoice_number,
        YEAR(invoice_date) AS "year"
 FROM invoices
 WHERE invoice_date > '2018-04-30' AND invoice_date < '2018-06-01';
+
 -- c9-5
+USE ex;
+SELECT *,
+	   emp_name,
+       SUBSTRING_INDEX(emp_name, ' ', 1) AS first_name,
+       SUBSTRING_INDEX(emp_name, ' ', -1) AS last_name,
+       REGEXP_SUBSTR(emp_name, ' ')
+FROM string_sample;
+
 -- c9-6
 SELECT * FROM invoices;

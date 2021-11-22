@@ -519,6 +519,11 @@ SELECT vendor_city, REGEXP_SUBSTR(vendor_city, '^SAN|LOS') AS city_match
 FROM vendors
 WHERE REGEXP_SUBSTR(vendor_city, '^SAN|LOS') IS NOT NULL;
 
+SELECT emp_name, REGEXP_SUBSTR(emp_name, '[A-Z]* ') AS first_name,
+       REGEXP_SUBSTR(emp_name, '[A-Z]* [A-Z]*|[A-Z]*[-|\'][A-Z]*|[A-Z]*',
+           REGEXP_INSTR(emp_name, ' ') + 1) AS last_name      
+FROM string_sample;
+
 /* -- REGEXP_REPLACE(expr, pattern, replace, [start]) -- */
 -- replace everything that matches the pattern
 SELECT REGEXP_REPLACE('abc123', '1|2','3');
