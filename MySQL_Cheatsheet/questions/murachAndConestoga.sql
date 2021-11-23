@@ -1024,11 +1024,17 @@ WHERE invoice_date > '2018-04-30' AND invoice_date < '2018-06-01';
 
 -- c9-5
 USE ex;
-SELECT *,
-	   emp_name,
+SELECT emp_name,
        SUBSTRING_INDEX(emp_name, ' ', 1) AS first_name,
        SUBSTRING_INDEX(emp_name, ' ', -1) AS last_name,
-       REGEXP_SUBSTR(emp_name, ' ')
+       REGEXP_SUBSTR(emp_name, '[A-Z]* '),
+       REGEXP_SUBSTR(emp_name, '[A-Z]* [A-Z]*|[A-Z]*[-|\'][A-Z]*|[A-Z]*', 
+			REGEXP_INSTR(emp_name, ' ') + 1)
+FROM string_sample;
+
+SELECT emp_name, REGEXP_SUBSTR(emp_name, '[A-Z]* ') AS first_name,
+       REGEXP_SUBSTR(emp_name, '[A-Z]* [A-Z]*|[A-Z]*[-|\'][A-Z]*|[A-Z]*',
+           REGEXP_INSTR(emp_name, ' ') + 1) AS last_name      
 FROM string_sample;
 
 -- c9-6
