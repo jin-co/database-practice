@@ -1038,4 +1038,9 @@ SELECT emp_name, REGEXP_SUBSTR(emp_name, '[A-Z]* ') AS first_name,
 FROM string_sample;
 
 -- c9-6
-SELECT * FROM invoices;
+USE ap;
+
+SELECT invoice_number, invoice_total - payment_total - credit_total AS balance_due,
+	   RANK() OVER(ORDER BY invoice_total - payment_total - credit_total DESC) AS balance_rank
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0;
