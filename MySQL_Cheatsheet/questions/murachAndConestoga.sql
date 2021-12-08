@@ -1045,3 +1045,19 @@ SELECT invoice_number, invoice_total - payment_total - credit_total AS balance_d
 FROM invoices
 WHERE invoice_total - payment_total - credit_total > 0;
 
+
+-- final practice
+-- fp 1
+USE my_guitar_shop;
+
+SELECT category_name,
+	   COUNT(product_id) AS product_count,
+       MAX(list_price) AS price_max
+FROM categories
+JOIN products USING(category_id)
+GROUP BY category_id;
+
+
+SELECT * FROM products;
+SELECT * FROM categories;
+
