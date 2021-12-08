@@ -243,17 +243,60 @@ ALTER TABLE products AUTO_INCREMENT = 1;
 /* ============= VIEWS ============= */
 -- VIEW is a SELECT statement that's stored in the db as object
 -- it is virtual that reflects the most current data in the base tables
--- can experiment(INSERT, UPDATE, DELETE, ...) without harming the orginal data
+-- can experiment(INSERT, UPDATE, DELETE, ...) original data is updated as well
+-- can create view from another view -> called 'nested view'
 
 /* ------------- CREATE VIEW ------------- */
+-- syntax: CREATE(OR REPLACE) VIEW view_name [(comlumn1, ...)] AS SELECT [WITH CHECK OPTION]
 USE ap;
+SHOW TABLES;
 CREATE VIEW vendors_min AS
 	SELECT vendor_name, vendor_state, vendor_phone
     FROM vendors;
     
 SELECT * FROM vendors_min;    
-UPDATE vendors_min SET vendor_phone = '(800) 555-3941'
+UPDATE vendors_min SET vendor_phone = '(800) 555-3942'
 WHERE vendor_name = 'Register of Copyrights';
+
+CREATE VIEW vendors_phone_list AS
+	SELECT vendor_name, vendor_contact_last_name,
+		   vendor_contact_first_name, vendor_phone
+	FROM vendors
+    WHERE vendor_id IN (SELECT DISTINCT vendor_id FROM invoices);
+
+CREATE OR REPLACE VIEW vendor_invoices AS
+	SELECT vendor_name, invoice_number, invoice_date, invoice_total
+    FROM vendors
+		JOIN invoices ON vendors.vendor_id = invoices.vendor_id;
+        
+CREATE OR REPLACE VIEW top5_invoice_totals AS
+	SELECT vendor_id, invoice_total
+    FROM invoices
+	ORDER BY invoice_total DESC
+    LIMIT 5;
+
+-- with all column name specified -> have to name all the columns
+CREATE OR REPLACE VIEW invoice_outstanding
+	(invoice_number, invoice_date, invoice_total, balance_due) 
+AS
+	SELECT invoice_number, invoice_date, invoice_total,
+		   invoice_total - payment_total - credit_total
+	FROM invoices
+    WHERE invoice_total - payment_total - credit_total > 0;
+
+SELECT * FROM invoice_outstanding;    
+
+-- using alias for a column name
+CREATE OR REPLACE VIEW invoice_outstanding2	
+AS
+	SELECT invoice_number, invoice_date, invoice_total,
+		   invoice_total - payment_total - credit_total AS balance_due
+	FROM invoices
+    WHERE invoice_total - payment_total - credit_total > 0;
+
+SELECT * FROM invoice_outstanding2;  
 
 /* ------------- DROP VIEW ------------- */
 DROP VIEW vendors_min;
+
+SELECT * FROM vendor_invoices;
