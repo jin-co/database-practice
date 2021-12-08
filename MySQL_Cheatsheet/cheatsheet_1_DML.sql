@@ -240,4 +240,20 @@ WHERE invoice_total - payment_total - credit_total = 0;
 
 ALTER TABLE products AUTO_INCREMENT = 1;
 
+/* ============= VIEWS ============= */
+-- VIEW is a SELECT statement that's stored in the db as object
+-- it is virtual that reflects the most current data in the base tables
+-- can experiment(INSERT, UPDATE, DELETE, ...) without harming the orginal data
 
+/* ------------- CREATE VIEW ------------- */
+USE ap;
+CREATE VIEW vendors_min AS
+	SELECT vendor_name, vendor_state, vendor_phone
+    FROM vendors;
+    
+SELECT * FROM vendors_min;    
+UPDATE vendors_min SET vendor_phone = '(800) 555-3941'
+WHERE vendor_name = 'Register of Copyrights';
+
+/* ------------- DROP VIEW ------------- */
+DROP VIEW vendors_min;

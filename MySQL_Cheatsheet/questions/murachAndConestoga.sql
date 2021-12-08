@@ -1074,13 +1074,34 @@ Park' name in your solution (Hint: Use the CONCAT_WS function).
 Round the value to two decimal places.  
 */
 USE swexpert;
-show TABLES;
+
 SELECT ROUND(AVG(score), 2) AS score_avg
 FROM evaluation
 WHERE evaluatee_id = (
-SELECT c_id
-FROM consultant
-WHERE CONCAT_WS(' ', c_first, c_last) = 'Janet Park');
+	SELECT c_id
+	FROM consultant
+	WHERE CONCAT_WS(' ', c_first, c_last) = 'Janet Park');
 
+/*
+-- fp 3
+Create a view 'order_item_products' that returns columns 
+from the Orders, Order_Items, and Products tables. 
+return these columns 
+from the Orders table: 
+order_id, 
+order_date, 
+tax_amount, 
+ship_date 
+
+from the Order_Items table: 
+item_price, 
+discount_amount, 
+final_price (the discount amount subtracted from the item price), 
+quantity, 
+item_total (the calculated total for the item). 
+
+from the Products table:
+product_name
+*/
 SELECT * FROM evaluation;
 
