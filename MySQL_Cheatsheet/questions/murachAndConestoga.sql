@@ -1047,7 +1047,16 @@ WHERE invoice_total - payment_total - credit_total > 0;
 
 
 -- final practice
+/*
 -- fp 1
+SELECT that returns one row for each category that has 
+products with these columns: 
+• The category_name column from the Categories table 
+• The count of the products in the Products table 
+• The list price of the most expensive product in the Products table 
+Sort the category with the most products appears first. 
+*/
+
 USE my_guitar_shop;
 
 SELECT category_name,
@@ -1055,9 +1064,23 @@ SELECT category_name,
        MAX(list_price) AS price_max
 FROM categories
 JOIN products USING(category_id)
-GROUP BY category_id;
+GROUP BY category_id
+ORDER BY 2 DESC;
 
+/*
+-- fp 2
+Display the average evaluation score for consultant 'Janet Park'. You must use 'Janet 
+Park' name in your solution (Hint: Use the CONCAT_WS function). 
+Round the value to two decimal places.  
+*/
+USE swexpert;
+show TABLES;
+SELECT ROUND(AVG(score), 2) AS score_avg
+FROM evaluation
+WHERE evaluatee_id = (
+SELECT c_id
+FROM consultant
+WHERE CONCAT_WS(' ', c_first, c_last) = 'Janet Park');
 
-SELECT * FROM products;
-SELECT * FROM categories;
+SELECT * FROM evaluation;
 
