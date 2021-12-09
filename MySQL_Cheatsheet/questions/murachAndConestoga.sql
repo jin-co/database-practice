@@ -1163,6 +1163,10 @@ CREATE VIEW open_items AS
     WHERE (invoice_total - payment_total - credit_total) > 0
     ORDER BY vendor_name;
 
+-- c12-2
+SELECT DISTINCT * 
+FROM open_items
+WHERE balance_due >= 1000;
 
 
 SELECT * FROM open_items;
