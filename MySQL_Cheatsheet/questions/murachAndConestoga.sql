@@ -1164,9 +1164,16 @@ CREATE VIEW open_items AS
     ORDER BY vendor_name;
 
 -- c12-2
-SELECT DISTINCT * 
+SELECT * 
 FROM open_items
 WHERE balance_due >= 1000;
 
+-- c12-3
+CREATE OR REPLACE VIEW open_items_summary AS
+	SELECT *
+    FROM vendors JOIN invoices USING(vendor_id);           
 
-SELECT * FROM open_items;
+SELECT * FROM vendors;
+SELECT * FROM open_items_summary;
+SELECT * FROM invoices;
+SHOW TABLES;
