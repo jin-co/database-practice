@@ -296,6 +296,21 @@ AS
 
 SELECT * FROM invoice_outstanding2;  
 
+-- updatable view
+/*
+- requirements -
+1. select list can't include a DISTINCT
+2. select list can't include aggregate
+3. SELECT can't include GROUP BY or HAVING
+4. view cant' include UNION
+*/
+CREATE OR REPLACE VIEW balance_due_view AS
+	SELECT vendor_name, invoice_number,
+		   invoice_total, payment_total, credit_total,
+		   invoice_total - payment_total - credit_total AS balance_due
+	FROM vendors JOIN invoices ON vendors.vendor_id = invoices.vendor_id
+    WHERE invoice_total - payment_total - credit_total > 0;
+
 /* ------------- DROP VIEW ------------- */
 DROP VIEW vendors_min;
 
