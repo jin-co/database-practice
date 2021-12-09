@@ -1151,8 +1151,18 @@ INSERT INTO evaluation_audit VALUES(DEFAULT, 100, 90, NULL);
 SELECT * FROM evaluation_audit;
 
 DROP TABLE evaluation_audit;
+-- c12-1
+USE ap;
 
-USE my_guitar_shop;
-SELECT * FROM orders;
-SELECT * FROM products;
-SELECT * FROM order_items;
+CREATE VIEW open_items AS
+	SELECT vendor_name,
+		   invoice_number,
+           invoice_total,
+           (invoice_total - payment_total - credit_total) AS balance_due
+	FROM vendors JOIN invoices USING(vendor_id)
+    WHERE (invoice_total - payment_total - credit_total) > 0
+    ORDER BY vendor_name;
+
+
+
+SELECT * FROM open_items;
