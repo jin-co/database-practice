@@ -1103,5 +1103,56 @@ item_total (the calculated total for the item).
 from the Products table:
 product_name
 */
-SELECT * FROM evaluation;
+CREATE OR REPLACE VIEW order_item_products AS
+	SELECT order_id,
+		   order_date,
+           tax_amount,
+           ship_date,
+           item_price,
+           discount_amount,
+           item_price - discount_amount AS final_price,
+           quantity,
+           (item_price - discount_amount) * quantity AS item_total,           
+           product_name
+	FROM orders 
+		JOIN order_items USING (order_id)
+        JOIN products USING (product_id);
 
+SELECT * FROM order_item_products;
+
+/*
+-- fp 4
+1. Create a new database 'eval_db'
+[1] 2. Use the eval_db database. 
+[5] 3. Do the following for the evaluation_audit table: 
+a. Create a new evaluation_audit table with these columns: 
+audit_id (primary key, auto increment): integer 
+audit_e_id : integer 
+audit_score: integer (allow nulls) 
+audit_user: text (length of 20; allow nulls) 
+b. Insert a new row for consultant (e_id) 100 with a score of 90. 
+c. Display all the contents of evaluation_audit table. 
+d. Remove the evaluation_audit table.
+*/
+
+CREATE SCHEMA eval_db;
+USE eval_db;
+
+CREATE TABLE evaluation_audit
+(
+	audit_id INT PRIMARY KEY AUTO_INCREMENT,
+	audit_e_id INT NOT NULL,
+	audit_score INT,
+	audit_user VARCHAR(20)
+);
+
+INSERT INTO evaluation_audit VALUES(DEFAULT, 100, 90, NULL);
+
+SELECT * FROM evaluation_audit;
+
+DROP TABLE evaluation_audit;
+
+USE my_guitar_shop;
+SELECT * FROM orders;
+SELECT * FROM products;
+SELECT * FROM order_items;

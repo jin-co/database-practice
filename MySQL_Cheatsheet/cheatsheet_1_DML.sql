@@ -264,6 +264,8 @@ CREATE VIEW vendors_phone_list AS
 	FROM vendors
     WHERE vendor_id IN (SELECT DISTINCT vendor_id FROM invoices);
 
+/* ------------- CREATE OR REPLACE VIEW ------------- */
+-- also used to alter the view
 CREATE OR REPLACE VIEW vendor_invoices AS
 	SELECT vendor_name, invoice_number, invoice_date, invoice_total
     FROM vendors
@@ -305,11 +307,41 @@ SELECT * FROM invoice_outstanding2;
 4. view cant' include UNION
 */
 CREATE OR REPLACE VIEW balance_due_view AS
-	SELECT vendor_name, invoice_number,
-		   invoice_total, payment_total, credit_total,
-		   invoice_total - payment_total - credit_total AS balance_due
+	SELECT vendor_name, 
+		   invoice_number,
+		   invoice_total, 
+           payment_total, 
+           credit_total,
+		   invoice_total - payment_total - credit_total AS balance_due  -- not updatable column
 	FROM vendors JOIN invoices ON vendors.vendor_id = invoices.vendor_id
-    WHERE invoice_total - payment_total - credit_total > 0;
+    WHERE invoice_total - payment_total - credit_total > 0; 
+
+/* ------------- WITH CHECK OPTION ------------- */
+-- a condition to prevent an update if it causes the row to be excluded from the view
+CREATE OR REPLACE VIEW vendor_payment AS
+  SELECT vendor_name, 
+	     invoice_number, 
+         invoice_date, 
+         payment_date,
+         invoice_total, 
+         credit_total, 
+         payment_total
+  FROM vendors JOIN invoices ON vendors.vendor_id = invoices.vendor_id
+  WHERE invoice_total - payment_total - credit_total >= 0  -- if less than 0 the row will be excluded
+WITH CHECK OPTION;
+
+SELECT * FROM vendor_payment
+WHERE invoice_number = 'P-0608';
+
+UPDATE vendor_payment
+SET payment_total = 400.00,  -- this update works as the result will be creater than 0
+    payment_date = '2018-08-01'
+WHERE invoice_number = 'P-0608';
+
+UPDATE vendor_payment
+SET payment_total = 4000.00,  -- this throws an error as the result will be less than 0 thus will be excluded from the row
+    payment_date = '2018-08-01'
+WHERE invoice_number = 'P-0608';
 
 /* ------------- DROP VIEW ------------- */
 DROP VIEW vendors_min;

@@ -102,7 +102,6 @@ CREATE TABLE addresses (
 );
 
 CREATE TABLE people (
-
 	id INT,
     first_name VARCHAR(20),
     last_name VARCHAR(20),
