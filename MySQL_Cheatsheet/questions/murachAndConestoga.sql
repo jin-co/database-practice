@@ -1,3 +1,16 @@
+-- ch3-1
+USE ap;
+SELECT vendor_name, vendor_contact_last_name, vendor_contact_first_name
+FROM vendors
+ORDER BY vendor_contact_last_name, vendor_contact_first_name;
+
+-- ch3-1
+SELECT CONCAT(vendor_contact_last_name, ', ', vendor_contact_first_name) AS full_name
+FROM vendors
+WHERE vendor_contact_last_name < 'D' OR vendor_contact_last_name LIKE 'E%'
+ORDER BY vendor_contact_last_name, vendor_contact_first_name;
+
+
 /*
 1.	SELECT four columns from the Products table: 
 product_code, product_name, list_price, and discount_percent. 
@@ -1170,8 +1183,23 @@ WHERE balance_due >= 1000;
 
 -- c12-3
 CREATE OR REPLACE VIEW open_items_summary AS
-	SELECT *
-    FROM vendors JOIN invoices USING(vendor_id);           
+	SELECT vendor_name,
+		   COUNT(*) AS open_item_count,
+           SUM(invoice_total - credit_total - payment_total) AS open_item_total
+    FROM vendors JOIN invoices USING(vendor_id)
+    WHERE payment_date IS NULL
+    GROUP BY vendor_name
+    ORDER BY open_item_total DESC;           
+
+CREATE OR REPLACE VIEW open_items_summary
+AS
+SELECT vendor_name, COUNT(*) AS open_item_count,
+       SUM(invoice_total - credit_total - payment_total) AS open_item_total
+FROM vendors JOIN invoices
+  ON vendors.vendor_id = invoices.vendor_id
+WHERE invoice_total - credit_total - payment_total > 0
+GROUP BY vendor_name
+ORDER BY open_item_total DESC;
 
 SELECT * FROM vendors;
 SELECT * FROM open_items_summary;
