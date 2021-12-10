@@ -205,6 +205,35 @@ SELECT 50000 AS starting_principle,
        50000 * .065 AS interest,
        (50000) + (50000 * .065) AS principle_plus_interest;
        
+-- ch4-1
+USE ap;
+SELECT * FROM vendors JOIN invoices USING(vendor_id);
+
+-- ch4-2
+SELECT vendor_name,
+       invoice_number,
+       invoice_date,
+       invoice_total - payment_total - credit_total
+FROM vendors JOIN invoices USING(vendor_id)
+WHERE invoice_total - payment_total - credit_total > 0
+ORDER BY 1;
+
+SELECT vendor_name, invoice_number, invoice_date,
+       invoice_total - payment_total - credit_total AS balance_due
+FROM vendors v JOIN invoices i
+  ON v.vendor_id = i.vendor_id
+WHERE invoice_total - payment_total - credit_total <> 0
+ORDER BY vendor_name;
+
+
+-- ch4-1
+-- ch4-1
+-- ch4-1
+-- ch4-1
+-- ch4-1
+-- ch4-1
+-- ch4-1
+       
 /*
 2-1
 SELECT that joins the Categories table to the Products table and 
