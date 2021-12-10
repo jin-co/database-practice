@@ -46,7 +46,7 @@ SELECT 50000 AS starting_principle,
        (50000) + (50000 * .065) AS principle_plus_interest;
 
 /*
-1.	SELECT four columns from the Products table: 
+1-1.	SELECT four columns from the Products table: 
 product_code, product_name, list_price, and discount_percent. 
 sort the result set by list price in descending sequence. 
 */
@@ -60,7 +60,7 @@ FROM vendors
 ORDER BY vendor_contact_last_name, vendor_contact_first_name;
 
 /*
-2.	SELECT one column from the Customers table named full_name 
+1-2.	SELECT one column from the Customers table named full_name 
 that joins the last_name and first_name columns.
 Format this column like this: Doe, John
 Sort the result set by last name in ascending sequence.
@@ -92,10 +92,10 @@ WHERE vendor_contact_last_name < 'D' OR vendor_contact_last_name LIKE 'E%'
 ORDER BY vendor_contact_last_name, vendor_contact_first_name;
 
 /*
-3.	SELECT these columns from the Products table:
-product_name	The product_name column
-list_price	The list_price column
-date_added	The date_added column
+1-3.	SELECT these columns from the Products table:
+product_name	
+list_price	
+date_added	
 Return only the rows with a list price that’s greater than 500 and less than 2000.
 Sort the result set in descending sequence by the date_added column.
 */
@@ -113,15 +113,15 @@ WHERE invoice_total >= 500 AND invoice_total <= 1000
 ORDER BY invoice_due_date DESC;
 
 /*
-4.	SELECT these column names and data from the Products table:
-product_name	The product_name column
-list_price	The list_price column
-discount_percent	The discount_percent column
+1-4.	SELECT these column names and data from the Products table:
+product_name	
+list_price	
+discount_percent	
 discount_amount	A column that’s calculated from the previous two columns
 discount_price	A column that’s calculated from the previous three columns
 Round the discount_amount and discount_price columns to 2 decimal places.
 Sort the result set by discount price in descending sequence.
-Use the LIMIT clause so the result set contains only the first 5 rows.
+LIMIT 5 rows.
 */
 SELECT product_name, list_price, discount_percent,
     ROUND(list_price * (discount_percent / 100), 2) AS "discount_amount",
@@ -140,11 +140,11 @@ ORDER BY balance_due DESC
 LIMIT 5;
 
 /*
-5.	SELECT these column names and data from the Order_Items table:
-item_id	The item_id column
-item_price	The item_price column
-discount_amount	The discount_amount column
-quantity	The quantity column
+1-5.	SELECT these column names and data from the Order_Items table:
+item_id	
+item_price	
+discount_amount	
+quantity	
 price_total	A column that’s calculated by multiplying the item price by the quantity
 discount_total	A column that’s calculated by multiplying the discount amount by the quantity
 item_total	A column that’s calculated by subtracting the discount amount from the item price and then multiplying by the quantity
@@ -167,10 +167,10 @@ FROM invoices
 WHERE payment_date IS NULL;
 
 /*
-6.	Write a SELECT statement that returns these columns from the Orders table:
-order_id	The order_id column
-order_date	The order_date column
-ship_date	The ship_date column
+1-6.	Write a SELECT statement that returns these columns from the Orders table:
+order_id	
+order_date	
+ship_date	
 Return only the rows where the ship_date column contains a null value.
 */
 SELECT order_id, order_date, ship_date 
@@ -178,19 +178,19 @@ FROM orders
 WHERE ship_date IS NULL;
 
 /*
-7.	Write a SELECT statement without a FROM clause that uses the NOW function to create a row with these columns:
+1-7.	Write a SELECT statement without a FROM clause that uses the NOW function to create a row with these columns:
 today_unformatted	The NOW function unformatted
 today_formatted	The NOW function in this format: 
 DD-Mon-YYYY
 This displays a number for the day, an abbreviation for the month, and a four-digit year.
 */
-SELECT  NOW() AS today_unformatted,
+SELECT NOW() AS today_unformatted,
 	DATE_FORMAT(NOW(), '%d-%b-%Y') AS today_formatted;
     
 SELECT DATE_FORMAT(CURRENT_DATE, '%m-%d-%Y') AS "current_date";
 
 /*
-8.	Write a SELECT statement without a FROM clause that creates a row with these columns:
+1-8.	Write a SELECT statement without a FROM clause that creates a row with these columns:
 price	100 (dollars)
 tax_rate	.07 (7 percent)
 tax_amount	The price multiplied by the tax
