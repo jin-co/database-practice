@@ -60,7 +60,7 @@ FROM vendors
 ORDER BY vendor_contact_last_name, vendor_contact_first_name;
 
 /*
-1-2.	SELECT one column from the Customers table named full_name 
+a1-2.	SELECT one column from the Customers table named full_name 
 that joins the last_name and first_name columns.
 Format this column like this: Doe, John
 Sort the result set by last name in ascending sequence.
@@ -92,7 +92,7 @@ WHERE vendor_contact_last_name < 'D' OR vendor_contact_last_name LIKE 'E%'
 ORDER BY vendor_contact_last_name, vendor_contact_first_name;
 
 /*
-1-3.	SELECT these columns from the Products table:
+a1-3.	SELECT these columns from the Products table:
 product_name	
 list_price	
 date_added	
@@ -113,7 +113,7 @@ WHERE invoice_total >= 500 AND invoice_total <= 1000
 ORDER BY invoice_due_date DESC;
 
 /*
-1-4.	SELECT these column names and data from the Products table:
+a1-4.	SELECT these column names and data from the Products table:
 product_name	
 list_price	
 discount_percent	
@@ -140,7 +140,7 @@ ORDER BY balance_due DESC
 LIMIT 5;
 
 /*
-1-5.	SELECT these column names and data from the Order_Items table:
+a1-5.	SELECT these column names and data from the Order_Items table:
 item_id	
 item_price	
 discount_amount	
@@ -167,7 +167,7 @@ FROM invoices
 WHERE payment_date IS NULL;
 
 /*
-1-6.	Write a SELECT statement that returns these columns from the Orders table:
+a1-6.	Write a SELECT statement that returns these columns from the Orders table:
 order_id	
 order_date	
 ship_date	
@@ -190,7 +190,7 @@ SELECT NOW() AS today_unformatted,
 SELECT DATE_FORMAT(CURRENT_DATE, '%m-%d-%Y') AS "current_date";
 
 /*
-1-8.	Write a SELECT statement without a FROM clause that creates a row with these columns:
+a1-8.	Write a SELECT statement without a FROM clause that creates a row with these columns:
 price	100 (dollars)
 tax_rate	.07 (7 percent)
 tax_amount	The price multiplied by the tax
@@ -264,14 +264,61 @@ FROM general_ledger_accounts gl LEFT JOIN invoice_line_items li
 WHERE li.invoice_id IS NULL
 ORDER BY gl.account_number;
 
-SELECT * FROM invoice_line_items;
-SELECT * FROM general_ledger_accounts;
--- ch4-1
--- ch4-1
--- ch4-1
-       
+-- ch4-7
+  SELECT vendor_name, vendor_state
+  FROM vendors
+  WHERE vendor_state = 'CA'
+UNION
+  SELECT vendor_name, 'Outside CA'
+  FROM vendors
+  WHERE vendor_state <> 'CA'
+ORDER BY vendor_name;
+
+-- ch5-1
+USE ap;
+SHOW TABLES;
+INSERT INTO terms VALUES(6, 'Net due 10 days', 10);
+
+-- ch5-2
+UPDATE terms SET terms_description = 'Net due 125 days'
+WHERE terms_id = 6;
+
+-- ch5-3
+DELETE FROM terms WHERE terms_id = 6;
+
+-- ch5-4
+INSERT INTO invoices
+VALUES (DEFAULT, 32, 'AX-014-027', '2018-08-01', 434.58, 0, 0,
+        2, '2018-08-31', NULL);
+
+-- ch5-5
+INSERT INTO invoice_line_items VALUES
+    (115, 1, 160, 180.23, 'Hard drive'),
+    (115, 2, 527, 254.35, 'Exchange Server update');
+    
+-- ch5-6
+UPDATE invoices
+SET credit_total = invoice_total * .1,
+    payment_total = invoice_total - credit_total
+WHERE invoice_id = 115;
+
+-- ch5-7
+UPDATE vendors
+SET default_account_number = 403
+WHERE vendor_id = 44;
+
+-- ch5-8
+UPDATE invoices
+SET terms_id = 2
+WHERE vendor_id IN
+    (SELECT vendor_id
+     FROM vendors
+     WHERE default_terms_id = 2);
+
+
+SELECT * FROM terms;
 /*
-2-1
+a2-1
 SELECT that joins the Categories table to the Products table and 
 returns these columns: 
 category_name, 
@@ -287,7 +334,7 @@ FROM categories
 ORDER BY category_name ASC, product_name ASC;
 
 /*
-2-2
+a2-2
 SELECT that joins the Customers table to the Addresses table and 
 returns these columns: 
 first_name, 
@@ -311,7 +358,7 @@ FROM customers
 WHERE email_address = 'allan.sherwood@yahoo.com';
 
 /*
-2-3
+a2-3
 SELECT joins the Customers table to the Addresses table and 
 returns these columns: 
 first_name, 
@@ -335,7 +382,7 @@ FROM customers
 	JOIN addresses USING(customer_id);
 
 /*
-2-4
+a2-4
 SELECT joins 
 Customers, Orders, Order_Items, and Products tables. 
 return these columns: 
@@ -363,7 +410,7 @@ FROM Customers c
 ORDER BY last_name, order_date, product_name;
 
 /*
-2-5
+a2-5
 SELECT the product_name and list_price columns 
 from the Products table.
 Return one row for each product that has the same list price as another product.
@@ -387,7 +434,7 @@ FROM vendors v1 JOIN vendors v2
 ORDER BY v1.vendor_contact_last_name;
 
 /*
-2-6
+a2-6
 SELECT these two columns: 
 category_name from the Categories 
 product_id from the Products table
@@ -407,7 +454,7 @@ WHERE li.invoice_id IS NULL
 ORDER BY gl.account_number;
 
 /*
-2-7
+a2-7
 UNION to generate a result set consisting of three columns 
 from the Orders table: 
 ship_status A calculated column that contains a value of SHIPPED or NOT SHIPPED
@@ -440,10 +487,8 @@ UNION
 ORDER BY vendor_name;
 SELECT * FROM vendors;
 
--- assignment 3
--- 1
-USE my_guitar_shop;
 /*
+a3-1
 INSERT that adds this row to the Categories table:
 category_name: Brass (automatically generates the category_id)
 
@@ -455,6 +500,7 @@ output1.txt.
 DELETE the row you added (use the category_id column) 
 Save all sql statements above in one file, query1.sql.
 */
+USE my_guitar_shop;
 
 SELECT * FROM categories;
 
@@ -467,8 +513,8 @@ WHERE category_id = 5;
 DELETE FROM categories
 WHERE category_id = 5;
 
--- 2
 /*
+a3-2
 INSERT to the Products table:
 product_id: The next automatically generated ID 
 category_id: 4
