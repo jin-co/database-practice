@@ -67,6 +67,12 @@ Sort the result set by last name in ascending sequence.
 Return only the customers whose last name begins with letters from M to Z.
 NOTE: When comparing strings of characters, ‘M’ comes before any string of characters that begins with ‘M’. For example, ‘M’ comes before ‘Murach’.
 */
+SELECT * FROM customers;
+SELECT *,
+	   CONCAT(last_name, ', ', first_name)
+FROM customers
+WHERE last_name >= 'M%'
+ORDER BY CONCAT(last_name, ', ', first_name);
 
 SELECT CONCAT(last_name, ', ', first_name) AS 'full_name' 
 FROM customers
