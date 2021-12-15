@@ -308,6 +308,7 @@ SET default_account_number = 403
 WHERE vendor_id = 44;
 
 -- ch5-8
+USE ap;
 UPDATE invoices
 SET terms_id = 2
 WHERE vendor_id IN
@@ -315,8 +316,12 @@ WHERE vendor_id IN
      FROM vendors
      WHERE default_terms_id = 2);
 
+-- ch5-9
+DELETE FROM invoice_line_items
+WHERE invoice_id = 115;
 
-SELECT * FROM terms;
+DELETE FROM invoices
+WHERE invoice_id = 115;
 /*
 a2-1
 SELECT that joins the Categories table to the Products table and 
@@ -333,6 +338,27 @@ FROM categories
 	JOIN products USING(category_id)
 ORDER BY category_name ASC, product_name ASC;
 
+-- ch6-1
+SELECT vendor_id,
+       SUM(invoice_total)
+FROM invoices
+GROUP BY vendor_id;
+
+-- ch6-2
+SELECT vendor_name,
+       SUM(payment_total)
+FROM vendors JOIN invoices USING(vendor_id)
+GROUP BY vendor_id
+ORDER BY 2;
+
+-- ch6-1
+-- ch6-1
+-- ch6-1
+-- ch6-1
+-- ch6-1
+-- ch6-1
+-- ch6-1
+-- ch6-1
 /*
 a2-2
 SELECT that joins the Customers table to the Addresses table and 
