@@ -349,11 +349,71 @@ SELECT vendor_name,
        SUM(payment_total)
 FROM vendors JOIN invoices USING(vendor_id)
 GROUP BY vendor_id
-ORDER BY 2;
+ORDER BY 2 DESC;
 
--- ch6-1
--- ch6-1
--- ch6-1
+SELECT vendor_name, SUM(payment_total) AS payment_total_sum
+FROM vendors v JOIN invoices i
+  ON v.vendor_id = i.vendor_id
+GROUP BY vendor_name
+ORDER BY payment_total_sum DESC;
+
+-- ch6-3
+SELECT vendor_name,
+       COUNT(*),
+       SUM(invoice_total)
+FROM vendors JOIN invoices USING(vendor_id)
+GROUP BY vendor_id
+ORDER BY 2 DESC;
+
+SELECT vendor_name, COUNT(*) AS invoice_count,
+       SUM(invoice_total) AS invoice_total_sum
+FROM vendors v JOIN invoices i
+  ON v.vendor_id = i.vendor_id
+GROUP BY vendor_name
+ORDER BY invoice_count DESC;
+
+-- ch6-4
+SELECT account_description,
+       COUNT(*),
+       SUM(line_item_amount)
+FROM general_ledger_accounts JOIN invoice_line_items USING(account_number)
+GROUP BY account_description
+HAVING COUNT(*) > 1
+ORDER BY SUM(line_item_amount) DESC;
+
+SELECT account_description, COUNT(*) AS line_item_count,
+       SUM(line_item_amount) AS line_item_amount_sum
+FROM general_ledger_accounts gl 
+  JOIN invoice_line_items li
+    ON gl.account_number = li.account_number
+GROUP BY account_description
+HAVING line_item_count > 1
+ORDER BY line_item_amount_sum DESC;
+
+-- ch6-5
+SELECT account_description,
+       COUNT(*),
+       SUM(line_item_amount)
+FROM general_ledger_accounts 
+	JOIN invoice_line_items USING(account_number)
+    JOIN invoices USING(invoice_id)
+WHERE invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+GROUP BY account_description
+HAVING COUNT(*) > 1
+ORDER BY SUM(line_item_amount) DESC;
+
+SELECT account_description, COUNT(*) AS line_item_count,
+       SUM(line_item_amount) AS line_item_amount_sum
+FROM general_ledger_accounts gl 
+  JOIN invoice_line_items li
+    ON gl.account_number = li.account_number
+  JOIN invoices i
+    ON li.invoice_id = i.invoice_id
+WHERE invoice_date BETWEEN '2018-04-01' AND '2018-06-30'
+GROUP BY account_description
+HAVING line_item_count > 1
+ORDER BY line_item_amount_sum DESC;
+
 -- ch6-1
 -- ch6-1
 -- ch6-1
