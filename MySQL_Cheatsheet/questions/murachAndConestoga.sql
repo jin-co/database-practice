@@ -437,8 +437,22 @@ GROUP BY vendor_name
 HAVING number_of_gl_accounts > 1
 ORDER BY vendor_name;
 
+-- ch6-8
+SELECT terms_id,
+       vendor_id,
+       MAX(payment_date),
+       SUM(invoice_total - payment_total - credit_total)
+FROM vendors JOIN invoices USING(vendor_id)
+GROUP BY terms_id, vendor_id
+WITH ROLLUP;
 
--- ch6-1
+SELECT IF(GROUPING(terms_id) = 1, 'Grand Totals', terms_id) AS terms_id,
+       IF(GROUPING(vendor_id) = 1, 'Terms ID Totals', vendor_id) AS vendor_id,
+       MAX(payment_date) AS max_payment_date,
+       SUM(invoice_total - credit_total - payment_total) AS balance_due
+FROM invoices
+GROUP BY terms_id, vendor_id WITH ROLLUP;
+
 -- ch6-1
 -- ch6-1
 /*
