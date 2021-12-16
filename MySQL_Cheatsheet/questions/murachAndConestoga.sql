@@ -438,6 +438,7 @@ HAVING number_of_gl_accounts > 1
 ORDER BY vendor_name;
 
 -- ch6-8
+USE ap;
 SELECT terms_id,
        vendor_id,
        MAX(payment_date),
@@ -453,8 +454,30 @@ SELECT IF(GROUPING(terms_id) = 1, 'Grand Totals', terms_id) AS terms_id,
 FROM invoices
 GROUP BY terms_id, vendor_id WITH ROLLUP;
 
--- ch6-1
--- ch6-1
+-- ch6-9
+SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
+	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+       SUM(invoice_total - payment_total - credit_total) OVER(PARTITION BY vendor_id
+           ORDER BY invoice_total - payment_total - credit_total) AS vendor_due
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0;
+
+-- ch6-10
+SELECT vendor_id, invoice_total - payment_total - credit_total AS balance_due,
+	   SUM(invoice_total - payment_total - credit_total) OVER() AS total_due,
+       SUM(invoice_total - payment_total - credit_total) OVER vendor_window AS vendor_due,
+       ROUND(AVG(invoice_total - payment_total - credit_total) OVER vendor_window, 2) AS vendor_avg
+FROM invoices
+WHERE invoice_total - payment_total - credit_total > 0
+WINDOW vendor_window AS (PARTITION BY vendor_id ORDER BY invoice_total - payment_total - credit_total);
+
+-- ch6-11
+SELECT MONTH(invoice_date) AS month, SUM(invoice_total) AS total_invoices,
+       ROUND(AVG(SUM(invoice_total)) OVER(ORDER BY MONTH(invoice_date)
+           RANGE BETWEEN 3 PRECEDING AND CURRENT ROW), 2) AS 4_month_avg
+FROM invoices
+GROUP BY MONTH(invoice_date);
+
 /*
 a2-2
 SELECT that joins the Customers table to the Addresses table and 
@@ -687,11 +710,12 @@ UPDATE products SET discount_percent = 35 WHERE product_name = "Yamaha DGX 640 8
 
 DELETE FROM products WHERE product_id = 13;
 
--- 3
+
 USE swexpert;
 SHOW TABLES;
 SELECT * FROM consultant;
 /*
+a3-3
  Add a new record as follows:
 c_id: 106 
 c_last: (Your last name) 
@@ -714,9 +738,9 @@ INSERT INTO consultant(
             "1234 Broadway", "Hermagor", "AA", "12345",
             "1234567890", "gogo@go.com");
             
--- 4
 SELECT * FROM client;
 /*
+a3-4
 new client. Add a new record as follows: 
 client_id: 17 
 client_name: City of Waterloo 
@@ -731,11 +755,11 @@ INSERT INTO client(
 			17, "City of Waterloo", "Jaworsky",
             "Dave", "519 886 1550");
 
--- 5
 SELECT * FROM project;
 SELECT * FROM client;
 SELECT * FROM consultant;
 /*
+a3-5
 a new project for the client Dave Jaworsky(id: 17) 
 Add a new project named 'ION Rapid Transit' with a project ID of 
 88. The parent project of 'ION Rapid Transit' project is unassigned.
@@ -747,11 +771,11 @@ INSERT INTO project(
 			88, "ION Rapid Transit", 17,
             106, NULL);
             
--- 6 
 SELECT * FROM project;
 SELECT * FROM client;
 SELECT * FROM consultant;
 /*
+a3-6
  Write an UPDATE statement that modifies the parent project of Project table. Assign 
 all projects without a parent project to the newly added project. The parent project of 
 'ION Rapid Transit' project must remain unassigned. 
@@ -760,7 +784,6 @@ UPDATE project SET parent_p_id = 88
 WHERE parent_p_id IS NULL AND p_id <> 88;
 
 -- midterm
-
 /*
 -- 1
 Write an INSERT statement that adds this row to the color_sample table: 
@@ -1166,8 +1189,8 @@ SELECT *, (item_price - discount_amount) * quantity AS total_amount FROM order_i
 USE my_guitar_shop;
 SHOW TABLES;
 
--- A_5
 /*
+a5-1
 1-1. Write a SELECT statement that returns these columns from the Products 
 • list_price -> FORMAT with 2 digits to the right of the decimal point 
 • discount_percent -> CAST column as an integer 
@@ -1183,6 +1206,7 @@ SELECT FORMAT(list_price, 2) AS list_price,
 FROM products;
 
 /*
+a5-2
 1-2. SELECT these columns from the Orders 
 • order_date
 • order_date -> DATE_FORMAT four-digit year 
@@ -1198,6 +1222,7 @@ SELECT order_date,
 FROM orders;
 
 /*
+a5-3
 2-1. Display the average evaluation score for consultant 'Janet Park'.
 use 'Janet Park' name in your solution (Use the CONCAT_WS). 
 Round the retrieved value to two decimal places.
@@ -1211,6 +1236,7 @@ FROM consultant c
 WHERE CONCAT_WS(' ', c_first, c_last) = 'Janet Park';
 
 /*
+a5-4
 2-2. SELECT these columns from the Project Consultant 
 • project id: Pad spaces to align the output values with the column heading 
 • consultant id: Pad spaces to align the output values with the column heading 
@@ -1437,6 +1463,85 @@ INSERT INTO evaluation_audit VALUES(DEFAULT, 100, 90, NULL);
 SELECT * FROM evaluation_audit;
 
 DROP TABLE evaluation_audit;
+
+-- c11-1
+CREATE INDEX vendors_zip_code_ix ON vendors (vendor_zip_code);
+
+-- c11-2
+USE ex;
+
+DROP TABLE IF EXISTS members_committes;
+DROP TABLE IF EXISTS members;
+DROP TABLE IF EXISTS committees;
+
+CREATE TABLE members 
+(
+  member_id     INT           PRIMARY KEY   AUTO_INCREMENT, 
+  first_name    VARCHAR(50)   NOT NULL, 
+  last_name     VARCHAR(50)   NOT NULL, 
+  address       VARCHAR(50)   NOT NULL, 
+  city          VARCHAR(25)   NOT NULL, 
+  state         CHAR(2), 
+  phone         VARCHAR(20)
+);
+
+CREATE TABLE committees 
+(
+  committee_id      INT            PRIMARY KEY   AUTO_INCREMENT, 
+  committee_name    VARCHAR(50)    NOT NULL
+);
+
+CREATE TABLE members_committees
+(
+  member_id       INT    NOT NULL, 
+  committee_id    INT    NOT NULL,
+  CONSTRAINT members_committees_fk_members FOREIGN KEY (member_id)
+    REFERENCES members (member_id), 
+  CONSTRAINT members_committes_fk_committees FOREIGN KEY (committee_id)
+	  REFERENCES committees (committee_id)
+);
+
+-- c11-3
+USE ex;
+
+INSERT INTO members
+VALUES (DEFAULT, 'John', 'Smith', '334 Valencia St.', 'San Francisco', 'CA', '415-942-1901');
+INSERT INTO members
+VALUES (DEFAULT, 'Jane', 'Doe', '872 Chetwood St.', 'Oakland', 'CA', '510-123-4567');
+
+INSERT INTO committees
+VALUES (DEFAULT, 'Book Drive');
+INSERT INTO committees
+VALUES (DEFAULT, 'Bicycle Coalition');
+
+INSERT INTO members_committees
+VALUES (1, 2);
+INSERT INTO members_committees
+VALUES (2, 1);
+INSERT INTO members_committees
+VALUES (2, 2);
+
+SELECT c.committee_name, m.last_name, m.first_name
+FROM committees c
+  JOIN members_committees mc
+    ON c.committee_id = mc.committee_id
+  JOIN members m
+    ON mc.member_id = m.member_id
+ORDER BY c.committee_name, m.last_name, m.first_name;
+
+-- c11-4
+ALTER TABLE members
+  ADD annual_dues   DECIMAL(5,2)    DEFAULT 52.50;
+ALTER TABLE members
+  ADD payment_date  DATE;
+  
+-- c11-5
+ALTER TABLE committees
+MODIFY committee_name VARCHAR(50) NOT NULL UNIQUE;
+
+INSERT INTO committees (committee_name)
+VALUES ('Book Drive');
+
 -- c12-1
 USE ap;
 
