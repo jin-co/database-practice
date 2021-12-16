@@ -1705,14 +1705,41 @@ WHERE certification = 'Y';
 
 /*
 f8
-SELECT one row for the category that has products 
-with these columns: 
-• The skill_description_name column from the Skills table
-• The first name and last name of the consultants in the Consultant table
-Show only those records where the Certification is “Y”. 
+UNION a result set consisting of four columns from the Evaluations table: 
+Evaluation id The e_id column
+Evaluation date The e_date column
+Evaluation score The score column
+A calculated column that contains a value of EXCELLENT, GOOD, or FAIL
+If the score is between 80 and 91 return GOOD, if the score is over 90 return 
+EXCELLENT, and if the score is less than 80 return FAIL. 
+Sort the final result set by evaluation score. 
 */
 USE swexpert;
+
+	SELECT e_id,
+		   e_date,
+		   score,
+		   'EXCELLENT' AS 'grade'
+	FROM evaluation
+	WHERE score > 90
+UNION
+	SELECT e_id,
+		   e_date,
+		   score,
+		   'GOOD'
+	FROM evaluation
+	WHERE score BETWEEN 80 AND 90
+UNION
+	SELECT e_id,
+		   e_date,
+		   score,
+		   'FAIL'
+	FROM evaluation
+	WHERE score < 80
+ORDER BY score;
+
+USE swexpert;
 SHOW TABLES;
-SELECT * FROM skill;
+SELECT * FROM evaluation;
 SELECT * FROM consultant;
 SELECT * FROM consultant_skill;
