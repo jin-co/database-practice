@@ -1583,3 +1583,67 @@ SELECT * FROM vendors;
 SELECT * FROM open_items_summary;
 SELECT * FROM invoices;
 SHOW TABLES;
+
+/*
+f1
+SELECT these columns from the Order_items table:
+Item_id The item_id column
+product_id The product_id column
+Item_price The item_price column
+Quantity The quantity column
+Return only the rows where the item price that’s greater than 400 and less than 1200
+*/
+SELECT item_id,
+       product_id,
+       item_price,
+       quantity 
+FROM order_items
+WHERE item_price > 400 AND item_price < 1200
+ORDER BY item_price DESC;
+
+/*
+f2
+SELECT joins the Customers, Orders, Order_Items, and Products tables. 
+return these columns: 
+last_name, 
+first_name, 
+order_date, 
+product_name, 
+item_price, 
+quantity, 
+ship_date. 
+Use aliases for the tables.
+Sort by order_date and product_name.
+*/
+SELECT c.last_name,
+       c.first_name, 
+       o.order_date, 
+       p.product_name, 
+       oi.item_price, 
+       oi.quantity, 
+       o.ship_date
+FROM customers c
+	JOIN orders o USING(customer_id)
+    JOIN order_items oi USING(order_id)
+    JOIN products p USING(product_id)
+ORDER BY order_date, product_name;
+    
+    
+SELECT * FROM customers;
+SELECT * FROM orders;
+SELECT * FROM order_items;
+SELECT * FROM products;
+
+
+/*
+f2
+
+*/
+/*
+f2
+
+*/
+/*
+f2
+
+*/
