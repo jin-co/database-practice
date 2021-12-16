@@ -1657,7 +1657,7 @@ INSERT INTO orders VALUES(
 );
 
 /*
-f5
+f4
 DELETE the record from the Administrators table. 
 where for the administrator ‘Joel Murach’. 
 Note: You MUST use the CONCAT_WS function in your statement.
@@ -1672,9 +1672,47 @@ WHERE CONCAT_WS(' ', first_name, last_name) = 'Joel Murach';
 SELECT * FROM administrators;
 /*
 f6
-
+SELECT returns one row for the category that has products 
+with these columns: 
+• category_name column from the Categories table
+• count of the products in the Products table
+LIMIT and SORT so only the category with the most products appears. 
 */
+SELECT category_name,
+       COUNT(product_name)
+FROM categories JOIN products USING(category_id)
+GROUP BY category_id
+ORDER BY 2 DESC
+LIMIT 1;
 
-SELECT * FROM orders;
-SELECT * FROM order_items;
-SELECT * FROM products;
+/*
+f7
+SELECT one row for the category that has products 
+with these columns: 
+• The skill_description_name column from the Skills table
+• The first name and last name of the consultants in the Consultant table
+Show only those records where the Certification is “Y”. 
+*/
+USE swexpert;
+
+SELECT skill_description,
+       c_first,
+       c_last
+FROM consultant 
+	JOIN consultant_skill USING(c_id)
+    JOIN skill USING(skill_id)
+WHERE certification = 'Y';
+
+/*
+f8
+SELECT one row for the category that has products 
+with these columns: 
+• The skill_description_name column from the Skills table
+• The first name and last name of the consultants in the Consultant table
+Show only those records where the Certification is “Y”. 
+*/
+USE swexpert;
+SHOW TABLES;
+SELECT * FROM skill;
+SELECT * FROM consultant;
+SELECT * FROM consultant_skill;
