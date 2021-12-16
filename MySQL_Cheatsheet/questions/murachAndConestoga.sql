@@ -1628,22 +1628,53 @@ FROM customers c
     JOIN products p USING(product_id)
 ORDER BY order_date, product_name;
     
-    
-SELECT * FROM customers;
+/*
+f3
+INSERT these to the Orders table: 
+order_id: The next automatically generated ID
+customer_id: 4
+order_date today’s date/time
+ship_amount 15
+ship_address_id 5
+tax_amount 42.56
+card type Visa
+card_number 1234567891234567
+card_expires 12/2021
+billing_address_id 5
+*/
+INSERT INTO orders VALUES(
+	DEFAULT,
+    4,
+    SYSDATE(),
+    15,
+    5,
+    NULL,
+    42.56,
+    'Visa',
+    '1234567891234567',
+    '12/2021',
+    5
+);
+
+/*
+f5
+DELETE the record from the Administrators table. 
+where for the administrator ‘Joel Murach’. 
+Note: You MUST use the CONCAT_WS function in your statement.
+SELECT statement that displays your updated table. 
+*/
+SET SQL_SAFE_UPDATES = 0;
+
+DELETE 
+FROM administrators 
+WHERE CONCAT_WS(' ', first_name, last_name) = 'Joel Murach';
+
+SELECT * FROM administrators;
+/*
+f6
+
+*/
+
 SELECT * FROM orders;
 SELECT * FROM order_items;
 SELECT * FROM products;
-
-
-/*
-f2
-
-*/
-/*
-f2
-
-*/
-/*
-f2
-
-*/
