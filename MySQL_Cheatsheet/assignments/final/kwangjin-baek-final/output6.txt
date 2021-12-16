@@ -1,0 +1,2 @@
+category_name,product_count
+Guitars,6

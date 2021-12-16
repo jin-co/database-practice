@@ -1,0 +1,13 @@
+last_name,first_name,order_date,product_name,item_price,quantity,ship_date
+Sherwood,Allan,"2015-03-28 09:40:28","Gibson Les Paul",1199.00,1,"2015-03-30 15:32:51"
+Zimmer,Barry,"2015-03-28 11:23:20","Yamaha FG700S",489.99,1,"2015-03-29 12:52:14"
+Sherwood,Allan,"2015-03-29 09:44:58","Gibson SG",2517.00,1,"2015-03-31 09:11:41"
+Sherwood,Allan,"2015-03-29 09:44:58","Rodriguez Caballero 11",415.00,1,"2015-03-31 09:11:41"
+Brown,Christine,"2015-03-30 15:22:31","Gibson Les Paul",1199.00,2,"2015-04-03 16:32:21"
+Goldstein,David,"2015-03-31 05:43:11","Washburn D10S",299.00,1,"2015-04-02 14:21:12"
+Valentino,Erin,"2015-03-31 18:37:22","Washburn D10S",299.00,1,NULL
+Wilson,"Frank Lee","2015-04-01 23:11:12","Fender Precision",799.99,1,"2015-04-03 10:21:35"
+Wilson,"Frank Lee","2015-04-01 23:11:12","Fender Stratocaster",699.00,1,"2015-04-03 10:21:35"
+Wilson,"Frank Lee","2015-04-01 23:11:12","Ludwig 5-piece Drum Set with Cymbals",699.99,1,"2015-04-03 10:21:35"
+Hernandez,Gary,"2015-04-02 11:26:38","Tama 5-Piece Drum Set with Cymbals",799.99,1,NULL
+Goldstein,David,"2015-04-03 12:22:31","Fender Stratocaster",699.00,1,NULL

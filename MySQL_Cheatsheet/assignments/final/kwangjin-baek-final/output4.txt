@@ -1,0 +1,3 @@
+admin_id,email_address,password,first_name,last_name
+1,admin@myguitarshop.com,6a718fbd768c2378b511f8249b54897f940e9022,Admin,User
+3,mike@murach.com,3f2975c819cefc686282456aeae3a137bf896ee8,Mike,Murach
