@@ -1,16 +1,19 @@
 /* Data Definition Language */
 SHOW DATABASES;
 
+/*============= DATABASE(SCHEMA) =============*/
 CREATE DATABASE test;
-
 DROP DATABASE test;
-
 USE test;  -- gose into test database
-
 SHOW TABLES;
-
 DESCRIBE test;
 
+CREATE DATABASE coffee_store;
+USE coffee_store;
+SHOW TABLES;
+
+/*============= TABLE =============*/
+/*------------- CREATE -------------*/
 CREATE TABLE invoices
 (
   invoice_id            INT            PRIMARY KEY   AUTO_INCREMENT,
@@ -31,25 +34,6 @@ CREATE TABLE invoices
     REFERENCES terms (terms_id)
 );
 
-ALTER TABLE invoices
-ADD balance_due DECIMAL(9,2);
-
-ALTER TABLE invoices
-DROP COLUMN balance_due;
-
-CREATE INDEX invoices_vendor_id_index
-  ON invoices (vendor_id);
-
-DROP INDEX invoices_vendor_id_index
-    ON invocies;
-
-CREATE DATABASE coffee_store;
-
-USE coffee_store;
-
-SHOW TABLES;
-
--- creating a table
 CREATE TABLE products (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
@@ -73,37 +57,13 @@ CREATE TABLE orders (
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
-CREATE TABLE IF NOT EXISTS orders (
-	id INT AUTO_INCREMENT PRIMARY KEY,
-    product_id INT,
-    customer_id INT,
-    order_time DATETIME,
-    FOREIGN KEY (product_id) REFERENCES products(id),
-    FOREIGN KEY (customer_id) REFERENCES customers(id)
-);
-
-ALTER TABLE products
-ADD COLUMN coffee_origin VARCHAR(30);
-
-ALTER TABLE products
-DROP COLUMN coffee_orgin;
-
-TRUNCATE TABLE test; -- this drops the table and recreate the table without any data in it
-
 CREATE TABLE test (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
     age INT
 );
 
-SELECT * FROM products;
-
-CREATE DATABASE test;
-
-USE test; 
-
 CREATE TABLE addresses (
-
 	id INT,
     house_number INT,
 	city VARCHAR(20),
@@ -118,16 +78,54 @@ CREATE TABLE people (
 ); 
 
 CREATE TABLE pets (
-
 	id INT,
     name VARCHAR(20),
     species VARCHAR(20), 
     owner_id INT
 ); 
 
-DESCRIBE addresses;
+-- IF NOT EXISTS
+CREATE TABLE IF NOT EXISTS orders (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    customer_id INT,
+    order_time DATETIME,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
 
-/*============= ALTER =============*/
+/*------------- CREATE Copy -------------*/--  
+-- - this only copies columns and data(not contraints, PK, FK, indexes)
+-- - I can use SELECT with everything I would with normal SELECT statement
+-- -* full copy
+CREATE TABLE z_invoices_copied AS
+SELECT * FROM invoices;
+
+-- -* partial copy
+CREATE TABLE z_invoices_copied2 AS
+SELECT * 
+FROM invoices
+WHERE invoice_total - payment_total = 0;
+
+-- -* LIKE copy
+CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
+
+/*------------- ALTER -------------*/
+ALTER TABLE invoices
+ADD balance_due DECIMAL(9,2);
+
+ALTER TABLE invoices
+DROP COLUMN balance_due;
+
+CREATE INDEX invoices_vendor_id_index
+  ON invoices (vendor_id);
+  
+ALTER TABLE products
+ADD COLUMN coffee_origin VARCHAR(30);
+
+ALTER TABLE products
+DROP COLUMN coffee_orgin;
+
 ALTER TABLE addresses
 ADD PRIMARY KEY (id);
 
@@ -194,18 +192,15 @@ ADD balance_due DECIMAL(9,2);
 ALTER TABLE invoices
 DROP COLUMN balance_due;
 
-/*============= Copying =============*/
--- this only copies columns and data(not contraints, PK, FK, indexes)
--- I can use SELECT with everything I would with normal SELECT statement
--- -* full copy
-CREATE TABLE z_invoices_copied AS
-SELECT * FROM invoices;
+ALTER TABLE products AUTO_INCREMENT = 1; -- setting auto inclement to 1
 
--- -* partial copy
-CREATE TABLE z_invoices_copied2 AS
-SELECT * 
-FROM invoices
-WHERE invoice_total - payment_total = 0;
+/*------------- DROP -------------*/
+DROP INDEX invoices_vendor_id_index
+    ON invocies;
+
+/*------------- TRUNCATE -------------*/
+-- drops the table and recreate the table without any data in it -> table remains
+TRUNCATE TABLE test; 
 
 /* constrant */
 -- not null
@@ -215,6 +210,6 @@ WHERE invoice_total - payment_total = 0;
 -- check : CHECK(ratings BETWEEN 0 AND 100)
 -- default : email DEFAULT 'No Data'
 
-ALTER TABLE products AUTO_INCREMENT = 1; -- setting auto inclement to 1
+
 
 
