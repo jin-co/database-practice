@@ -1254,3 +1254,18 @@ SELECT vendor_name,
         FROM vendors
         WHERE LEFT(vendor_phone, 4) = '(559'
         ORDER BY contact_name;
+
+CREATE SCHEMA hr;
+USE hr;
+
+CREATE TABLE countries (
+	country_id INT,
+    country_name VARCHAR(30),
+    region_id INT
+);
+
+CREATE TABLE IF NOT EXISTS countries (
+	country_id INT,
+    country_name VARCHAR(30),
+    region_id INT
+);

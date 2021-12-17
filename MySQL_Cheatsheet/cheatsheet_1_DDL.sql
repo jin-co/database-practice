@@ -73,6 +73,15 @@ CREATE TABLE orders (
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
+CREATE TABLE IF NOT EXISTS orders (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    product_id INT,
+    customer_id INT,
+    order_time DATETIME,
+    FOREIGN KEY (product_id) REFERENCES products(id),
+    FOREIGN KEY (customer_id) REFERENCES customers(id)
+);
+
 ALTER TABLE products
 ADD COLUMN coffee_origin VARCHAR(30);
 
