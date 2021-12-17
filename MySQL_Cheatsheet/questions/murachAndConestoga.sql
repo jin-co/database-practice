@@ -1738,8 +1738,37 @@ UNION
 	WHERE score < 80
 ORDER BY score;
 
-USE swexpert;
-SHOW TABLES;
-SELECT * FROM evaluation;
-SELECT * FROM consultant;
-SELECT * FROM consultant_skill;
+/*
+f9
+CREATE a new database named college_db.
+
+CREATE a new table called ‘student’ with the following columns:
+student_id primary key, auto_increment
+first_name not null
+last_name not null
+grade default value is 0, not null
+
+Insert a new record into your database that includes 
+your first name, 
+last name, 
+and a grade of ‘90’.
+*/
+CREATE SCHEMA college_db;
+
+USE college_db;
+
+CREATE TABLE student (
+	student_id INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    grade INT NOT NULL DEFAULT 0
+);
+
+INSERT INTO student VALUES(
+	DEFAULT,
+	'Kwangjin',
+    'Baek',
+    90
+);
+
+SELECT * FROM student;
