@@ -1276,3 +1276,25 @@ CREATE TABLE IF NOT EXISTS dup_countries AS SELECT * FROM countries;
 
 SELECT * FROM countries;
 SELECT * FROM dup_countries;
+
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id varchar(2) NOT NULL,
+	country_name varchar(40) NOT NULL,
+	region_id decimal(10,0) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS jobs (
+	job_id VARCHAR(15) NOT NULL,
+    job_title DECIMAL(6, 0),
+    min_salary DECIMAL(6, 0),
+    max_salary DECIMAL(6, 0)
+    CHECK(max_salary <= 25000)
+);
+
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id varchar(2) NOT NULL,
+	country_name varchar(40) 
+		NOT NULL
+		CHECK(country_name IN('Italy', 'India', 'China')),
+	region_id decimal(10,0) 
+);
