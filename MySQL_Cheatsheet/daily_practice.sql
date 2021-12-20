@@ -1271,3 +1271,8 @@ CREATE TABLE IF NOT EXISTS countries (
 );
 
 CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
+
+CREATE TABLE IF NOT EXISTS dup_countries AS SELECT * FROM countries;
+
+SELECT * FROM countries;
+SELECT * FROM dup_countries;

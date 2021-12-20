@@ -95,9 +95,11 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 /*------------- CREATE Copy -------------*/--  
--- - this only copies columns and data(not contraints, PK, FK, indexes)
+-- this only copies columns and data(not contraints, PK, FK, indexes)
 -- - I can use SELECT with everything I would with normal SELECT statement
+
 -- -* full copy
+-- copies the sctucture and data
 CREATE TABLE z_invoices_copied AS
 SELECT * FROM invoices;
 
@@ -108,6 +110,7 @@ FROM invoices
 WHERE invoice_total - payment_total = 0;
 
 -- -* LIKE copy
+-- copies the sctucture
 CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
 
 /*------------- ALTER -------------*/
@@ -209,6 +212,12 @@ TRUNCATE TABLE test;
 -- foreign key
 -- check : CHECK(ratings BETWEEN 0 AND 100)
 -- default : email DEFAULT 'No Data'
+
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id varchar(2) NOT NULL,
+	country_name varchar(40) NOT NULL,
+	region_id decimal(10,0) NOT NULL
+);
 
 
 
