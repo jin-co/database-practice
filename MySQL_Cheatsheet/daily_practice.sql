@@ -1269,3 +1269,5 @@ CREATE TABLE IF NOT EXISTS countries (
     country_name VARCHAR(30),
     region_id INT
 );
+
+CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
