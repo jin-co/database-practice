@@ -230,7 +230,7 @@ CREATE TABLE IF NOT EXISTS countries (
 );
 DESC countries;
 
--- foreign key
+-- FOREIGN KEY(foreignKeyName) REFERENCES tableName(columnNameForForeignKey)
 CREATE TABLE job_history ( 
 	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
 	start_date date NOT NULL, 
