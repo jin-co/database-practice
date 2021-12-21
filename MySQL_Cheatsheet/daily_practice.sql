@@ -1298,3 +1298,12 @@ CREATE TABLE IF NOT EXISTS countries (
 		CHECK(country_name IN('Italy', 'India', 'China')),
 	region_id decimal(10,0) 
 );
+
+CREATE TABLE IF NOT EXISTS job_history ( 
+	employee_id decimal(6,0) NOT NULL, 
+	start_date date NOT NULL, 
+	end_date date NOT NULL
+	CHECK (end_date LIKE '--/--/----'), 
+	job_id varchar(10) NOT NULL, 
+	department_id decimal(4,0) NOT NULL 
+);
