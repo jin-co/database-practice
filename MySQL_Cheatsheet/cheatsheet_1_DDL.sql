@@ -214,7 +214,31 @@ CREATE TABLE IF NOT EXISTS countries (
 	region_id decimal(10,0) NOT NULL
 );
 
+-- -* composite key
+CREATE TABLE IF NOT EXISTS countries (
+	country_id varchar(2) NOT NULL UNIQUE DEFAULT '',
+	country_name varchar(40) DEFAULT NULL,
+	region_id decimal(10,0) NOT NULL,
+	PRIMARY KEY (country_id, region_id)
+);
+
+-- -* AUTO_INCREMENT
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id integer NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY,
+	country_name varchar(40) NOT NULL,
+	region_id decimal(10,0) NOT NULL
+);
+DESC countries;
+
 -- foreign key
+CREATE TABLE job_history ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	start_date date NOT NULL, 
+	end_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY (job_id) REFERENCES jobs(job_id)
+)ENGINE=InnoDB;
 
 -- not null
 CREATE TABLE IF NOT EXISTS countries ( 

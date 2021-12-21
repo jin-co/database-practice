@@ -1321,3 +1321,12 @@ CREATE TABLE IF NOT EXISTS jobs (
 	min_salary decimal(6,0) DEFAULT 8000, 
 	max_salary decimal(6,0) DEFAULT NULL
 );
+
+CREATE TABLE job_history ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	start_date date NOT NULL, 
+	end_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY (job_id) REFERENCES jobs(job_id)
+)ENGINE=InnoDB;
