@@ -1307,3 +1307,17 @@ CREATE TABLE IF NOT EXISTS job_history (
 	job_id varchar(10) NOT NULL, 
 	department_id decimal(4,0) NOT NULL 
 );
+
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id varchar(2) NOT NULL,
+	country_name varchar(40) NOT NULL,
+	region_id decimal(10,0) NOT NULL,
+	UNIQUE(country_id)
+);
+
+CREATE TABLE IF NOT EXISTS jobs ( 
+	job_id varchar(10) NOT NULL UNIQUE, 
+	job_title varchar(35) NOT NULL DEFAULT ' ', 
+	min_salary decimal(6,0) DEFAULT 8000, 
+	max_salary decimal(6,0) DEFAULT NULL
+);

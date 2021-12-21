@@ -207,10 +207,14 @@ TRUNCATE TABLE test;
 
 /* constrant */
 
--- unique
--- primary key
+-- PRIMARY KEY
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id varchar(2) NOT NULL UNIQUE PRIMARY KEY,
+	country_name varchar(40) NOT NULL,
+	region_id decimal(10,0) NOT NULL
+);
+
 -- foreign key
--- default : email DEFAULT 'No Data'
 
 -- not null
 CREATE TABLE IF NOT EXISTS countries ( 
@@ -219,7 +223,7 @@ CREATE TABLE IF NOT EXISTS countries (
 	region_id decimal(10,0) NOT NULL
 );
 
--- check : CHECK(ratings BETWEEN 0 AND 100)
+-- CHECK(column condition)
 CREATE TABLE IF NOT EXISTS jobs (
 	job_id VARCHAR(15) NOT NULL,
     job_title DECIMAL(6, 0),
@@ -245,6 +249,20 @@ CREATE TABLE IF NOT EXISTS job_history (
 	department_id decimal(4,0) NOT NULL 
 );
 
+-- UNIQUE(column) -> no duplicate values are allowed
+CREATE TABLE IF NOT EXISTS countries ( 
+	country_id varchar(2) NOT NULL,
+	country_name varchar(40) NOT NULL,
+	region_id decimal(10,0) NOT NULL,
+	UNIQUE(country_id)
+);
 
+-- DEFAULT value 
+CREATE TABLE IF NOT EXISTS jobs ( 
+	job_id varchar(10) NOT NULL UNIQUE, 
+	job_title varchar(35) NOT NULL DEFAULT ' ', 
+	min_salary decimal(6,0) DEFAULT 8000, 
+	max_salary decimal(6,0) DEFAULT NULL
+);
 
 
