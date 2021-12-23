@@ -232,12 +232,11 @@ DESC countries;
 
 -- FOREIGN KEY(foreignKeyName) REFERENCES tableName(columnNameForForeignKey)
 /*
-does not contain any duplicate value at the time of insertion and 
 the foreign key column job_id contain only those values 
 which are exists in the jobs table.
 */ 
 CREATE TABLE job_history ( 
-	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, -- does not contain any duplicate value at the time of insertion
 	start_date date NOT NULL, 
 	end_date date NOT NULL, 
 	job_id varchar(10) NOT NULL, 
@@ -246,28 +245,84 @@ CREATE TABLE job_history (
 )ENGINE=InnoDB;
 
 /*
-make sure that, the employee_id column does not contain any duplicate value 
-at the time of insertion and the foreign key columns combined by 
+the foreign key columns combined by 
 department_id and manager_id columns contain only those unique combination values, 
 which combinations are exists in the departments table.
 */
 CREATE TABLE IF NOT EXISTS employees ( 
-	EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY, 
-	FIRST_NAME varchar(20) DEFAULT NULL, 
-	LAST_NAME varchar(25) NOT NULL, 
-	EMAIL varchar(25) NOT NULL, 
-	PHONE_NUMBER varchar(20) DEFAULT NULL, 
-	HIRE_DATE date NOT NULL, 
-	JOB_ID varchar(10) NOT NULL, 
-	SALARY decimal(8,2) DEFAULT NULL, 
-	COMMISSION_PCT decimal(2,2) DEFAULT NULL, 
-	MANAGER_ID decimal(6,0) DEFAULT NULL, 
-	DEPARTMENT_ID decimal(4,0) DEFAULT NULL, 
-	FOREIGN KEY(DEPARTMENT_ID,MANAGER_ID) 
-	REFERENCES  departments(DEPARTMENT_ID,MANAGER_ID)
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	email varchar(25) NOT NULL, 
+	phone_number varchar(20) DEFAULT NULL, 
+	hire_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	salary decimal(8,2) DEFAULT NULL, 
+	commission_pct decimal(2,2) DEFAULT NULL, 
+	manager_id decimal(6,0) DEFAULT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY(department_id, manager_id) 
+	REFERENCES  departments(department_id, manager_id)
 )ENGINE=InnoDB;
 
--- not null
+/* 
+The InnoDB Engine have been used to create the tables.
+"A foreign key constraint is not required merely to join two tables. 
+For storage engines other than InnoDB, 
+it is possible when defining a column to use a REFERENCES 
+tbl_name(col_name) clause, which has no actual effect, 
+and serves only as a memo or comment to you that the column 
+which you are currently defining is intended to refer to a column in another table." 
+- Reference dev.mysql.com
+*/
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY,
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	email varchar(25) NOT NULL, 
+	phone_number varchar(20) DEFAULT NULL, 
+	hire_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	salary decimal(8,2) DEFAULT NULL, 
+	commission_pct decimal(2,2) DEFAULT NULL, 
+	manager_id decimal(6,0) DEFAULT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY (department_id)
+	REFERENCES departments(department_id), -- the foreign key reference by the column department_id of departments table, can contain only those values which are exists in the departments table
+	FOREIGN KEY (job_id) 
+	REFERENCES jobs(job_id)
+)ENGINE=InnoDB;
+
+-- ON DELETE CASCADE
+/*
+when the record in the parent table is deleted and 
+the ON UPDATE RESTRICT actions reject any updates.
+Assume that the structure of the table jobs and InnoDB Engine have been used to create the table jobs.
+*/
+CREATE TABLE IF NOT EXISTS employees (
+	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, 
+    first_name VARCHAR(20) DEFAULT NULL, 
+    last_name VARCHAR(25) NOT NULL, 
+    job_id INTEGER NOT NULL,
+    salary DECIMAL(8, 2) DEFAULT NULL,
+    FOREIGN KEY(job_id)
+    REFERENCES jobs(job_id)
+    ON DELETE CASCADE ON UPDATE RESTRICT,     
+) ENGINE = InnoDB;
+
+-- ON UPDATE RESTRICT
+CREATE TABLE IF NOT EXISTS employees (
+	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, 
+    first_name VARCHAR(20) DEFAULT NULL, 
+    last_name VARCHAR(25) NOT NULL, 
+    job_id INTEGER NOT NULL,
+    salary DECIMAL(8, 2) DEFAULT NULL,
+    FOREIGN KEY(job_id)
+    REFERENCES jobs(job_id)
+    ON DELETE CASCADE ON UPDATE RESTRICT,     
+) ENGINE = InnoDB;
+
+-- NOT NULL
 CREATE TABLE IF NOT EXISTS countries ( 
 	country_id varchar(2) NOT NULL,
 	country_name varchar(40) NOT NULL,
