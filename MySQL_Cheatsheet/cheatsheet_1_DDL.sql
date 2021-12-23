@@ -319,13 +319,10 @@ CREATE TABLE IF NOT EXISTS employees (
     ON UPDATE SET NULL -- resets the values in the rows in the child table(employees) to NULL values when the rows in the parent table(jobs) are updated.
 ) ENGINE = InnoDB;
 
-/*
-Write a SQL statement to create a table employees including 
-The specialty of the statement is that, 
-The ON DELETE NO ACTION and the ON UPDATE NO ACTION actions will reject the deletion and any updates.
-*/
+-- ON DELETE NO ACTION ON UPDATE NO ACTION
+-- -* reject the deletion and any updates
 CREATE TABLE IF NOT EXISTS employees ( 
-	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, , 
+	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, 
     first_name VARCHAR(20) DEFAULT NULL, 
     last_name VARCHAR(25) NOT NULL, 
     job_id INTEGER NOT NULL, 
