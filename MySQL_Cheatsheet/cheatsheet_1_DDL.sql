@@ -293,12 +293,8 @@ CREATE TABLE IF NOT EXISTS employees (
 	REFERENCES jobs(job_id)
 )ENGINE=InnoDB;
 
--- ON DELETE CASCADE
-/*
-when the record in the parent table is deleted and 
-the ON UPDATE RESTRICT actions reject any updates.
-Assume that the structure of the table jobs and InnoDB Engine have been used to create the table jobs.
-*/
+-- ON DELETE CASCADE ON UPDATE RESTRICT
+-- -* when the record in the parent table is deleted and reject any updates
 CREATE TABLE IF NOT EXISTS employees (
 	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, 
     first_name VARCHAR(20) DEFAULT NULL, 
@@ -307,20 +303,38 @@ CREATE TABLE IF NOT EXISTS employees (
     salary DECIMAL(8, 2) DEFAULT NULL,
     FOREIGN KEY(job_id)
     REFERENCES jobs(job_id)
-    ON DELETE CASCADE ON UPDATE RESTRICT,     
+    ON DELETE CASCADE ON UPDATE RESTRICT   
 ) ENGINE = InnoDB;
 
--- ON UPDATE RESTRICT
+-- ON DELETE SET NULL ON UPDATE SET NULL
 CREATE TABLE IF NOT EXISTS employees (
-	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, 
+	employee_id DECIMAL(6, 0) NOT NULL PRIMARY KEY,
     first_name VARCHAR(20) DEFAULT NULL, 
     last_name VARCHAR(25) NOT NULL, 
-    job_id INTEGER NOT NULL,
+    job_id INTEGER, 
     salary DECIMAL(8, 2) DEFAULT NULL,
-    FOREIGN KEY(job_id)
+    FOREIGN KEY (job_id)
     REFERENCES jobs(job_id)
-    ON DELETE CASCADE ON UPDATE RESTRICT,     
+    ON DELETE SET NULL -- resets the foreign key column values in the child table(employees) to NULL when the record in the parent table(jobs) is deleted
+    ON UPDATE SET NULL -- resets the values in the rows in the child table(employees) to NULL values when the rows in the parent table(jobs) are updated.
 ) ENGINE = InnoDB;
+
+/*
+Write a SQL statement to create a table employees including 
+The specialty of the statement is that, 
+The ON DELETE NO ACTION and the ON UPDATE NO ACTION actions will reject the deletion and any updates.
+*/
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id DECIMAL(6,0) NOT NULL PRIMARY KEY, , 
+    first_name VARCHAR(20) DEFAULT NULL, 
+    last_name VARCHAR(25) NOT NULL, 
+    job_id INTEGER NOT NULL, 
+    salary DECIMAL(8,2) DEFAULT NULL, 
+	FOREIGN KEY(job_id) 
+	REFERENCES jobs(job_id)
+	ON DELETE NO ACTION 
+	ON UPDATE NO ACTION
+)ENGINE=InnoDB;
 
 -- NOT NULL
 CREATE TABLE IF NOT EXISTS countries ( 
