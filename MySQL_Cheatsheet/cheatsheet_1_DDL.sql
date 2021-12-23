@@ -231,6 +231,11 @@ CREATE TABLE IF NOT EXISTS countries (
 DESC countries;
 
 -- FOREIGN KEY(foreignKeyName) REFERENCES tableName(columnNameForForeignKey)
+/*
+does not contain any duplicate value at the time of insertion and 
+the foreign key column job_id contain only those values 
+which are exists in the jobs table.
+*/ 
 CREATE TABLE job_history ( 
 	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
 	start_date date NOT NULL, 
@@ -238,6 +243,28 @@ CREATE TABLE job_history (
 	job_id varchar(10) NOT NULL, 
 	department_id decimal(4,0) DEFAULT NULL, 
 	FOREIGN KEY (job_id) REFERENCES jobs(job_id)
+)ENGINE=InnoDB;
+
+/*
+make sure that, the employee_id column does not contain any duplicate value 
+at the time of insertion and the foreign key columns combined by 
+department_id and manager_id columns contain only those unique combination values, 
+which combinations are exists in the departments table.
+*/
+CREATE TABLE IF NOT EXISTS employees ( 
+	EMPLOYEE_ID decimal(6,0) NOT NULL PRIMARY KEY, 
+	FIRST_NAME varchar(20) DEFAULT NULL, 
+	LAST_NAME varchar(25) NOT NULL, 
+	EMAIL varchar(25) NOT NULL, 
+	PHONE_NUMBER varchar(20) DEFAULT NULL, 
+	HIRE_DATE date NOT NULL, 
+	JOB_ID varchar(10) NOT NULL, 
+	SALARY decimal(8,2) DEFAULT NULL, 
+	COMMISSION_PCT decimal(2,2) DEFAULT NULL, 
+	MANAGER_ID decimal(6,0) DEFAULT NULL, 
+	DEPARTMENT_ID decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY(DEPARTMENT_ID,MANAGER_ID) 
+	REFERENCES  departments(DEPARTMENT_ID,MANAGER_ID)
 )ENGINE=InnoDB;
 
 -- not null
@@ -288,5 +315,6 @@ CREATE TABLE IF NOT EXISTS jobs (
 	min_salary decimal(6,0) DEFAULT 8000, 
 	max_salary decimal(6,0) DEFAULT NULL
 );
+
 
 
