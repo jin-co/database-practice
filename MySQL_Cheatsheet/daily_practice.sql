@@ -1330,3 +1330,20 @@ CREATE TABLE job_history (
 	department_id decimal(4,0) DEFAULT NULL, 
 	FOREIGN KEY (job_id) REFERENCES jobs(job_id)
 )ENGINE=InnoDB;
+
+INSERT INTO countries VALUES (
+	DEFAULT,
+    'Japan',
+    10
+);
+
+INSERT INTO countries VALUES 
+	(DEFAULT, 'Canada', 11),
+	(DEFAULT, 'China', 12),
+	(DEFAULT, 'India', 13);
+
+CREATE TABLE country_new AS SELECT * FROM countries;
+DROP TABLE country_new;
+
+SELECT * FROM countries;
+-- 7
