@@ -1369,3 +1369,12 @@ CREATE TABLE IF NOT EXISTS countries (
     region_id DECIMAL(10, 0) NOT NULL,
     UNIQUE(country_id) -- no duplicate data against column country_id will be allowed at the time of insertion
 );
+
+CREATE TABLE IF NOT EXISTS jobs (
+	job_id VARCHAR(10) NOT NULL UNIQUE, 
+    job_title VARCHAR(35) NOT NULL DEFAULT ' ', -- he default value for job_title is blank
+    min_salary DECIMAL(6, 0) DEFAULT 8000,
+    max_salary DECIMAL(6, 0) DEFAULT NULL
+);
+
+-- 11
