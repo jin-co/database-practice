@@ -1346,4 +1346,26 @@ CREATE TABLE country_new AS SELECT * FROM countries;
 DROP TABLE country_new;
 
 SELECT * FROM countries;
--- 7
+
+CREATE TABLE IF NOT EXISTS countries (
+	country_id VARCHAR(2),
+    country_name VARCHAR(40)
+    CHECK(country_name IN('Italy', 'India', 'China')),
+    region_id DECIMAL(10, 0)
+);
+
+CREATE TABLE IF NOT EXISTS job_history (
+	 employee_id DECIMAL(6, 0) NOT NULL, 
+     start_date DATE NOT NULL, 
+     end_date DATE NOT NULL
+     CHECK(end_date LIKE '--/--/----'),	
+     job_id VARCHAR(10) NOT NULL, 
+     department_id DECIMAL(4, 0) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS countries (
+	country_id VARCHAR(2) NOT NULL, 
+    country_name VARCHAR(40) NOT NULL,
+    region_id DECIMAL(10, 0) NOT NULL,
+    UNIQUE(country_id) -- no duplicate data against column country_id will be allowed at the time of insertion
+);
