@@ -1377,4 +1377,20 @@ CREATE TABLE IF NOT EXISTS jobs (
     max_salary DECIMAL(6, 0) DEFAULT NULL
 );
 
--- 11
+CREATE TABLE IF NOT EXISTS countries (
+	country_id INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY, 
+    country_name VARCHAR(20),
+    region_id INT
+);
+
+CREATE TABLE IF NOT EXISTS countries (
+	country_id INT NOT NULL UNIQUE AUTO_INCREMENT PRIMARY KEY, 
+    country_name VARCHAR(20) NOT NULL,
+    region_id INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS countries (
+	COUNTRY_ID varchar(2) NOT NULL UNIQUE DEFAULT '',
+	COUNTRY_NAME varchar(40) DEFAULT NULL,
+	REGION_ID decimal(10,0) NOT NULL,
+PRIMARY KEY (COUNTRY_ID,REGION_ID)); -- combination of columns country_id and region_id will be unique.
