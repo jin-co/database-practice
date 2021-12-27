@@ -1390,7 +1390,34 @@ CREATE TABLE IF NOT EXISTS countries (
 );
 
 CREATE TABLE IF NOT EXISTS countries (
-	COUNTRY_ID varchar(2) NOT NULL UNIQUE DEFAULT '',
-	COUNTRY_NAME varchar(40) DEFAULT NULL,
-	REGION_ID decimal(10,0) NOT NULL,
-PRIMARY KEY (COUNTRY_ID,REGION_ID)); -- combination of columns country_id and region_id will be unique.
+	country_id varchar(2) NOT NULL UNIQUE DEFAULT '',
+	country_name varchar(40) DEFAULT NULL,
+	region_id decimal(10,0) NOT NULL,
+PRIMARY KEY (country_id, region_id)); -- combination of columns country_id and region_id will be unique.
+
+CREATE TABLE job_history ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	start_date date NOT NULL, 
+	end_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY (job_id) REFERENCES jobs(job_id)
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	email varchar(25) NOT NULL, 
+	phone_number varchar(20) DEFAULT NULL, 
+	hire_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	salary decimal(8,2) DEFAULT NULL, 
+	commissiont_pct decimal(2,2) DEFAULT NULL, 
+	manager_id decimal(6,0) DEFAULT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY(department_id, manager_id) -- foreign key columns combined by department_id and manager_id
+	REFERENCES departments(department_id, manager_id) -- contain only those unique combination values, which combinations are exists in the departments table
+) ENGINE = InnoDB;
+
+-- 16
