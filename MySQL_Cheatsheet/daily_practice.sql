@@ -1470,3 +1470,14 @@ CREATE TABLE IF NOT EXISTS employees (
 	ON UPDATE SET NULL
 )ENGINE=InnoDB;
 
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	job_id INTEGER, 
+	salary decimal(8,2) DEFAULT NULL, 
+	FOREIGN KEY(job_id) 
+	REFERENCES  jobs(job_id)
+	ON DELETE NO ACTION 
+	ON UPDATE NO ACTION
+)ENGINE=InnoDB;
