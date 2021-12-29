@@ -1437,3 +1437,36 @@ CREATE TABLE IF NOT EXISTS employees (
     FOREIGN KEY(job_id) 
 	REFERENCES departments(job_id)
 ) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	email varchar(25) NOT NULL, 
+	phone_number varchar(20) DEFAULT NULL, 
+	hire_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	salary decimal(8,2) DEFAULT NULL, 
+	commissiont_pct decimal(2,2) DEFAULT NULL, 
+	manager_id decimal(6,0) DEFAULT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY(department_id) 
+	REFERENCES departments(department_id)
+	ON DELETE CASCADE ON UPDATE RESTRICT ,
+    FOREIGN KEY(job_id) 
+	REFERENCES departments(job_id)
+    ON DELETE CASCADE ON UPDATE RESTRICT 
+) ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	job_id INTEGER, 
+	salary decimal(8,2) DEFAULT NULL, 
+	FOREIGN KEY(job_id) 
+	REFERENCES  jobs(job_id)
+	ON DELETE SET NULL 
+	ON UPDATE SET NULL
+)ENGINE=InnoDB;
+
