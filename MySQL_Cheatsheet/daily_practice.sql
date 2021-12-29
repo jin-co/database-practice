@@ -1420,4 +1420,20 @@ CREATE TABLE IF NOT EXISTS employees (
 	REFERENCES departments(department_id, manager_id) -- contain only those unique combination values, which combinations are exists in the departments table
 ) ENGINE = InnoDB;
 
--- 16
+CREATE TABLE IF NOT EXISTS employees ( 
+	employee_id decimal(6,0) NOT NULL PRIMARY KEY, 
+	first_name varchar(20) DEFAULT NULL, 
+	last_name varchar(25) NOT NULL, 
+	email varchar(25) NOT NULL, 
+	phone_number varchar(20) DEFAULT NULL, 
+	hire_date date NOT NULL, 
+	job_id varchar(10) NOT NULL, 
+	salary decimal(8,2) DEFAULT NULL, 
+	commissiont_pct decimal(2,2) DEFAULT NULL, 
+	manager_id decimal(6,0) DEFAULT NULL, 
+	department_id decimal(4,0) DEFAULT NULL, 
+	FOREIGN KEY(department_id) 
+	REFERENCES departments(department_id),
+    FOREIGN KEY(job_id) 
+	REFERENCES departments(job_id)
+) ENGINE = InnoDB;
