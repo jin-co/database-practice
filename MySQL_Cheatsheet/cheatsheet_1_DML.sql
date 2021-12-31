@@ -216,6 +216,11 @@ UPDATE invoices
 SET invoice_due_date = DATE_ADD(invoice_due_date, INTERVAL 30 DAY)
 WHERE terms_id = 4;
 
+UPDATE employees SET SALARY = 8000 WHERE employee_id = 105 AND salary < 5000;
+
+UPDATE employees SET JOB_ID= 'SH_CLERK' 
+WHERE employee_id=118 AND department_id=30 AND NOT JOB_ID LIKE 'SH%';
+
 -- update with subquery
 UPDATE invoices
 SET terms_id = 1
@@ -223,6 +228,15 @@ WHERE vendor_id =
 	(SELECT vendor_id
     FROM vendors
     WHERE vendor_name = 'Pacific Bell');
+    
+-- update with case
+UPDATE employees SET salary= CASE department_id 
+	WHEN 40 THEN salary+(salary*.25) 
+	WHEN 90 THEN salary+(salary*.15)
+	WHEN 110 THEN salary+(salary*.10)
+	ELSE salary
+END
+WHERE department_id IN (40,50,50,60,70,80,90,110);
 
 /* ============= DELETE ============= */
 --  by default, in where clause, only pk can be put when updating. to change this use the code below

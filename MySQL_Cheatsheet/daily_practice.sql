@@ -1482,4 +1482,8 @@ CREATE TABLE IF NOT EXISTS employees (
 	ON UPDATE NO ACTION
 )ENGINE=InnoDB;
 
--- update
+UPDATE employees SET email='not available'
+WHERE department_id=(
+	SELECT department_id 
+	FROM departments 
+	WHERE department_name='Accounting');
