@@ -183,23 +183,34 @@ FOREIGN KEY (owner_id) REFERENCES people (id);
 ALTER TABLE people
 ADD CONSTRAINT u_email UNIQUE (email);
 
-DESCRIBE people;
-ALTER TABLE pets CHANGE `name` `first_name` VARCHAR(15);
-
-DESCRIBE addresses;
-ALTER TABLE addresses MODIFY postcode CHAR(7);
-
-ALTER TABLE invoices
-ADD balance_due DECIMAL(9,2);
-
-ALTER TABLE invoices
-DROP COLUMN balance_due;
-
 ALTER TABLE products AUTO_INCREMENT = 1; -- setting auto inclement to 1
 
+-- RENAME
+ALTER TABLE countries RENAME country_new;
+
+-- ADD
+ALTER TABLE locations ADD region_id  INT;
+ALTER TABLE locations ADD ID  INT FIRST; --  add a columns ID as the first column of the table locations
+ALTER TABLE locations ADD region_id INT AFTER state_province; -- add a column region_id after state_province to the table locations
+
+ALTER TABLE invoices ADD balance_due DECIMAL(9,2);
+
+-- MODIFY
+ALTER TABLE addresses MODIFY postcode CHAR(7);
+ALTER TABLE locations MODIFY country_id INT;
+
+
+-- CHANGE
+ALTER TABLE pets CHANGE `name` `first_name` VARCHAR(15);
+ALTER TABLE locations CHANGE state_province state varchar(25); -- changing column name(maintains the data in it)
+
+-- DROP COLUMN
+ALTER TABLE invoices DROP COLUMN balance_due;
+ALTER TABLE locations DROP city; -- drop the column city from the table
+ALTER TABLE locations DROP state_province, ADD state varchar(25) AFTER city; -- changing column name with the same type and size(when data exists, this might not be the solution)
+
 /*------------- DROP -------------*/
-DROP INDEX invoices_vendor_id_index
-    ON invocies;
+DROP INDEX invoices_vendor_id_index ON invocies;
 
 /*------------- TRUNCATE -------------*/
 -- drops the table and recreate the table without any data in it -> table remains

@@ -238,6 +238,14 @@ UPDATE employees SET salary= CASE department_id
 END
 WHERE department_id IN (40,50,50,60,70,80,90,110);
 
+-- update multiple tables
+UPDATE jobs, employees
+	SET jobs.min_salary = jobs.min_salary + 2000,
+	jobs.max_salary = obs.max_salary + 2000,
+	employees.salary = employees.salary + (employees.salary * .20),
+	employees.commission_pct = employees.commission_pct + .10
+WHERE jobs.job_id = 'PU_CLERK' AND employees.job_id = 'PU_CLERK';
+
 /* ============= DELETE ============= */
 --  by default, in where clause, only pk can be put when updating. to change this use the code below
 -- - *if I turn off the safety and forget to add where if will delete all the data from the table

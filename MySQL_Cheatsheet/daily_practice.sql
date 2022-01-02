@@ -1488,4 +1488,11 @@ WHERE department_id=(
 	FROM departments 
 	WHERE department_name='Accounting');
     
--- update 9    
+UPDATE jobs, employees
+	SET jobs.min_salary = jobs.min_salary + 2000,
+	jobs.max_salary = obs.max_salary + 2000,
+	employees.salary = employees.salary + (employees.salary * .20),
+	employees.commission_pct = employees.commission_pct + .10
+	WHERE jobs.job_id = 'PU_CLERK' AND employees.job_id = 'PU_CLERK';
+
+-- alter 8
