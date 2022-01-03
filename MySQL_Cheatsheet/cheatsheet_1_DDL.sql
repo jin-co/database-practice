@@ -114,100 +114,84 @@ WHERE invoice_total - payment_total = 0;
 CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
 
 /*------------- ALTER -------------*/
-ALTER TABLE invoices
-ADD balance_due DECIMAL(9,2);
-
-ALTER TABLE invoices
-DROP COLUMN balance_due;
-
-CREATE INDEX invoices_vendor_id_index
-  ON invoices (vendor_id);
-  
-ALTER TABLE products
-ADD COLUMN coffee_origin VARCHAR(30);
-
-ALTER TABLE products
-DROP COLUMN coffee_orgin;
-
-ALTER TABLE addresses
-ADD PRIMARY KEY (id);
-
-ALTER TABLE addresses
-DROP PRIMARY KEY;  -- thing is when dropping pk, not null stays not null
-
-DESCRIBE people;
-
-ALTER TABLE people
-ADD PRIMARY KEY (id);
-
-ALTER TABLE people
-ADD CONSTRAINT FK_PeopleAddress
-FOREIGN KEY (address_id) REFERENCES addresses(id);
-
-ALTER TABLE people
-DROP FOREIGN KEY FK_PeopleAddress;
-
-SELECT * FROM pets;
-
-ALTER TABLE pets
-ADD CONSTRAINT u_species UNIQUE (species);
-
-ALTER TABLE pets
-DROP INDEX u_species;  -- note : wheng dropping unique, use index
-
-DESCRIBE pets;
-
-ALTER TABLE pets CHANGE `species` `new_species` VARCHAR(20);  -- note : it is back tick not a single quotes
-ALTER TABLE pets CHANGE `new_species` `species` VARCHAR(20);  
-
-DESCRIBE addresses;
-ALTER TABLE addresses MODIFY city VARCHAR(30);
-ALTER TABLE addresses MODIFY city CHAR(30);
-ALTER TABLE addresses MODIFY city INT;
-
-DESCRIBE pets;
-DESCRIBE people;
-ALTER TABLE pets
-ADD PRIMARY KEY (id);
-
-ALTER TABLE people
-ADD COLUMN email VARCHAR(20);
-
-ALTER TABLE people
-DROP COLUMN email;
-
-ALTER TABLE pets
-ADD CONSTRAINT FK_Owner_id
-FOREIGN KEY (owner_id) REFERENCES people (id);
-
-ALTER TABLE people
-ADD CONSTRAINT u_email UNIQUE (email);
+CREATE INDEX invoices_vendor_id_index ON invoices (vendor_id);
 
 ALTER TABLE products AUTO_INCREMENT = 1; -- setting auto inclement to 1
 
 -- RENAME
 ALTER TABLE countries RENAME country_new;
 
--- ADD
+-- ADD [something]
 ALTER TABLE locations ADD region_id  INT;
+
 ALTER TABLE locations ADD ID  INT FIRST; --  add a columns ID as the first column of the table locations
+
 ALTER TABLE locations ADD region_id INT AFTER state_province; -- add a column region_id after state_province to the table locations
 
 ALTER TABLE invoices ADD balance_due DECIMAL(9,2);
 
+ALTER TABLE locations ADD PRIMARY KEY(location_id);
+
+ALTER TABLE addresses ADD PRIMARY KEY (id);
+
+ALTER TABLE locations ADD PRIMARY KEY(location_id,country_id);
+
+ALTER TABLE people ADD CONSTRAINT u_email UNIQUE (email);
+
+ALTER TABLE people ADD COLUMN email VARCHAR(20);
+
+ALTER TABLE invoices ADD balance_due DECIMAL(9,2);
+
+ALTER TABLE pets ADD CONSTRAINT FK_Owner_id FOREIGN KEY (owner_id) REFERENCES people (id);
+
+ALTER TABLE pets ADD CONSTRAINT u_species UNIQUE (species);
+
+ALTER TABLE products ADD COLUMN coffee_origin VARCHAR(30);
+
+ALTER TABLE people ADD CONSTRAINT FK_PeopleAddress FOREIGN KEY (address_id) REFERENCES addresses(id);
+
+ALTER TABLE job_history ADD CONSTRAINT fk_job_id FOREIGN KEY (job_id) REFERENCES jobs(job_id) 
+ON UPDATE RESTRICT 
+ON DELETE CASCADE;
+
+ALTER TABLE job_history ADD INDEX indx_job_id(job_id);
+
 -- MODIFY
 ALTER TABLE addresses MODIFY postcode CHAR(7);
+
 ALTER TABLE locations MODIFY country_id INT;
 
+ALTER TABLE addresses MODIFY city VARCHAR(30);
+
+ALTER TABLE addresses MODIFY city CHAR(30);
+
+ALTER TABLE addresses MODIFY city INT;
 
 -- CHANGE
 ALTER TABLE pets CHANGE `name` `first_name` VARCHAR(15);
+
 ALTER TABLE locations CHANGE state_province state varchar(25); -- changing column name(maintains the data in it)
 
--- DROP COLUMN
+-- DROP [something]
 ALTER TABLE invoices DROP COLUMN balance_due;
+
 ALTER TABLE locations DROP city; -- drop the column city from the table
+
 ALTER TABLE locations DROP state_province, ADD state varchar(25) AFTER city; -- changing column name with the same type and size(when data exists, this might not be the solution)
+
+ALTER TABLE addresses DROP PRIMARY KEY;  -- thing is when dropping pk, not null stays not null
+
+ALTER TABLE invoices DROP COLUMN balance_due;
+
+ALTER TABLE people DROP FOREIGN KEY FK_PeopleAddress;
+
+ALTER TABLE pets CHANGE `species` `new_species` VARCHAR(20);  -- note : it is back tick not a single quotes
+
+ALTER TABLE pets CHANGE `new_species` `species` VARCHAR(20);  
+
+ALTER TABLE pets DROP INDEX u_species;  -- note : wheng dropping unique, use index
+
+ALTER TABLE job_history DROP INDEX indx_job_id;
 
 /*------------- DROP -------------*/
 DROP INDEX invoices_vendor_id_index ON invocies;
