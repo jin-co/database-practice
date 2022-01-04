@@ -28,7 +28,7 @@ FROM customers
 WHERE gender = 'F' AND last_name = 'Bluth';
 
 -- DISTINCT
-SELECT DISTINCT coffee_origin FROM products;
+SELECT DISTINCT coffee_origin FROM products; -- get unique department ID
 
 SELECT DISTINCT vendor_city, vendor_state
 FROM vendors
