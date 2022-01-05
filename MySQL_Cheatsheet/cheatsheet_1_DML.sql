@@ -59,8 +59,10 @@ WHERE last_name LIKE '%o%';
 SELECT * FROM products
 WHERE price LIKE '3%';  -- note : when used with a number I need to put them in a single quote
 -- -** _ -> any single character
-SELECT * FROM customers
+SELECT * FROM customers 
 WHERE first_name LIKE '_o_';  -- _ : only one
+
+SELECT last_name FROM employees WHERE last_name LIKE '______'; -- the last name of employees whose name have exactly 6 characters
 
 -- (NOT) REGEXP -> degrades performance(use only when it's necessary)
 
