@@ -32,6 +32,8 @@ SELECT MAX(length_min) FROM films;
 
 SELECT MIN(length_min) FROM films;
 
+SELECT job_id, COUNT(*) FROM employees GROUP BY job_id; -- get the number of employees with the same job
+
 SELECT name, MIN(length_min) FROM films; -- this throws an error(as the number of name and min values dosen't match)  -> use group by to solve this
 
 SELECT AVG(length_min) FROM films;

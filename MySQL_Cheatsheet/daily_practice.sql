@@ -1495,4 +1495,4 @@ UPDATE jobs, employees
 	employees.commission_pct = employees.commission_pct + .10
 	WHERE jobs.job_id = 'PU_CLERK' AND employees.job_id = 'PU_CLERK';
 
--- aggregation 1
+-- subquery 1
