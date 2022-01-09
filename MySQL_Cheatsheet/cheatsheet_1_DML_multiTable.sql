@@ -246,6 +246,24 @@ FROM vendors v LEFT JOIN invoices i
 WHERE i.vendor_id IS NULL
 ORDER BY vendor_id;
 
+SELECT first_name, last_name FROM employees -- find the name (first_name, last_name) of the employees 
+WHERE manager_id in (select employee_id -- who have a manager 
+FROM employees WHERE department_id -- and worked in a USA based department.
+IN (SELECT department_id FROM departments WHERE location_id 
+IN (select location_id from locations where country_id='US')));
+
+SELECT first_name, last_name, salary 
+FROM employees 
+WHERE employees.salary = (SELECT min_salary -- whose salary is equal to the minimum salary for their job grade.
+FROM jobs
+WHERE employees.job_id = jobs.job_id);
+
+SELECT first_name, last_name, salary 
+FROM employees 
+WHERE department_id IN  
+(SELECT department_id FROM departments WHERE department_name LIKE 'IT%') -- works in any of the IT departments
+AND salary > (SELECT avg(salary) FROM employees); -- who earns more than the average salary
+
 -- comparison operator
 -- - used in WHERE clause
 -- - if used with ANY, SOME, ALL keyword -> returns a list
