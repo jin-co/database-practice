@@ -356,6 +356,11 @@ SELECT vendor_name,
 FROM vendors
 ORDER BY latest_inv DESC;
 
+SELECT employee_id, first_name, last_name, -- display the employee ID, first name, last name, and department names of all employees.
+(SELECT department_name FROM departments d
+ WHERE e.department_id = d.department_id) department 
+ FROM employees e ORDER BY department;
+
 /*
 -- - in FROM 
 -> must assign an alias to it

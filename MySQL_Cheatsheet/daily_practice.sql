@@ -1495,4 +1495,9 @@ UPDATE jobs, employees
 	employees.commission_pct = employees.commission_pct + .10
 	WHERE jobs.job_id = 'PU_CLERK' AND employees.job_id = 'PU_CLERK';
 
--- subquery 10
+-- subquery 15 -> set
+SET @i = 0; 
+SELECT i, employee_id  -- a query to fetch even numbered records from employees table.
+FROM (SELECT @i := @i + 1 AS i, employee_id FROM employees)
+a WHERE MOD(a.i, 2) = 0;
+
