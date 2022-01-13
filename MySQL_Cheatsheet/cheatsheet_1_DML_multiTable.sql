@@ -264,6 +264,21 @@ WHERE department_id IN
 (SELECT department_id FROM departments WHERE department_name LIKE 'IT%') -- works in any of the IT departments
 AND salary > (SELECT avg(salary) FROM employees); -- who earns more than the average salary
 
+SET @i = 0; 
+SELECT i, employee_id  -- a query to fetch even numbered records from employees table.
+FROM (SELECT @i := @i + 1 AS i, employee_id FROM employees)
+a WHERE MOD(a.i, 2) = 0;
+
+SELECT DISTINCT salary 
+FROM employees e1 
+WHERE 5 = (SELECT COUNT(DISTINCT salary) -- 5th maximum salary in the employees table
+FROM employees  e2 
+WHERE e2.salary >= e1.salary);
+
+SELECT * FROM (
+SELECT * FROM employees ORDER BY employee_id DESC LIMIT 10) sub -- select last 10 records from a table.
+ORDER BY employee_id ASC;
+
 -- comparison operator
 -- - used in WHERE clause
 -- - if used with ANY, SOME, ALL keyword -> returns a list
