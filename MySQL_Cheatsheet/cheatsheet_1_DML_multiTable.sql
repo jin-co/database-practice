@@ -279,6 +279,27 @@ SELECT * FROM (
 SELECT * FROM employees ORDER BY employee_id DESC LIMIT 10) sub -- select last 10 records from a table.
 ORDER BY employee_id ASC;
 
+SELECT DISTINCT salary 
+FROM employees a 
+WHERE 3 >= (SELECT COUNT(DISTINCT salary) 
+FROM employees b 
+WHERE b.salary >= a.salary) -- get 3 maximum salaries.
+ORDER BY a.salary DESC;
+
+SELECT DISTINCT salary 
+FROM employees a 
+WHERE  3 >= (SELECT COUNT(DISTINCT salary) 
+FROM employees b 
+WHERE b.salary <= a.salary) -- get 3 minimum salaries.
+ORDER BY a.salary DESC;
+
+SELECT *
+FROM employees emp1
+WHERE (1) = (
+SELECT COUNT(DISTINCT(emp2.salary)) -- get nth maximum salaries of employees.
+FROM employees emp2
+WHERE emp2.salary > emp1.salary);
+
 -- comparison operator
 -- - used in WHERE clause
 -- - if used with ANY, SOME, ALL keyword -> returns a list
