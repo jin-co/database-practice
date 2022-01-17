@@ -66,6 +66,12 @@ FROM departments d
         ON e.employee_id = p.employee_id
 ORDER BY department_name, last_name;
 
+SELECT e.employee_id 'Emp_Id', e.last_name 'Employee', 
+m.employee_id 'Mgr_Id', m.last_name 'Manager' 
+FROM employees e -- find the employee id, name (last_name) along with their manager_id and name (last_name).
+join employees m 
+ON (e.manager_id = m.employee_id);
+
 /* JOIN with USING */
 -- simplified syntax
 -- the table must be joined by a column that has the same name in both tables separated with commas
@@ -180,6 +186,10 @@ FROM departments
     NATURAL JOIN employees
     LEFT JOIN projects USING (employee_id)
 ORDER BY department_name;
+
+SELECT location_id, street_address, city, state_province, country_name
+FROM locations
+NATURAL JOIN countries; -- find the addresses (location_id, street_address, city, state_province, country_name) of all the departments.
 
 /* JOIN with CROSS */
 -- joins one row with every row from another table(also called uncontrolled join)

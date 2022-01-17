@@ -1506,4 +1506,4 @@ WHERE 5 = (SELECT COUNT(DISTINCT salary) -- 5th maximum salary in the employees 
 FROM employees  e2 
 WHERE e2.salary >= e1.salary);
 
--- join
+-- join 5
