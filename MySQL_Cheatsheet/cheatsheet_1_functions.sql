@@ -405,6 +405,12 @@ SELECT DATE_SUB('2020-12-31', INTERVAL -1 DAY);  -- negative in SUB: add
 /* -- DATEDIFF(date1, date2) -- */
 SELECT DATEDIFF('2020-12-31', '2021-12-31');
 
+SELECT first_name, last_name, hire_date, salary, 
+(DATEDIFF(now(), hire_date))/365 Experience 
+FROM departments d JOIN employees e 
+ON (d.manager_id = e.employee_id) 
+WHERE (DATEDIFF(now(), hire_date))/365>15; -- experience is more than 15 years.
+
 /* -- TO_DAYS(date) -- */
 -- - since year 0(not reliable for dates before 1582
 SELECT TO_DAYS('2021-12-31');
