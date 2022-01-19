@@ -1507,3 +1507,4 @@ FROM employees  e2
 WHERE e2.salary >= e1.salary);
 
 -- datetime 1
+
