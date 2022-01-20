@@ -34,3 +34,35 @@ ALTER TABLE locations ADD region_id INT AFTER state_province; -- add a column re
 
 ALTER TABLE invoices ADD balance_due DECIMAL(9,2);
 
+-- assignment 1
+CREATE SCHEMA assignmen1;
+USE assignmen1;
+
+CREATE TABLE tenants
+(
+	tenant_id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE buildings
+(
+	building_id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE apartments
+(
+	apartment_id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE parkinglots
+(
+	parkinglot_id INT PRIMARY KEY AUTO_INCREMENT
+);
+
+CREATE TABLE building_parkinglots
+(
+	parkinglot_id INT, 
+    building_id INT
+);
+ 
+
+
