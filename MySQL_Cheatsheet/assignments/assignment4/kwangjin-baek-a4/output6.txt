@@ -1,2 +1,0 @@
-skill_id_1_count
-2

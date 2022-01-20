@@ -1,8 +1,0 @@
-client_id	client_name	contact_last	contact_first	contact_phone
-1	Crisco Systems	Martin	Andrew	5215557220
-2	Supreme Data Corporation	Martinez	Michelle	5205559821
-3	Lucid Technologies	Brown	Jack	7155552311
-4	Morningstar Bank	Wright	Linda	9215553320
-5	Maverick Petroleum	Miller	Tom	4085559822
-6	Birchwood Mall	Brenner	Nicole	7155550828
-17	City of Waterloo	Jaworsky	Dave	519 886 1550

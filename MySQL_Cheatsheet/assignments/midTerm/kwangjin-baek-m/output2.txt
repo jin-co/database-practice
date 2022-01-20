@@ -1,7 +1,0 @@
-color_id	color_number	color_name
-1	606	NULL
-2	0	Yellow
-3	0	Orange
-4	808	NULL
-5	0	NULL
-6	783	Green

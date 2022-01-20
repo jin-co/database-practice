@@ -1,6 +1,0 @@
-product_name,list_price,date_added
-"Tama 5-Piece Drum Set with Cymbals",799.99,"2015-07-30 13:14:15"
-"Ludwig 5-piece Drum Set with Cymbals",699.99,"2015-07-30 12:46:40"
-"Fender Precision",799.99,"2015-06-01 11:29:35"
-"Gibson Les Paul",1199.00,"2014-12-05 16:33:13"
-"Fender Stratocaster",699.00,"2014-10-30 09:32:40"

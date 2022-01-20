@@ -1,8 +1,0 @@
-c_id	c_last	c_first	c_mi	c_add	c_city	c_state	c_zip	c_phone	c_email
-100	Myers	Mark	F	1383 Alexander Ave.	Eau Claire	WI	54703	7155559652	mmyers@swexpert.com
-101	Hernandez	Sheila	R	3227 Brian Street	Eau Claire	WI	54702	7155550282	shernandez@earthware.com
-102	Zhang	Brian	NULL	2227 Calumet Place	Altoona	WI	54720	7155558383	zhang@swexpert.com
-103	Carlson	Sarah	J	1334 Water Street	Eau Claire	WI	54703	7155558008	carlsons@swexpert.com
-104	Courtlandt	Paul	R	1911 Pine Drive	Eau Claire	WI	54701	7155555225	courtlpr@yamail.com
-105	Park	Janet	S	2333 157th Street	Chippewa Falls	WI	54712	7155554944	jpark@swexpert.com
-106	Baek	Kwangjin	K	1234 Broadway	Hermagor	AA	12345	1234567890	gogo@go.com

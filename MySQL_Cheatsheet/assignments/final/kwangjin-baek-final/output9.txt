@@ -1,2 +1,0 @@
-student_id,first_name,last_name,grade
-1,Kwangjin,Baek,90

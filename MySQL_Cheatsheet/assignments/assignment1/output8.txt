@@ -1,2 +1,0 @@
-price,tex_rate,tax_amount,total
-100,0.07,7.00,107.00

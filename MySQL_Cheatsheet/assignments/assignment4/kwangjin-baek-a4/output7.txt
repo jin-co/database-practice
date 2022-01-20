@@ -1,4 +1,0 @@
-c_first	c_last	full_name
-Mark	Myers	Mark F Myers
-Janet	Park	Janet S Park
-Brian	Zhang	Brian  Zhang

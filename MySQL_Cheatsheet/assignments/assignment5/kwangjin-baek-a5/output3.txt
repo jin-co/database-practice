@@ -1,2 +1,0 @@
-full_name	e_score_avg
-Janet Park	88.33

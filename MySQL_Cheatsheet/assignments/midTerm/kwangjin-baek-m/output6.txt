@@ -1,3 +1,0 @@
-employee_ID	first_name	last_name	project_number
-2	Elmer	Jones	NULL
-7	Thomas	Hardy	NULL
