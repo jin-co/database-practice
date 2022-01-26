@@ -63,6 +63,52 @@ CREATE TABLE building_parkinglots
 	parkinglot_id INT, 
     building_id INT
 );
+
+ALTER TABLE buildings ADD COLUMN
+( 
+	buinding_name VARCHAR(20),
+    street VARCHAR(50),
+    city VARCHAR(20),
+    province VARCHAR(20),
+    country VARCHAR(20),
+    postal_code VARCHAR(20)
+);
+
+ALTER TABLE buildings 
+DROP street, 
+DROP city, 
+DROP province, 
+DROP country, 
+DROP postal_code;
+
+ALTER TABLE apartments ADD COLUMN
+( 
+	unit_number VARCHAR(20),
+    leased BOOL
+); 
  
+
+ALTER TABLE tenants ADD COLUMN
+( 
+	last_name VARCHAR(20),    
+    first_name VARCHAR(20)
+);
+
+
+ALTER TABLE parkinglots ADD COLUMN
+( 
+	parkinglot_name VARCHAR(20)
+);
+
+CREATE TABLE addresses
+(
+	address_id INT PRIMARY KEY, 
+    street VARCHAR(50),
+    city VARCHAR(20),
+    province VARCHAR(20),
+    country VARCHAR(20),
+    postal_code VARCHAR(20)
+);
+
 
 
