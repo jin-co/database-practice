@@ -1,3 +1,5 @@
+USE QSTest;
+
 CREATE TABLE Bills (
 	BillId int NOT NULL PRIMARY KEY,
 	Total decimal(18, 0) NOT NULL,
@@ -46,3 +48,15 @@ CREATE TABLE ChartOfAccounts (
 	UpdatedBy varchar(255),
 	Archived int	
 );
+
+CREATE TABLE Suppliers (
+	SupplierId int NOT NULL PRIMARY KEY,
+	Name varchar(255) NOT NULL,
+	ContactName varchar(255) NOT NULL,
+	Email varchar(255) NOT NULL,
+	Phone varchar(50) NOT NULL,
+	Address varchar(255)	
+);
+
+DROP TABLE IF EXISTS Customers;
+
