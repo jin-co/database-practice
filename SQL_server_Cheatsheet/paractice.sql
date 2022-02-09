@@ -1,18 +1,19 @@
-/*CREATE VIEW BillsBillDetails
-AS  
-SELECT Bills.*
-FROM Bills LEFT OUTER JOIN BillDetails  
-ON Bills.BillId = BillDetails.BillId;*/
 
-/*CREATE VIEW BillsBillPayments
-AS  
-SELECT Bills.*
-FROM Bills LEFT OUTER JOIN BillPayments  
-ON Bills.BillPaymentId = BillPayments.BillPaymentId; */
+SELECT * FROM Invoices;
+SELECT * FROM Invoice_Details;
+SELECT * FROM Invoices_Payments;
 
-CREATE VIEW BillsBillPayment
-AS  
-SELECT Bills.*
-FROM Bills INNER JOIN BillPayments  
-ON Bills.BillPaymentId = BillPayments.BillPaymentId; 
+SELECT * FROM Invoices i
+INNER JOIN Invoice_Details id ON i.id = id.invoice_id;
 
+SELECT * FROM Invoices i
+LEFT OUTER JOIN Invoice_Details id ON i.id = id.invoice_id;
+
+SELECT * FROM Invoices i
+RIGHT OUTER JOIN Invoice_Details id ON i.id = id.invoice_id;
+
+SELECT * FROM Invoices i
+INNER JOIN Invoices_Payments ip ON i.invoice_payment_id = ip.id;
+
+SELECT * FROM Invoices i
+LEFT JOIN Invoices_Payments ip ON i.invoice_payment_id = ip.id;
