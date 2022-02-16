@@ -54,3 +54,13 @@ INSERT INTO bill_payments (
 		-4000.00,
 		110
 	);
+
+INSERT INTO Suppliers (
+	supplier_id, name, contact_name, email, phone, address) 
+	VALUES(
+		5,
+		'New Kids', 
+		'New Kids Con', 
+		'newk@gmail.com', 
+		'344566',
+		'7th London, somewhere, where 11, Japen');
