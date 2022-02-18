@@ -107,3 +107,7 @@ WHERE CinemaId = 1006;
 /* DROP */
 DROP TABLE IF EXISTS Customers;
 
+/* VIEW */
+CREATE VIEW vw_name AS
+SELECT * FROM cinemas
+WHERE name = 'cinema 1';
