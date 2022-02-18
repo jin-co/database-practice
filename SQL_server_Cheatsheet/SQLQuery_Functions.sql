@@ -57,3 +57,10 @@ SELECT DATENAME(WEEKDAY, GETDATE());
 
 -- DATEADD(what, how much, target)
 SELECT DATEADD(DAY, 30, GETDATE());
+
+SELECT DATEADD(DAY, -30, GETDATE()); -- subtracting
+
+/*============= CUSTOM FUNCTIONS =============*/
+-- name
+-- parameters
+-- return
