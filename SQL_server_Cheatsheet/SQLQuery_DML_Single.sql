@@ -12,6 +12,8 @@ SELECT * FROM movies;
 
 SELECT name + ' ' + description FROM movies; -- can't concat string with number
 
+SELECT name + '''s ' + description FROM movies; -- can't concat string with number
+
 -- LIKE
 SELECT name FROM movies WHERE name LIKE 'm%'; 
 
@@ -32,6 +34,13 @@ SELECT TOP(2) name FROM movies ORDER BY 1;
 
 -- - PERCENT
 SELECT TOP 50 PERCENT name FROM movies ORDER BY 1; 
+
+-- DISTINCT
+SELECT DISTINCT name FROM movies;
+
+SELECT DISTINCT name, price FROM movies; -- name and price distinct
+
+SELECT COUNT(DISTINCT name) FROM movies;
 
 /* DELETE */
 DELETE FROM Customers WHERE CustomerId = 1;

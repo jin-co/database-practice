@@ -1,5 +1,6 @@
 USE QSTest;
 
+/* CREATE */
 CREATE TABLE Bills (
 	BillId int NOT NULL PRIMARY KEY,
 	Total decimal(18, 0) NOT NULL,
@@ -57,6 +58,52 @@ CREATE TABLE Suppliers (
 	Phone varchar(50) NOT NULL,
 	Address varchar(255)	
 );
+SELECT * FROM cinemas;
 
+/* INSERT */
+INSERT INTO cinemas (logo, name, description) 
+VALUES('http', 'Cinema6', 'test'); -- if the PK is auto, just omit then it will be added
+
+INSERT INTO cinemas (logo, name, description) 
+VALUES
+	('http', 'Cinema6', 'test'),
+	('http', 'Cinema6', 'test'),
+	('http', 'Cinema6', 'test');
+
+-- OUTPUT
+-- -> Works like a mini select (returns the value as well)
+-- -> can be used with all 'CRUD'
+INSERT INTO cinemas (logo, name, description) -- as insering
+OUTPUT inserted.CinemaId -- show the value being inserted
+VALUES('http', 'Cinema6', 'test');
+
+/* UPDATE */
+UPDATE cinemas SET logo = 'https://changed' WHERE CinemaId = 1004;
+
+UPDATE cinemas SET 
+	logo = 'https://changed',
+	name = 'different',
+	Description = 'good'
+WHERE CinemaId = 1005;
+
+-- OUTPUT
+-- -> Works like a mini select (returns the value as well)
+-- -> can be used with all 'CRUD'
+UPDATE cinemas SET logo = 'https://output' 
+OUTPUT inserted.CinemaId
+WHERE CinemaId = 1006
+
+/* DELETE */
+DELETE FROM cinemas WHERE CinemaId = 1006;
+
+-- OUTPUT
+-- -> Works like a mini select (returns the value as well)
+-- -> can be used with all 'CRUD'
+DELETE FROM cinemas
+OUTPUT deleted.CinemaId -- show the value being inserted
+WHERE CinemaId = 1006;
+
+
+/* DROP */
 DROP TABLE IF EXISTS Customers;
 

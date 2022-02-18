@@ -1,3 +1,5 @@
+-- every schema has function list: Programmability -> Functions
+
 /*============= AGREGATION =============*/
 
 SELECT COUNT(*) FROM movies;
