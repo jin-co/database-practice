@@ -11,6 +11,9 @@ SELECT m.name FROM movies m LEFT OUTER JOIN cinemas c ON (m.CinemaId = c.CinemaI
 -- RIGHT OUTER JOIN
 SELECT m.name FROM movies m RIGHT OUTER JOIN cinemas c ON (m.CinemaId = c.CinemaId);
 
+-- CROSS JOIN
+SELECT m.name FROM movies m CROSS JOIN cinemas c;
+
 /* SUBQUERY */
 SELECT * FROM cinemas 
 WHERE CinemaId = (SELECT TOP 1 CinemaId FROM movies);
@@ -32,4 +35,12 @@ SELECT name, 'A' FROM Movies WHERE name = 'RACE';
 
 /* EXISTS */
 -- -> returns true if the select returns one or more records
-SELECT * FROM cinemas WHERE EXISTS (SELECT name FROM cinemas WHERE name = 'life');
+SELECT * FROM cinemas c1 WHERE EXISTS (SELECT name FROM cinemas c2 WHERE c1.name = c2.name);
+
+/* CASE WHEN(ELSE)*/
+SELECT *, CASE
+	WHEN name = 'cinema 1' THEN 'GOOD'
+	WHEN name = 'cinema 2' THEN 'GOOD DO'
+	ELSE 'HAHA'
+END AS 'CASE E.G.'
+FROM cinemas;
