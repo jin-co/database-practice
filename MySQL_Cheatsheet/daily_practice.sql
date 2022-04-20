@@ -1509,4 +1509,7 @@ WHERE e2.salary >= e1.salary);
 -- datetime 1
 select * from invoices;
 
+-- qa testing practice
+CREATE SCHEMA qa_final;
+USE qa_final;
 
