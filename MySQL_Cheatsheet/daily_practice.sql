@@ -1512,4 +1512,11 @@ select * from invoices;
 -- qa testing practice
 CREATE SCHEMA qa_final;
 USE qa_final;
+CREATE TABLE test (
+id INT,
+name VARCHAR(20)
+);
+
+INSERT INTO test VALUES (1, 'tom');
+SELECT * FROM test;
 
