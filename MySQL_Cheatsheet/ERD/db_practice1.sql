@@ -90,8 +90,8 @@ ALTER TABLE apartments ADD COLUMN
 
 ALTER TABLE tenants ADD COLUMN
 ( 
-	last_name VARCHAR(20),    
-    first_name VARCHAR(20)
+	tenant_phone_number VARCHAR(20),    
+    tenant_email VARCHAR(20)
 );
 
 
