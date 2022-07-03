@@ -2,12 +2,12 @@ USE itcpa;
 -- student
 DROP TABLE IF EXISTS student;
 CREATE TABLE student (
-	student_id INT(30) PRIMARY KEY AUTO_INCREMENT,
-    student_first_name VARCHAR(50) NOT NULL,
-    student_last_name VARCHAR(50) NOT NULL,
-    student_email VARCHAR(50) NOT NULL,
-    student_number VARCHAR(50) NOT NULL,
-    has_team BOOL DEFAULT false
+	studentId INT(30) PRIMARY KEY AUTO_INCREMENT,
+    studentFirstName VARCHAR(50) NOT NULL,
+    studentLastName VARCHAR(50) NOT NULL,
+    studentEmail VARCHAR(50) NOT NULL,
+    studentNumber VARCHAR(50) NOT NULL,
+    hasTeam BOOL DEFAULT false
 );
 
 INSERT INTO student VALUES 
