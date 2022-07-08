@@ -18,9 +18,21 @@ INSERT INTO student VALUES
 -- term
 DROP TABLE IF EXISTS school_term;
 CREATE TABLE school_term (
-	school_term_id INT(30) PRIMARY KEY AUTO_INCREMENT,
-    school_term_name VARCHAR(15) NOT NULL
+	schoolTermId INT(30) PRIMARY KEY AUTO_INCREMENT,
+    schoolTermName VARCHAR(15) NOT NULL
 );
+
+-- team request
+DROP TABLE IF EXISTS team_request;
+CREATE TABLE team_request (
+	teamRequestId INT(30) PRIMARY KEY AUTO_INCREMENT,
+    senderId INT(30) NOT NULL,
+    receiverId INT(30) NOT NULL
+);
+INSERT INTO team_request VALUES (
+	DEFAULT, 2, 1
+);
+
 
 SELECT * FROM student;
 show tables;
