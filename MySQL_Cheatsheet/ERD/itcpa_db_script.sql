@@ -27,10 +27,12 @@ DROP TABLE IF EXISTS team_request;
 CREATE TABLE team_request (
 	teamRequestId INT(30) PRIMARY KEY AUTO_INCREMENT,
     senderId INT(30) NOT NULL,
-    receiverId INT(30) NOT NULL
+    receiverId INT(30) NOT NULL,
+    sentDate DATETIME DEFAULT NOW(),
+    accepted BOOL DEFAULT FALSE
 );
 INSERT INTO team_request VALUES (
-	DEFAULT, 2, 1
+	DEFAULT, 2, 1, DEFAULT, DEFAULT
 );
 
 
