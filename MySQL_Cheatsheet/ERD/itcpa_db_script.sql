@@ -36,5 +36,5 @@ INSERT INTO team_request VALUES (
 );
 
 
-SELECT * FROM student;
+SELECT * FROM team_request;
 show tables;
