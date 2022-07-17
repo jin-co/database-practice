@@ -35,6 +35,22 @@ INSERT INTO team_request VALUES (
 	DEFAULT, 2, 1, DEFAULT, DEFAULT
 );
 
+-- project
+DROP TABLE IF EXISTS project;
+CREATE TABLE project (
+	projectId INT(30) PRIMARY KEY AUTO_INCREMENT,
+    companyName VARCHAR(50) NOT NULL,
+    companyEmail VARCHAR(70) NOT NULL,
+    companyPhone VARCHAR(20) NOT NULL,
+    projectName VARCHAR(20) NOT NULL,
+    projectDescription VARCHAR(100) NOT NULL,
+    targetProgram VARCHAR(10) NOT NULL,
+    attachedFile VARCHAR(5)
+);
+
+INSERT INTO project VALUES 
+(DEFAULT, 'TOM COM', 'TOM@COM.COM', '010-010', 'TOM PROJECT', 'GOOD', 'CPA', NULL);
+
 
 SELECT * FROM team_request;
 show tables;
