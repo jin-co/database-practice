@@ -39,18 +39,22 @@ INSERT INTO team_request VALUES (
 DROP TABLE IF EXISTS project;
 CREATE TABLE project (
 	projectId INT(30) PRIMARY KEY AUTO_INCREMENT,
+    clientId INT(30) NOT NULL,
     companyName VARCHAR(50) NOT NULL,
     companyEmail VARCHAR(70) NOT NULL,
     companyPhone VARCHAR(20) NOT NULL,
-    projectName VARCHAR(20) NOT NULL,
+    projectTitle VARCHAR(20) NOT NULL,
     projectDescription VARCHAR(100) NOT NULL,
     targetProgram VARCHAR(10) NOT NULL,
-    attachedFile VARCHAR(5)
+    attachedFile VARCHAR(5),
+    approved BOOL DEFAULT FALSE
 );
 
 INSERT INTO project VALUES 
-(DEFAULT, 'TOM COM', 'TOM@COM.COM', '010-010', 'TOM PROJECT', 'GOOD', 'CPA', NULL);
+(DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'TOM PROJECT', 'GOODGOODGOODGOODGOODGOODGOODGOODGOOD', 'CPA', NULL, FALSE),
+(DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'Jack PROJECT', 'bestbestbestbestbestbestbest', 'CPA', NULL, NULL),
+(DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'Auth PROJECT', 'greatgreatgreatgreatgreatgreat', 'CPA', NULL, TRUE)
 
 
-SELECT * FROM team_request;
+SELECT * FROM project;
 show tables;
