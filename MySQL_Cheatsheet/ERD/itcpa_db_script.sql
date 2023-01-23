@@ -47,13 +47,13 @@ CREATE TABLE project (
     projectDescription VARCHAR(100) NOT NULL,
     targetProgram VARCHAR(10) NOT NULL,
     attachedFile VARCHAR(5),
-    approved BOOL DEFAULT FALSE
+    approved BOOL DEFAULT FALSE 
 );
 
 INSERT INTO project VALUES 
 (DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'TOM PROJECT', 'GOODGOODGOODGOODGOODGOODGOODGOODGOOD', 'CPA', NULL, FALSE),
 (DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'Jack PROJECT', 'bestbestbestbestbestbestbest', 'CPA', NULL, NULL),
-(DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'Auth PROJECT', 'greatgreatgreatgreatgreatgreat', 'CPA', NULL, TRUE)
+(DEFAULT, 1, 'TOM COM', 'TOM@COM.COM', '010-010', 'Auth PROJECT', 'greatgreatgreatgreatgreatgreat', 'CPA', NULL, TRUE);
 
 
 SELECT * FROM project;
