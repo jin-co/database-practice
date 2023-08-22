@@ -90,8 +90,8 @@ FROM vendors v, invoices i
 WHERE v.vendor_id = i.vendor_id;
 
 /* UNION */
--- - must have same number of columns and same types 
--- - by default, removes repatitive data in clude ALL to call all the data
+-- - must have the same number of columns and same types 
+-- - by default, removes repatitive data, include ALL to call all the data
 -- - column names are taken from the first table(alias has no effect)
 -- - can simulate full outer join(mysql has no full outer join) by combining union, left join, and right join
 SELECT 'Active' AS source, invoice_number, invoice_date, invoice_total
