@@ -116,7 +116,8 @@ CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
 /*------------- ALTER -------------*/
 CREATE INDEX invoices_vendor_id_index ON invoices (vendor_id);
 
-ALTER TABLE products AUTO_INCREMENT = 1; -- setting auto inclement to 1
+ALTER TABLE products AUTO_INCREMENT = 100; -- setting auto inclement to 100
+TRUNCATE products; -- setting the PK to start back at 1
 
 -- RENAME
 ALTER TABLE countries RENAME country_new;
