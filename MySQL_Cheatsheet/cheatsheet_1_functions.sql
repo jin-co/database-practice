@@ -500,6 +500,7 @@ $ : end
 [char1 - char2] :any single character within the given range
 | : or
 * : zero of more
+% : one of more
 (charlist)* : zero or more occurrences of the sequence of characters in parentheses
 */
 /* -- REGEXP_LIKE(expr, pattern) -- */
