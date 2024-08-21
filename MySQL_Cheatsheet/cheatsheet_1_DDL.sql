@@ -94,6 +94,10 @@ CREATE TABLE IF NOT EXISTS orders (
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
+-- copying from an existing table
+CREATE TABLE department_copy (SELECT * FROM departments);
+CREATE TABLE department_copy AS SELECT * FROM departments;
+
 /*------------- CREATE Copy -------------*/--  
 -- this only copies columns and data(not contraints, PK, FK, indexes)
 -- - I can use SELECT with everything I would with normal SELECT statement
@@ -119,8 +123,10 @@ CREATE INDEX invoices_vendor_id_index ON invoices (vendor_id);
 ALTER TABLE products AUTO_INCREMENT = 100; -- setting auto inclement to 100
 TRUNCATE products; -- setting the PK to start back at 1
 
--- RENAME
+-- RENAME table
 ALTER TABLE countries RENAME country_new;
+-- RENAME column
+ALTER TABLE employee_copy RENAME COLUMN address TO addresses;
 
 -- ADD [something]
 ALTER TABLE locations ADD region_id  INT;
@@ -138,6 +144,9 @@ ALTER TABLE addresses ADD PRIMARY KEY (id);
 ALTER TABLE locations ADD PRIMARY KEY(location_id,country_id);
 
 ALTER TABLE people ADD CONSTRAINT u_email UNIQUE (email);
+-- here u_email is the unique id for the constraint
+-- to remove the constraint
+ALTER TABLE people DROP INDEX u_email;
 
 ALTER TABLE people ADD COLUMN email VARCHAR(20);
 
@@ -157,6 +166,8 @@ ON DELETE CASCADE;
 
 ALTER TABLE job_history ADD INDEX indx_job_id(job_id);
 
+ALTER TABLE jobs ADD CONSTRAINT CHECK(max_salary <= 25000);
+
 -- MODIFY
 ALTER TABLE addresses MODIFY postcode CHAR(7);
 
@@ -167,6 +178,8 @@ ALTER TABLE addresses MODIFY city VARCHAR(30);
 ALTER TABLE addresses MODIFY city CHAR(30);
 
 ALTER TABLE addresses MODIFY city INT;
+
+ALTER TABLE addresses MODIFY city INT NOT NULL;
 
 -- CHANGE
 ALTER TABLE pets CHANGE `name` `first_name` VARCHAR(15);

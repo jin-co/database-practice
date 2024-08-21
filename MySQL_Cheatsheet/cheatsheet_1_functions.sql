@@ -247,6 +247,7 @@ SELECT CURRENT_TIMESTAMP;
 /* -- CURDATE -- */
 -- returns the current local date
 SELECT CURDATE();
+SELECT curdate() + INTERVAL 1 DAY;
 
 /* -- CURRENT_DATE -- */
 -- returns the current local date
@@ -610,5 +611,13 @@ SELECT sales_year, rep_id, sales_total,
     CUME_DIST() OVER (PARTITION BY sales_year ORDER BY sales_total)
         AS 'cume_dist'
 FROM sales_totals;
+
+/*================ analytic ================*/
+/* -- lc_time_names -- */
+-- changing system time standard
+set lc_time_names = 'ja_JP';
+set lc_time_names = 'ko_KR';
+set lc_time_names = 'en_US';
+select dayname(now());
 
 

@@ -125,7 +125,7 @@ WHERE invoice_total > 500
 GROUP BY vendor_name;
 
 -- WITH ROLLUP
--- - summary at the end
+-- - summary at the end (consider this as a subtotal)
 -- - summarizes each group specified in GROUP BY(group subtotal and entire total at the end)
 -- -- summary rows have null so to get rid of null use IF(GROUNPING)
 -- - MySQL 8.0.13 or later can use DISTINCT and ORDER BY

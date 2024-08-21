@@ -1,5 +1,8 @@
 /* DML multitable JOIN */
+-- without JOIN keyword
+SELECT p.name, o.order_time FROM orders o, products p WHERE o.product_id = p.id;
 
+-- using JOIN keyword
 SELECT * FROM products;
 SELECT * FROM orders;
 
