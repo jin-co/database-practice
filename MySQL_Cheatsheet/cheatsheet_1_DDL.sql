@@ -57,6 +57,15 @@ CREATE TABLE orders (
     FOREIGN KEY (customer_id) REFERENCES customers(id)
 );
 
+-- default
+CREATE TABLE customers (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(15),
+    last_name VARCHAR(15),
+    gender ENUM('M', 'F') DEFAULT 'M',
+    phone_number VARCHAR(12)
+);
+
 CREATE TABLE test (
 	id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(30),
@@ -166,7 +175,7 @@ ON DELETE CASCADE;
 
 ALTER TABLE job_history ADD INDEX indx_job_id(job_id);
 
-ALTER TABLE jobs ADD CONSTRAINT CHECK(max_salary <= 25000);
+ALTER TABLE jobs ADD CONSTRAINT chk_max_salary CHECK(max_salary <= 25000);
 
 -- MODIFY
 ALTER TABLE addresses MODIFY postcode CHAR(7);
@@ -206,6 +215,10 @@ ALTER TABLE pets CHANGE `new_species` `species` VARCHAR(20);
 ALTER TABLE pets DROP INDEX u_species;  -- note : wheng dropping unique, use index
 
 ALTER TABLE job_history DROP INDEX indx_job_id;
+
+ALTER TABLE check_copy DROP CHECK chk_gender;
+
+ALTER TABLE reply_copy DROP FOREIGN KEY fk_r_b_id;
 
 /*------------- DROP -------------*/
 DROP INDEX invoices_vendor_id_index ON invocies;
