@@ -181,6 +181,8 @@ SELECT
 FROM invoices
 WHERE invoice_total - payment_total - credit_total = 0;
 
+-- insert with  backup
+INSERT INTO z_invoices_copied2 VALUES (1, 'tom') ON DUPLICATE KEY UPDATE name = 'tom';
 
 /*================ operators ================*/
  USE ex;
@@ -267,6 +269,7 @@ ALTER TABLE products AUTO_INCREMENT = 1;
 /* ============= VIEWS ============= */
 -- VIEW is a SELECT statement that's stored in the db as an object
 -- it is virtual that reflects the most current data in the base tables
+-- good for storing the result as a table for a frequent use
 -- can experiment(INSERT, UPDATE, DELETE, ...) original data is updated as well
 -- can create view from another view -> called 'nested view'
 

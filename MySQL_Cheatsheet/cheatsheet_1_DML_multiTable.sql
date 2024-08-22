@@ -490,6 +490,14 @@ FROM summary JOIN top_in_state
        summary.sum_of_invoices = top_in_state.sum_of_invoices
 ORDER BY summary.vendor_state;
 
+WITH t1 (col1) AS
+(
+     SELECT max(e.salary)
+     FROM employees e
+     group by department_id
+)
+SELECT * from t1;
+
 -- - recursive
 USE ex;
 WITH RECURSIVE employees_cte AS

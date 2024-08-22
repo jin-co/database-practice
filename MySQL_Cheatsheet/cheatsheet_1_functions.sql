@@ -620,4 +620,12 @@ set lc_time_names = 'ko_KR';
 set lc_time_names = 'en_US';
 select dayname(now());
 
+/*================ Others ================*/
+/* -- auto_increment -- */
+-- setting auto incremented id
+ALTER TABLE pk AUTO_INCREMENT = 1000;
+
+-- changing the auto increment number
+SET @@auto_increment_increment = 20;
+
 

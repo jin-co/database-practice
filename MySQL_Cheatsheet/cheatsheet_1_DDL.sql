@@ -126,6 +126,14 @@ WHERE invoice_total - payment_total = 0;
 -- copies the sctucture
 CREATE TABLE IF NOT EXISTS dup_countries LIKE countries;
 
+-- -* format copy without the data
+CREATE TABLE z_invoices_copied2 AS
+SELECT * 
+FROM invoices
+WHERE 1 <> 1;
+-- -> when the plan was changed and need the data after creating the table
+INSERT INTO z_invoices_copied2 SELECT * FROM invoices;
+
 /*------------- ALTER -------------*/
 CREATE INDEX invoices_vendor_id_index ON invoices (vendor_id);
 

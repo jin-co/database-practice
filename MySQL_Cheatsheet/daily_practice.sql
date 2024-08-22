@@ -1520,3 +1520,4 @@ name VARCHAR(20)
 INSERT INTO test VALUES (1, 'tom');
 SELECT * FROM test;
 
+UPDATE mysql.user SET Password = PASSWORD('root') WHERE User = 'root';
